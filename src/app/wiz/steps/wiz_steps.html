@@ -1,3 +1,5 @@
-<ng-include src="'/app/wiz/components/progress.html'"></ng-include>
+<div class="container-fluid">
+  <ng-include src="'components/progress/progress.html'"></ng-include>
 
-<div ng-include="'/app/wiz/steps/wiz_'+wiz.step+'.html'"></div>
+  <ng-include src="'app/wiz/steps/wiz_'+wiz.step+'.html'"></ng-include>
+</div>

@@ -5,6 +5,7 @@ angular.module('easyj', [
   'ngRoute',
   'easyj.about',
   'easyj.wiz',
+  'easyj.progress',
   ])
   .config(function ($routeProvider) {
     $routeProvider

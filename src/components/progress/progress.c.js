@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('easyj.wiz');
+var app = angular.module('easyj.progress', []);
 
 app.controller('ProgressCtrl', function ($scope, $routeParams) {
   var prog = this;
