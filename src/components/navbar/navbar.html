@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl">
+<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl as nav">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="https://github.com/Swiip/generator-gulp-angular">
@@ -8,13 +8,13 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
       <ul class="nav navbar-nav">
-        <li class="active"><a ng-href="#">Home</a></li>
-        <li><a ng-href="#">About</a></li>
-        <li><a ng-href="#">Contact</a></li>
+        <li ng-class="{ active: nav.isActive('/')}"><a ng-href="#/">Home</a></li>
+        <li ng-class="{ active: nav.isActive('/about')}"><a ng-href="#/about">About</a></li>
+        <li ng-class="{ active: nav.isActive('/contact')}"><a ng-href="#/">Contact</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
+        <li><p class="navbar-text">Current date: {{ date | date:'yyyy-MM-dd' }}</p></li>
       </ul>
     </div>
   </div>
