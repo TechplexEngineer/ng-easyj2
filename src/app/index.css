@@ -12,3 +12,36 @@
 .thumbnail img.pull-right {
   width: 50px;
 }
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* A link that has no indication except hover that its a link*/
+.stealthlink, .stealthlink:hover {
+  text-decoration: none;
+  color:black;
+}
+
+/* make the footer stick to the bottom of the screen */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+/* http://stackoverflow.com/a/24008735 */
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
+}

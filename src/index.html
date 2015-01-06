@@ -16,7 +16,7 @@
 
     <!-- build:css({.tmp,src}) styles/app.css -->
     <!-- inject:css -->
-    <!-- css files will be automaticaly insert here -->
+    <link rel="stylesheet" href="app/index.css">
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -29,7 +29,13 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ng-view></div>
+    <ng-include src="'components/navbar/navbar.html'"></ng-include>
+
+    <div class="content"> <!-- div.content is needed so that when ng-view is empty the footer still floats down -->
+      <ng-view></ng-view>
+    </div>
+
+    <ng-include src="'components/footer/footer.html'"></ng-include>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!-- <script>
@@ -53,7 +59,10 @@
 
     <!-- build:js({.tmp,src}) scripts/app.js -->
     <!-- inject:js -->
-    <!-- js files will be automaticaly insert here -->
+    <script src="app/index.js"></script>
+    <script src="components/navbar/navbar.controller.js"></script>
+    <script src="components/footer/footer.c.js"></script>
+    <script src="app/main/main.controller.js"></script>
     <!-- endinject -->
 
     <!-- inject:partials -->
