@@ -1,1 +1,77 @@
-<h1>wiz2</h1>
+<h1>Outputs</h1>
+<div class="row">
+	<form name="outputs" novalidate class="col-lg-6">
+		<ol>
+
+			<li>
+				Does your robot use <abbr title="air pressure">pneumatics</abbr>?
+				<div class="radio">
+					<label>
+						<input type="radio" ng-model="wiz.robot.hasPneumatics" value="yes">
+						Yes!
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" ng-model="wiz.robot.hasPneumatics" value="no" required>
+						No.
+					</label>
+				</div>
+			</li>
+
+			<li ng-if="wiz.robot.hasPneumatics == 'yes'">
+				<button ng-click="wiz.step2.addSolenoid()" class="btn btn-success pull-right">Add</button>
+				What solenoids(pneumatic valves) are connected to your <abbr title="Pneumatic Control Module">PCM</abbr>?
+
+				<table class="table">
+					<thead>
+						<th>Solenoid Name</th>
+						<th>PCM Port</th>
+						<th>Solenoid Type</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(idx, item) in wiz.robot.solenoids">
+							<td>
+								<input ng-model="item.name" type="text" required class="form-control form-control-inline">
+							</td>
+							<td>
+								<select ng-model="item.port" required class="form-control form-control-inline" >
+									<option value="">Choose a port</option>
+									<option
+										value="{{idx}}"
+										ng-repeat="(idx, name) in wiz.step2.getNumSolPorts()"
+										ng-disabled="wiz.step2.isSolPortUsed(idx)">
+									{{idx}} {{wiz.step2.isSolPortUsed(idx)? 'used' : ''}}</option>
+								</select>
+							</td>
+							<td>
+								<select ng-model="item.type" required class="form-control form-control-inline">
+									<option value="">Choose a Solenoid type</option>
+									<option value="single">Single Solenoid (Spring return)</option>
+									<option value="double">Double Solenoid (Stays in place)</option>
+								</select>
+							</td>
+							<td>
+								<button ng-hide="$first || wiz.robot.solenoids.length < 2" ng-click="wiz.step2.removeSolenoid(item)" class="btn btn-danger" >Remove</button>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			<!-- @todo Relays -->
+			<li ng-show="outputs.$valid || wiz.robot.hasPneumatics == 'no'">
+				<!-- Done -->
+				<a class="btn btn-primary" href ng-click="wiz.goto(3)">Next &raquo;</a>
+			</li>
+		</ol>
+	</form>
+	<div class="col-lg-4">
+		<h4>debugging info:</h4>
+		{{outputs.$valid}}
+		<pre>
+{{wiz.robot | json:4}}
+		</pre>
+	</div>
+</div>

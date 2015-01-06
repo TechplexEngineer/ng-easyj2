@@ -1,0 +1,67 @@
+<h1>Subsystems</h1>
+<div class="row">
+	<form name="subsystems" novalidate class="col-lg-6">
+		<ol>
+			<li>
+				<button ng-click="wiz.step4.addSubsystem()" class="btn btn-success pull-right">Add</button>
+				<p>Subsystem configuration</p>
+				<p>You may create as many subsystems as makes sense. A subsystem should be a distinct part of the robot that performs a particular subset of actions. To begin thinking about what the subsystems are on your robot keep these in mind:
+				<ul>
+					<li>The robot is the system.</li>
+					<li>A subsystem cannot be nested in another subsystem.</li>
+				</ul>
+				</p>
+				<p>
+					A subsystems generally contain one or more of the following:
+				<ul>
+					<li><strong>Sensors:</strong> Devices including buttons, switches, potentiometers, encoders, etc.</li>
+					<li><strong>Actuators:</strong> Devices that create movement, ie: motors &amp; solenoids</li>
+					<li><strong>Actions:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
+					<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors, the position of an arm. </li>
+				</ul>
+				</p>
+				<p>Some examples of good subsystems:
+				<ul>
+					<li><strong>Drivetrain:</strong> including the 2,4,6 or 8 motors</li>
+					<li><strong>Arm:</strong> including a pneumatic valve and a roller system</li>
+					<li><strong>Kicker:</strong> mechanism which throws the ball into the goal.</li>
+				</ul></p>
+				<table class="table">
+					<thead>
+						<th>Name</th>
+						<th>Actions</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(idx, item) in wiz.robot.subsystems">
+							<td>
+								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
+							</td>
+
+							<td>
+								<input type="text" ng-model="item.actions" ng-list class="form-control">
+<!-- 								<p ng-repeat="action in item.actions">
+								{{action}}
+								</p> -->
+							</td>
+							<td>
+								<button ng-hide="$first && wiz.robot.subsystems.length < 2" ng-click="wiz.step4.removeSubsystem(item)" class="btn btn-danger" >Remove</button>
+								<!-- <p ng-show="$first && wiz.robot.subsystems.length < 2">You must have at least one subsystem.</p> -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			<li ng-show="subsystems.$valid">
+				<!-- Done -->
+				<a class="btn btn-primary" href ng-click="wiz.goto(5)">Next &raquo;</a>
+			</li>
+		</ol>
+	</form>
+	<div class="col-lg-4">
+		<h4>debugging info:</h4>
+		<pre>
+{{wiz.robot | json:4}}
+		</pre>
+	</div>
+</div>
