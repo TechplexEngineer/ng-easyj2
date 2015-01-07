@@ -22,7 +22,7 @@
 
 			<li ng-show="Robot.data.hasDrivetrain == 'no'">
 				<!-- No -->
-				<a class="btn btn-primary" href ng-click="wiz.goto(2)">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/2">Next &raquo;</a>
 			</li>
 
 			<li ng-show="Robot.data.hasDrivetrain == 'yes'">
@@ -114,19 +114,10 @@
 
 			<li ng-show="drivetrain.$valid && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Done -->
-				<a class="btn btn-primary" href ng-click="wiz.goto(2)">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/2">Next &raquo;</a>
 			</li>
 
 		</ol>
 	</form>
-	<div class="col-lg-4">
-    <button ng-click="Robot.resetStorage()">Reset</button>
-		<h4>debugging info:</h4>
-		<pre>
-{{Robot.data | json:4}}
-		</pre>
-    <pre>
-{{Robot.limits | json:4}}
-    </pre>
-	</div>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>

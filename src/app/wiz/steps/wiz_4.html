@@ -58,10 +58,5 @@
 			</li>
 		</ol>
 	</form>
-	<div class="col-lg-4">
-		<h4>debugging info:</h4>
-		<pre>
-{{wiz.robot | json:4}}
-		</pre>
-	</div>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>
