@@ -41,7 +41,6 @@ app.controller('ProgressCtrl', function ($scope, $routeParams) {
       num: 6,
     },
   ];
-  prog.steps.length
 
   prog.getClass = function(s) {
     var out = 'disabled';
