@@ -3,6 +3,7 @@
 angular.module('easyj', [
   'ngResource',
   'ngRoute',
+  'ngStorage',
   'easyj.about',
   'easyj.wiz',
   'easyj.progress',

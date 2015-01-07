@@ -1,83 +1,86 @@
 
-<div class="row" ng-controller="Wiz1Ctrl as wiz">
+<div class="row" ng-controller="Wiz1Ctrl as step1">
 	<form name="drivetrain" novalidate class="col-lg-6">
     <h1>Drivetrain</h1>
 		<ol>
+
 			<li>
 				Does your robot have a drivetrain?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.hasDrivetrain" value="yes">
+						<input type="radio" ng-model="Robot.data.hasDrivetrain" value="yes">
 						Yes, it has wheels!
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.hasDrivetrain" value="no" required>
+						<input type="radio" ng-model="Robot.data.hasDrivetrain" value="no" required>
 						No, its stationary.
 					</label>
 				</div>
 			</li>
-			<li ng-show="wiz.robot.hasDrivetrain == 'no'">
+
+			<li ng-show="Robot.data.hasDrivetrain == 'no'">
 				<!-- No -->
 				<a class="btn btn-primary" href ng-click="wiz.goto(2)">Next &raquo;</a>
 			</li>
 
-			<li ng-show="wiz.robot.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.hasDrivetrain == 'yes'">
 			<!-- @todo when this changes shange the controllers.type -->
 				What type of motor controllers will be used?
 				<div class="form-group" >
-					<select ng-model="wiz.robot.speedController" class="form-control form-control-inline" required>
+					<select ng-model="Robot.data.speedController" class="form-control form-control-inline" required ng-change="Robot.speedControllerChange()">
 					<option value="">Choose a type</option>
 						<option value="victor">Victor</option>
 						<option value="talon">Talon</option>
 						<option value="jaguar">Jaguar (Not Recommended)</option>
-						<option value="talonsrx">Talon SRX</option>
+						<option value="talonsrx">Talon SRX (CAN)</option>
 						<option value="victorsp">Victor SP</option>
 					</select>
 
 				</div>
 			</li>
 
-			<li ng-show="wiz.robot.speedController && wiz.robot.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.speedController && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Yes -->
 				How many motors does it use?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.numMotors" value="2" required ng-change="wiz.step1.numMotorsChange()">
+						<input type="radio" ng-model="Robot.data.numMotors" value="2" required ng-change="Robot.numMotorsChange()">
 						2 motors
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.numMotors" value="4" required ng-change="wiz.step1.numMotorsChange()">
+						<input type="radio" ng-model="Robot.data.numMotors" value="4" required ng-change="Robot.numMotorsChange()">
 						4 motors (also for 6 or 8 wheel drive)
 					</label>
 				</div>
 			</li>
 
-			<li ng-show="wiz.robot.numMotors && wiz.robot.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.numMotors && Robot.data.hasDrivetrain == 'yes'">
 				What type of driving will you be doing?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.driveType" value="arcade" required>
+						<input type="radio" ng-model="Robot.data.driveType" value="arcade" required>
 						arcade drive (most people use this)
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.driveType" value="tank">
+						<input type="radio" ng-model="Robot.data.driveType" value="tank">
 						tank drive
 					</label>
 				</div>
-				<div class="radio" ng-show="wiz.robot.numMotors == 4 || wiz.robot.numMotors == 8"> <!-- this might be a dumb assumption -->
+				<div class="radio" ng-show="Robot.data.numMotors == 4 || Robot.data.numMotors == 8"> <!-- this might be a dumb assumption -->
 					<label>
-						<input type="radio" ng-model="wiz.robot.driveType" value="mecanum">
+						<input type="radio" ng-model="Robot.data.driveType" value="mecanum">
 						mecanum drive
 					</label>
 				</div>
 			</li>
-			<li ng-show="wiz.robot.driveType && wiz.robot.hasDrivetrain == 'yes'">
+
+			<li ng-show="Robot.data.driveType && Robot.data.hasDrivetrain == 'yes'">
 				What ports are your motors connected to?
 				<table class="table">
 					<thead>
@@ -86,18 +89,19 @@
 						<th>Type</th>
 					</thead>
 					<tbody>
-						<tr ng-repeat="controller in wiz.robot.controllers">
+						<tr ng-repeat="controller in Robot.data.controllers">
 							<td>
 								<input ng-model="controller.name" required class="form-control form-control-inline" type="text">
 							</td>
 							<td>
 								<select ng-model="controller.port" required class="form-control form-control-inline">
-								<option value="">Choose a port</option>
-								<option
-									value="{{idx}}"
-									ng-repeat="(idx, name) in wiz.step1.getNumPWM()"
-									ng-disabled="wiz.step1.isPWMUsed(idx)">
-								{{idx}} {{wiz.step1.isPWMUsed(idx)? 'used' : ''}}</option>
+  								<option value="">Choose a port</option>
+  								<option
+  									ng-repeat="port in Robot.getNumPWM()"
+                    value="{{port}}"
+  									ng-disabled="Robot.isPWMUsed(port)"
+                    ng-selected="{{port == controller.port}}">
+  								{{port}} {{Robot.isPWMUsed(port)? 'used' : ''}}</option>
 								</select>
 							</td>
 							<td>
@@ -107,16 +111,22 @@
 					</tbody>
 				</table>
 			</li>
-			<li ng-show="drivetrain.$valid && wiz.robot.hasDrivetrain == 'yes'">
+
+			<li ng-show="drivetrain.$valid && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Done -->
 				<a class="btn btn-primary" href ng-click="wiz.goto(2)">Next &raquo;</a>
 			</li>
+
 		</ol>
 	</form>
 	<div class="col-lg-4">
+    <button ng-click="Robot.resetStorage()">Reset</button>
 		<h4>debugging info:</h4>
 		<pre>
-{{wiz.robot | json:4}}
+{{Robot.data | json:4}}
 		</pre>
+    <pre>
+{{Robot.limits | json:4}}
+    </pre>
 	</div>
 </div>
