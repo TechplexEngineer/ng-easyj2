@@ -1,44 +1,50 @@
 'use strict';
 
-var app = angular.module('easyj.progress', []);
+var app = angular.module('easyj.progress', [
+  'ngStorage'
+]);
 
-app.controller('ProgressCtrl', function ($scope, $routeParams) {
+app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
   var prog = this;
 
-  prog.cur = $routeParams.step;
+  prog.cur = $localStorage.curStep || 1;
+  prog.baseLink = '#/wizard/';
 
   // it would be nice if we could extract this data from the steps directory
   prog.steps = [
     {
-      name: 'Step 1',
+      name: '',
       desc: 'Drivetrain',
-      link: '#/wizard/1',
-      num: 1,
     },{
-      name: 'Step 2',
-      desc: 'Outputs (Actuators)',
-      link: '#/wizard/2',
-      num: 2,
+      name: '',
+      desc: 'Motors',
     },{
-      name: 'Step 3',
-      desc: 'Inputs (Sensors + Operator Interface)',
-      link: '#/wizard/3',
-      num: 3,
+      name: '',
+      desc: 'Pneumatics',
     },{
-      name: 'Step 4',
+      name: '',
+      desc: 'Driver Station Inputs',
+    },{
+      name: '',
+      desc: 'Digital Inputs',
+    },{
+      name: '',
+      desc: 'Analog Inputs',
+    },{
+      name: '',
       desc: 'Subsystems',
-      link: '#/wizard/4',
-      num: 4,
     },{
-      name: 'Step 5',
+      name: '',
+      desc: 'Action Code',
+    },{
+      name: '',
       desc: 'Commands',
-      link: '#/wizard/5',
-      num: 5,
     },{
-      name: 'Step 6',
-      desc: 'Code',
-      link: '#/wizard/6',
-      num: 6,
+      name: '',
+      desc: 'Command Code',
+    },{
+      name: '',
+      desc: 'Autonomous',
     },
   ];
 

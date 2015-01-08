@@ -1,4 +1,4 @@
-<div class="row" ng-controller="Wiz4Ctrl as wiz">
+<div class="row" ng-controller="Wiz4Ctrl as step4">
 	<form name="subsystems" novalidate class="col-lg-6">
 		<h1>Subsystems</h1>
     <ol>
@@ -54,7 +54,7 @@
 			</li>
 			<li ng-show="subsystems.$valid">
 				<!-- Done -->
-				<a class="btn btn-primary" href ng-click="wiz.goto(5)">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/5" ng-click="wiz.stepComplete(4)">Next &raquo;</a>
 			</li>
 		</ol>
 	</form>

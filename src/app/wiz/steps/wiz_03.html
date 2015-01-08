@@ -1,26 +1,26 @@
-<div class="row" ng-controller="Wiz2Ctrl as wiz">
+<div class="row" ng-controller="Wiz3Ctrl as step">
 	<form name="outputs" novalidate class="col-lg-6">
-    <h1>Outputs</h1>
+    <h1>Pneumatics</h1>
 		<ol>
 
 			<li>
 				Does your robot use <abbr title="air pressure">pneumatics</abbr>?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.hasPneumatics" value="yes">
+						<input type="radio" ng-model="Robot.data.hasPneumatics" value="yes">
 						Yes!
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="wiz.robot.hasPneumatics" value="no" required>
+						<input type="radio" ng-model="Robot.data.hasPneumatics" value="no" required>
 						No.
 					</label>
 				</div>
 			</li>
 
-			<li ng-if="wiz.robot.hasPneumatics == 'yes'">
-				<button ng-click="wiz.step2.addSolenoid()" class="btn btn-success pull-right">Add</button>
+			<li ng-if="Robot.data.hasPneumatics == 'yes'">
+				<button ng-click="Robot.addSolenoid()" class="btn btn-success pull-right">Add Solenoid</button>
 				What solenoids(pneumatic valves) are connected to your <abbr title="Pneumatic Control Module">PCM</abbr>?
 
 				<table class="table">
@@ -31,7 +31,7 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(idx, item) in wiz.robot.solenoids">
+						<tr ng-repeat="item in Robot.data.solenoids">
 							<td>
 								<input ng-model="item.name" type="text" required class="form-control form-control-inline">
 							</td>
@@ -39,10 +39,11 @@
 								<select ng-model="item.port" required class="form-control form-control-inline" >
 									<option value="">Choose a port</option>
 									<option
-										value="{{idx}}"
-										ng-repeat="(idx, name) in wiz.step2.getNumSolPorts()"
-										ng-disabled="wiz.step2.isSolPortUsed(idx)">
-									{{idx}} {{wiz.step2.isSolPortUsed(idx)? 'used' : ''}}</option>
+										value="{{port}}"
+										ng-repeat="port in Robot.getNumSolPorts()"
+										ng-disabled="Robot.isSolPortUsed(port)"
+                    ng-selected="{{port === item.port}}">
+									{{port}} {{Robot.isSolPortUsed(port)? 'used' : ''}}</option>
 								</select>
 							</td>
 							<td>
@@ -53,17 +54,18 @@
 								</select>
 							</td>
 							<td>
-								<button ng-hide="$first || wiz.robot.solenoids.length < 2" ng-click="wiz.step2.removeSolenoid(item)" class="btn btn-danger" >Remove</button>
+								<button ng-hide="$first && Robot.data.solenoids.length < 2" ng-click="Robot.removeSolenoid(item)" class="btn btn-danger" >Remove</button>
 
 							</td>
 						</tr>
 					</tbody>
 				</table>
+        <button ng-click="Robot.addSolenoid()" class="btn btn-success pull-right">Add Solenoid</button>
 			</li>
 			<!-- @todo Relays -->
-			<li ng-show="outputs.$valid || wiz.robot.hasPneumatics == 'no'">
+			<li ng-show="outputs.$valid || Robot.data.hasPneumatics == 'no'">
 				<!-- Done -->
-				<a class="btn btn-primary" href ng-click="wiz.goto(3)">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
 			</li>
 		</ol>
 	</form>

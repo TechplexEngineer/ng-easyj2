@@ -24,7 +24,7 @@ app.factory('Robot', function($localStorage){
 
   //empty templates
   var EMPTY_SOL = {name:'',port:'',type:''};
-  var EMPTY_CON = _.clone(EMPTY_SOL);
+  var EMPTY_CON = _.clone(EMPTY_SOL); //motor controller
   var EMPTY_HID = _.clone(EMPTY_SOL);
   var EMPTY_AIO = _.clone(EMPTY_SOL);
   var EMPTY_DIO = _.clone(EMPTY_SOL);
@@ -37,18 +37,23 @@ app.factory('Robot', function($localStorage){
     //step 1
     hasDrivetrain: undefined,
     numMotors: undefined,
+    drivetrain: {
+      mcType: undefined,
+      controllers: [],
+      numMotors: undefined,
+      type: undefined,
+    },
 
-    speedController: undefined,
     driveType: undefined,
-    controllers: [],
+    controllers: [_.clone(EMPTY_CON)],
     //step 2
     solenoids: [_.clone(EMPTY_SOL)],
     hasPneumatics: undefined,
 
     hids: [{name:'JS1',port:'',type:''}],
     sensors:{
-      analog: [],
-      digital: [],
+      analog: [_.clone(EMPTY_AIO)],
+      digital: [_.clone(EMPTY_DIO)],
     },
     // This really should be conditional based on the users earlier selected pref
     subsystems:[{name:'Drivetrain',actions:['drive','turn','drive with hid']}],
@@ -72,9 +77,37 @@ app.factory('Robot', function($localStorage){
     relay: 4
   };
 
+  Robot.controller = {};
+  Robot.controller.choices = [
+    {
+      name:'victor',
+      prettyName:'Victor',
+    },{
+      name:'talon',
+      prettyName: "Talon",
+    },{
+      name:'jaguar',
+      prettyName: "Jaguar (Not Recommended)",
+    },{
+      name:'talonsrx',
+      prettyName: "Talon SRX (CAN)",
+    },{
+      name:'victorsp',
+      prettyName: "Victor SP",
+    }
+  ];
+  Robot.controller.toPretty = function(name) {
+    var out =_.find(Robot.controller.choices, function (el) {
+      return el.name == name;
+    });
+    return out && out.prettyName;
+  };
+
   Robot.resetStorage = function() {
     $localStorage.$reset();
-  }
+  };
+
+  // Drivetrain --------------------------------------------------------------------
 
   Robot.getNumPWM = function() {
     return _.map(_.range(0, Robot.limits.PWM), function(el){
@@ -85,6 +118,14 @@ app.factory('Robot', function($localStorage){
   Robot.isPWMUsed = function(n) {
     var out = false;
     n=n.toString();
+    //check drivetrain
+    for (var i = 0; i < Robot.data.drivetrain.controllers.length; i++) {
+      if (Robot.data.drivetrain.controllers[i].port === n) {
+        out = true;
+        break;
+      }
+    }
+    //check other controllers
     for (var i = 0; i < Robot.data.controllers.length; i++) {
       if (Robot.data.controllers[i].port === n) {
         out = true;
@@ -95,63 +136,209 @@ app.factory('Robot', function($localStorage){
   };
 
   Robot.numMotorsChange = function () {
-    Robot.data.controllers = [];
+    Robot.data.drivetrain.controllers = [];
     var controllers = [];
-    if (Robot.data.numMotors == 2) {
+    if (Robot.data.drivetrain.numMotors == 2) {
       controllers = ['left','right'];
-    } else if (Robot.data.numMotors == 4) {
+    } else if (Robot.data.drivetrain.numMotors == 4) {
       controllers = ['frontLeft','rearLeft','frontRight','rearRight'];
+    } else {
+      throw new Error("Invalid number of motors");
     }
+
     for (var i = 0; i < controllers.length; i++) {
       var con = _.clone(EMPTY_CON);
       con.name = controllers[i];
-      con.type = Robot.data.speedController;
-      Robot.data.controllers.push(con);
+      con.type = Robot.data.drivetrain.mcType;
+      Robot.data.drivetrain.controllers.push(con);
     }
   };
 
-  Robot.speedControllerChange = function () {
-    Robot.data.controllers = _.map(Robot.data.controllers, function(el){
-      el.type = Robot.data.speedController;
+  Robot.mcTypeChange = function () {
+    Robot.data.drivetrain.controllers = _.map(Robot.data.drivetrain.controllers, function(el){
+      el.type = Robot.data.drivetrain.mcType;
       return el;
+    });
+  };
+
+  // Motors --------------------------------------------------------------------
+  Robot.addController = function() {
+    if ( (Robot.data.controllers.length - Robot.data.drivetrain.controllers.length) < Robot.limits.PWM) {
+      Robot.data.controllers.push(_.clone(EMPTY_CON));
+    }
+
+  };
+  Robot.removeController = function(item) {
+    Robot.data.controllers = Robot.data.controllers.filter(function(el){
+      return el !== item;
+    });
+  };
+
+
+  // Pneumatics ----------------------------------------------------------------
+
+  Robot.isSolPortUsed = function(n) {
+    var out = false;
+    n=n.toString();
+    for (var i = 0; i < Robot.data.solenoids.length; i++) {
+      if (Robot.data.solenoids[i].port === n) {
+        out = true;
+        break;
+      }
+    }
+    return out;
+  };
+  Robot.getNumSolPorts = function() {
+    return _.map(_.range(0, Robot.limits.Sol), function(el){
+      return el.toString()
+    });
+  };
+
+  Robot.addSolenoid = function() {
+    if (Robot.data.solenoids.length < Robot.limits.Sol) {
+      Robot.data.solenoids.push(_.clone(EMPTY_SOL));
+    }
+
+  };
+  Robot.removeSolenoid = function(item) {
+    Robot.data.solenoids = Robot.data.solenoids.filter(function(el){
+      return el !== item;
+    });
+  };
+
+  // DS Inputs -----------------------------------------------------------------
+  Robot.getNumUSBPorts = function() {
+    return _.map(_.range(0, Robot.limits.ds.USB), function(el){
+      return el.toString()
+    });
+  };
+  Robot.isUSBPortUsed = function(n) {
+    var out = false;
+    n=n.toString();
+    for (var i = 0; i < Robot.data.hids.length; i++) {
+      if (Robot.data.hids[i].port === n) {
+        out = true;
+        break;
+      }
+    }
+    return out;
+  };
+  Robot.addHID = function() {
+    if (Robot.data.hids.length < Robot.limits.ds.USB) {
+      Robot.data.hids.push(_.clone(EMPTY_HID));
+    }
+  };
+  Robot.removeHID = function(item) {
+    Robot.data.hids = Robot.data.hids.filter(function(el){
+      return el !== item;
+    });
+  };
+  // Digital Inputs ------------------------------------------------------------
+  Robot.getNumDigitalPorts = function() {
+    return _.map(_.range(0, Robot.limits.sensors.digital), function(el){
+      return el.toString()
+    });
+  };
+  Robot.isDigitalPortUsed = function(n) {
+    var out = false;
+    n=n.toString();
+    for (var i = 0; i < Robot.data.sensors.digital.length; i++) {
+      if (Robot.data.sensors.digital[i].port === n) {
+        out = true;
+        break;
+      }
+    }
+    return out;
+  };
+  Robot.addDigitalSensor = function() {
+    if (Robot.data.sensors.digital.length < Robot.limits.sensors.digital) {
+      Robot.data.sensors.digital.push(_.clone(EMPTY_AIO));
+    }
+  };
+  Robot.removeDigitalSensor = function(item) {
+    Robot.data.sensors.digital = Robot.data.sensors.digital.filter(function(el){
+      return el !== item;
+    });
+  };
+  // Analog Inputs -------------------------------------------------------------
+  Robot.getNumAnalogPorts = function() {
+    return _.map(_.range(0, Robot.limits.sensors.analog), function(el){
+      return el.toString()
+    });
+  };
+  Robot.isAnalogPortUsed = function(n) {
+    var out = false;
+    n=n.toString();
+    for (var i = 0; i < Robot.data.sensors.analog.length; i++) {
+      if (Robot.data.sensors.analog[i].port === n) {
+        out = true;
+        break;
+      }
+    }
+    return out;
+  };
+  Robot.addAnalogSensor = function() {
+    if (Robot.data.sensors.analog.length < Robot.limits.sensors.analog) {
+      Robot.data.sensors.analog.push(_.clone(EMPTY_AIO));
+    }
+  };
+  Robot.removeAnalogSensor = function(item) {
+    Robot.data.sensors.analog = Robot.data.sensors.analog.filter(function(el){
+      return el !== item;
     });
   };
 
   return Robot;
 });
 
+//zero pad a number
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
 
 
-app.controller('WizCtrl', function (Robot, $scope, $routeParams) {
-  this.step = $routeParams.step; //this is used to determine what template to load
+app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) {
+  this.step = pad($routeParams.step,2); //this is used to determine what template to load
+
+  this.stepComplete = function (num) {
+    console.log(num);
+    if (typeof $localStorage.curStep === 'undefined') {
+      $localStorage.curStep = num+1;
+    } else {
+      if (num >= $localStorage.curStep) {
+        $localStorage.curStep = num+1;
+      }
+    }
+    console.log($localStorage.curStep);
+  };
+  // this.getCurStep = function () {
+  //   return $localStorage.curStep || 1;
+  // }
 
   //make robot available to all views
   $scope.Robot = Robot;
+
+  $scope.$localStorage = $localStorage;
 });
 
 app.controller('Wiz1Ctrl', function (Robot, $scope, $localStorage) {
-  var wiz = this;
-
-  $scope.$localStorage = $localStorage;
-
-  $scope.gettypeof = function(item){
-    return (typeof item);
-  };
-
+this.num = 1;
 });
 
 app.controller('Wiz2Ctrl', function ($scope) {
-
+this.num = 2;
 });
 app.controller('Wiz3Ctrl', function ($scope) {
-
+this.num = 3;
 });
 app.controller('Wiz4Ctrl', function ($scope) {
-
+this.num = 4;
 });
 app.controller('Wiz5Ctrl', function ($scope) {
-
+this.num = 5;
 });
 app.controller('Wiz6Ctrl', function ($scope) {
-
+this.num = 6;
 });

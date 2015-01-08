@@ -1,10 +1,12 @@
 <div class="col-lg-4">
-  <button ng-click="Robot.resetStorage()">Reset</button>
-  <h4>debugging info:</h4>
+  <button ng-click="Robot.resetStorage()">Reset</button> <span>Step: {{$localStorage.curStep}}</span>
+  <h4>Robot Data:</h4>
   <pre>
 {{Robot.data | json:4}}
   </pre>
+  <h4>Robot Limits:</h4>
   <pre>
 {{Robot.limits | json:4}}
   </pre>
+
 </div>

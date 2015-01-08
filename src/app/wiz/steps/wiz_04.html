@@ -1,0 +1,55 @@
+<div class="row" ng-controller="Wiz4Ctrl as step">
+  <form name="inputs" novalidate class="col-lg-6">
+    <h1>Driver Station Inputs</h1>
+    <ol>
+      <li>
+        <button ng-click="Robot.addHID()" class="btn btn-success pull-right">Add</button>
+        User Input configuration (Operator Interface)
+        <table class="table">
+          <thead>
+            <th>Name</th>
+            <th>USB Port</th>
+            <th>Type</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in Robot.data.hids">
+              <td>
+                <input ng-model="item.name" required type="text" class="form-control form-control-inline">
+              </td>
+              <td>
+                <select ng-model="item.port" required class="form-control form-control-inline" >
+                  <option value="">Choose a port</option>
+                  <option
+                    value="{{port}}"
+                    ng-repeat="port in Robot.getNumUSBPorts()"
+                    ng-disabled="Robot.isUSBPortUsed(port)"
+                    ng-selected="{{port === item.port}}">
+                  {{port}} {{Robot.isUSBPortUsed(port)? 'used' : ''}}</option>
+                </select>
+              </td>
+              <td>
+                <select ng-model="item.type" required class="form-control form-control-inline">
+                  <option value="">Choose a type</option>
+                  <option value="joystick">Joystick</option>
+                  <option value="xbox">XBox</option>
+                  <option value="ps">Play Station</option>
+                </select>
+              </td>
+              <td>
+                <button ng-hide="$first && Robot.data.hids.length < 2" ng-click="Robot.removeHID(item)" class="btn btn-danger" >Remove</button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button ng-click="Robot.addHID()" class="btn btn-success pull-right">Add</button>
+      </li>
+      <li ng-show="inputs.$valid">
+        <!-- Done -->
+        <a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+      </li>
+    </ol>
+  </form>
+  <div ng-include="'app/wiz/steps/debug.html'"></div>
+</div>

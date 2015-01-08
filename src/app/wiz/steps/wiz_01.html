@@ -1,5 +1,4 @@
-
-<div class="row" ng-controller="Wiz1Ctrl as step1">
+<div class="row" ng-controller="Wiz1Ctrl as step">
 	<form name="drivetrain" novalidate class="col-lg-6">
     <h1>Drivetrain</h1>
 		<ol>
@@ -22,65 +21,68 @@
 
 			<li ng-show="Robot.data.hasDrivetrain == 'no'">
 				<!-- No -->
-				<a class="btn btn-primary" href="#/wizard/2">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
 			</li>
 
 			<li ng-show="Robot.data.hasDrivetrain == 'yes'">
-			<!-- @todo when this changes shange the controllers.type -->
 				What type of motor controllers will be used?
 				<div class="form-group" >
-					<select ng-model="Robot.data.speedController" class="form-control form-control-inline" required ng-change="Robot.speedControllerChange()">
-					<option value="">Choose a type</option>
-						<option value="victor">Victor</option>
-						<option value="talon">Talon</option>
-						<option value="jaguar">Jaguar (Not Recommended)</option>
-						<option value="talonsrx">Talon SRX (CAN)</option>
-						<option value="victorsp">Victor SP</option>
+					<select
+            ng-model="Robot.data.drivetrain.mcType"
+            class="form-control form-control-inline"
+            ng-change="Robot.mcTypeChange()" required>
+					  <option value="">Choose a type</option>
+            <option
+              value="{{mc.name}}"
+              ng-repeat="mc in Robot.controller.choices"
+              ng-selected="{{mc.name == Robot.data.drivetrain.mcType}}">
+              {{mc.prettyName}}
+            </option>
 					</select>
 
 				</div>
 			</li>
 
-			<li ng-show="Robot.data.speedController && Robot.data.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.drivetrain.mcType && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Yes -->
 				How many motors does it use?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.numMotors" value="2" required ng-change="Robot.numMotorsChange()">
+						<input type="radio" ng-model="Robot.data.drivetrain.numMotors" value="2" required ng-change="Robot.numMotorsChange()">
 						2 motors
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.numMotors" value="4" required ng-change="Robot.numMotorsChange()">
+						<input type="radio" ng-model="Robot.data.drivetrain.numMotors" value="4" required ng-change="Robot.numMotorsChange()">
 						4 motors (also for 6 or 8 wheel drive)
 					</label>
 				</div>
 			</li>
 
-			<li ng-show="Robot.data.numMotors && Robot.data.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.drivetrain.numMotors && Robot.data.hasDrivetrain == 'yes'">
 				What type of driving will you be doing?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.driveType" value="arcade" required>
+						<input type="radio" ng-model="Robot.data.drivetrain.type" value="arcade" required>
 						arcade drive (most people use this)
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.driveType" value="tank">
+						<input type="radio" ng-model="Robot.data.drivetrain.type" value="tank">
 						tank drive
 					</label>
 				</div>
 				<div class="radio" ng-show="Robot.data.numMotors == 4 || Robot.data.numMotors == 8"> <!-- this might be a dumb assumption -->
 					<label>
-						<input type="radio" ng-model="Robot.data.driveType" value="mecanum">
+						<input type="radio" ng-model="Robot.data.drivetrain.type" value="mecanum">
 						mecanum drive
 					</label>
 				</div>
 			</li>
 
-			<li ng-show="Robot.data.driveType && Robot.data.hasDrivetrain == 'yes'">
+			<li ng-show="Robot.data.drivetrain.type && Robot.data.hasDrivetrain == 'yes'">
 				What ports are your motors connected to?
 				<table class="table">
 					<thead>
@@ -89,7 +91,7 @@
 						<th>Type</th>
 					</thead>
 					<tbody>
-						<tr ng-repeat="controller in Robot.data.controllers">
+						<tr ng-repeat="controller in Robot.data.drivetrain.controllers">
 							<td>
 								<input ng-model="controller.name" required class="form-control form-control-inline" type="text">
 							</td>
@@ -105,7 +107,7 @@
 								</select>
 							</td>
 							<td>
-								{{controller.type}}
+								{{Robot.controller.toPretty(controller.type)}}
 							</td>
 						</tr>
 					</tbody>
@@ -114,7 +116,7 @@
 
 			<li ng-show="drivetrain.$valid && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Done -->
-				<a class="btn btn-primary" href="#/wizard/2">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
 			</li>
 
 		</ol>

@@ -1,0 +1,71 @@
+<div class="row" ng-controller="Wiz6Ctrl as step">
+	<form name="inputs" novalidate class="col-lg-6">
+    <h1>Analog Inputs</h1>
+    <p>Information about analog sensors here @todo</p>
+		<ol>
+      <li>
+        Does your robot use Analog Inputs?
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="Robot.data.hasAIN" value="yes">
+            Yes!
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="Robot.data.hasAIN" value="no" required>
+            No.
+          </label>
+        </div>
+      </li>
+			<li ng-if="Robot.data.hasAIN == 'yes'">
+				<button ng-click="Robot.addAnalogSensor()" class="btn btn-success pull-right">Add Analog Input</button>
+				Analog Sensor configuration
+				<table class="table">
+					<thead>
+						<th>Name</th>
+						<th>Analog Port</th>
+						<th>Type</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in Robot.data.sensors.analog">
+							<td>
+								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
+							</td>
+							<td>
+								<select ng-model="item.port" required class="form-control form-control-inline" >
+									<option value="">Choose a port</option>
+									<option
+										value="{{port}}"
+										ng-repeat="port in Robot.getNumAnalogPorts()"
+										ng-disabled="Robot.isAnalogPortUsed(port)"
+                    ng-selected="{{port === item.port}}">
+									{{port}} {{Robot.isAnalogPortUsed(port)? 'used' : ''}}</option>
+								</select>
+							</td>
+							<td>
+								<select ng-model="item.type" required class="form-control form-control-inline">
+									<option value="">Choose a type</option>
+									<option value="gyro">Gyroscope</option>
+									<option value="accel">Accelerometer (external)</option>
+									<option value="pot">Potentiometer</option>
+								</select>
+							</td>
+							<td>
+								<button ng-hide="$first && Robot.data.sensors.analog.length < 2" ng-click="Robot.removeAnalogSensor(item)" class="btn btn-danger" >Remove</button>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+        <button ng-click="Robot.addAnalogSensor()" class="btn btn-success pull-right">Add Analog Input</button>
+			</li>
+			<li ng-show="inputs.$valid || Robot.data.hasAIN == 'no'">
+				<!-- Done -->
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+			</li>
+		</ol>
+	</form>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
+</div>
