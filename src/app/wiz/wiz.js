@@ -28,7 +28,7 @@ app.factory('Robot', function($localStorage){
   var EMPTY_HID = _.clone(EMPTY_SOL);
   var EMPTY_AIO = _.clone(EMPTY_SOL);
   var EMPTY_DIO = _.clone(EMPTY_SOL);
-  var EMPTY_SUB = {name:'', actions:[]};
+  var EMPTY_SUB = {name:'', actions:[], disabled:false};
   var EMPTY_CMD = {name:'', requires:[]};
 
   var Robot ={};
@@ -56,7 +56,7 @@ app.factory('Robot', function($localStorage){
       digital: [_.clone(EMPTY_DIO)],
     },
     // This really should be conditional based on the users earlier selected pref
-    subsystems:[{name:'Drivetrain',actions:['drive','turn','drive with hid']}],
+    subsystems:[{name:'Drivetrain',actions:['drive','turn','drive with hid'], disabled:false}],
 
     commands:[{name: "ArcadeDrive",requires: ["Drivetrain"],type: "cmd"}],
   };
@@ -107,7 +107,16 @@ app.factory('Robot', function($localStorage){
     $localStorage.$reset();
   };
 
-  // Drivetrain --------------------------------------------------------------------
+  // Drivetrain ----------------------------------------------------------------
+
+  Robot.drivetrainChange = function() {
+    Robot.data.subsystems = _.map(Robot.data.subsystems, function(el) {
+      if (el.name == "Drivetrain") {
+        el.disabled = !el.disabled;
+      }
+      return el;
+    });
+  };
 
   Robot.getNumPWM = function() {
     return _.map(_.range(0, Robot.limits.PWM), function(el){
@@ -287,6 +296,16 @@ app.factory('Robot', function($localStorage){
       return el !== item;
     });
   };
+   // Subsystems ---------------------------------------------------------------
+  Robot.addSubsystem = function() {
+    Robot.data.subsystems.push(_.clone(EMPTY_SUB));
+
+  };
+  Robot.removeSubsystem = function(item) {
+    Robot.data.subsystems = Robot.data.subsystems.filter(function(el){
+      return el !== item;
+    });
+  };
 
   return Robot;
 });
@@ -324,21 +343,35 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) 
 });
 
 app.controller('Wiz1Ctrl', function (Robot, $scope, $localStorage) {
-this.num = 1;
+  this.num = 1;
 });
-
 app.controller('Wiz2Ctrl', function ($scope) {
-this.num = 2;
+  this.num = 2;
 });
 app.controller('Wiz3Ctrl', function ($scope) {
-this.num = 3;
+  this.num = 3;
 });
 app.controller('Wiz4Ctrl', function ($scope) {
-this.num = 4;
+  this.num = 4;
 });
 app.controller('Wiz5Ctrl', function ($scope) {
-this.num = 5;
+  this.num = 5;
 });
 app.controller('Wiz6Ctrl', function ($scope) {
-this.num = 6;
+  this.num = 6;
+});
+app.controller('Wiz7Ctrl', function ($scope) {
+  this.num = 7;
+});
+app.controller('Wiz8Ctrl', function ($scope) {
+  this.num = 8;
+});
+app.controller('Wiz9Ctrl', function ($scope) {
+  this.num = 9;
+});
+app.controller('Wiz10Ctrl', function ($scope) {
+  this.num = 10;
+});
+app.controller('Wiz11Ctrl', function ($scope) {
+  this.num = 11;
 });

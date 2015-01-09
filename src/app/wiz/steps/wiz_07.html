@@ -1,31 +1,54 @@
-<div class="row" ng-controller="Wiz4Ctrl as step4">
+<div class="row" ng-controller="Wiz7Ctrl as step">
 	<form name="subsystems" novalidate class="col-lg-6">
 		<h1>Subsystems</h1>
     <ol>
 			<li>
-				<button ng-click="wiz.step4.addSubsystem()" class="btn btn-success pull-right">Add</button>
 				<p>Subsystem configuration</p>
 				<p>You may create as many subsystems as makes sense. A subsystem should be a distinct part of the robot that performs a particular subset of actions. To begin thinking about what the subsystems are on your robot keep these in mind:
 				<ul>
 					<li>The robot is the system.</li>
 					<li>A subsystem cannot be nested in another subsystem.</li>
+          <li>A subsystem can only do one action at a time. This means that only one command can control a subsystem at a time.</li>
+          <li>To have two things happening at the same time, they must be in separate subsystems.</li>
 				</ul>
 				</p>
 				<p>
-					A subsystems generally contain one or more of the following:
+          A subsystem is a way of grouping the components(sensors, actuators, actions and state) to make coding easier.
 				<ul>
-					<li><strong>Sensors:</strong> Devices including buttons, switches, potentiometers, encoders, etc.</li>
-					<li><strong>Actuators:</strong> Devices that create movement, ie: motors &amp; solenoids</li>
+					<li><strong>Sensors:</strong> buttons, switches, potentiometers, encoders, etc.</li>
+					<li><strong>Actuators:</strong> motors &amp; solenoids</li>
 					<li><strong>Actions:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
-					<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors, the position of an arm. </li>
+					<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors. ex: the position of an arm. </li>
 				</ul>
 				</p>
-				<p>Some examples of good subsystems:
-				<ul>
-					<li><strong>Drivetrain:</strong> including the 2,4,6 or 8 motors</li>
-					<li><strong>Arm:</strong> including a pneumatic valve and a roller system</li>
-					<li><strong>Kicker:</strong> mechanism which throws the ball into the goal.</li>
-				</ul></p>
+				<p>Some examples of good subsystems:</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Actions</th>
+              <th>Components</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Drivetrain</td>
+              <td>drive with joystick, stop, move</td>
+              <td>Victor leftFront, Victor leftRear, Victor rightFront, Victor rightRear</td>
+            </tr>
+            <tr>
+              <td>Arm</td>
+              <td>up, down, rollerOn, rollerOff, rollerReverse</td>
+              <td>victor roller, Solenoid deploy</td>
+            </tr>
+            <tr>
+              <td>Kicker</td>
+              <td>isReady, reset, stop, kick</td>
+              <td>Victor indexer, DigitalInput limitSwitch</td>
+            </tr>
+          </tbody>
+        </table>
+        <button ng-click="Robot.addSubsystem()" class="btn btn-success pull-right">Add Subsystem</button>
 				<table class="table">
 					<thead>
 						<th>Name</th>
@@ -33,30 +56,28 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(idx, item) in wiz.robot.subsystems">
+						<tr ng-repeat="item in filtered = (Robot.data.subsystems | filter: { disabled: false })">
 							<td>
 								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
 							</td>
 
 							<td>
 								<input type="text" ng-model="item.actions" ng-list class="form-control">
-<!-- 								<p ng-repeat="action in item.actions">
-								{{action}}
-								</p> -->
 							</td>
 							<td>
-								<button ng-hide="$first && wiz.robot.subsystems.length < 2" ng-click="wiz.step4.removeSubsystem(item)" class="btn btn-danger" >Remove</button>
-								<!-- <p ng-show="$first && wiz.robot.subsystems.length < 2">You must have at least one subsystem.</p> -->
+								<button ng-hide="$first && filtered.length < 2" ng-click="Robot.removeSubsystem(item)" class="btn btn-danger" >Remove</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+        <button ng-click="Robot.addSubsystem()" class="btn btn-success pull-right">Add Subsystem</button>
 			</li>
 			<li ng-show="subsystems.$valid">
 				<!-- Done -->
-				<a class="btn btn-primary" href="#/wizard/5" ng-click="wiz.stepComplete(4)">Next &raquo;</a>
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
 			</li>
 		</ol>
 	</form>
-	<div ng-include="'app/wiz/steps/debug.html'"></div>
+
 </div>
+<div ng-include="'app/wiz/steps/debug.html'"></div>
