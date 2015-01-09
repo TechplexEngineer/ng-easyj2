@@ -7,13 +7,13 @@
 				Does your robot have a drivetrain?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.hasDrivetrain" value="yes">
+						<input type="radio" ng-model="Robot.data.hasDrivetrain" ng-change="Robot.drivetrainChange()" value="yes">
 						Yes, it has wheels!
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.hasDrivetrain" value="no" required>
+						<input type="radio" ng-model="Robot.data.hasDrivetrain" ng-change="Robot.drivetrainChange()" value="no" required>
 						No, its stationary.
 					</label>
 				</div>
