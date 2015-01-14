@@ -375,3 +375,6 @@ app.controller('Wiz10Ctrl', function ($scope) {
 app.controller('Wiz11Ctrl', function ($scope) {
   this.num = 11;
 });
+app.controller('Wiz12Ctrl', function ($scope) {
+  this.num = 12;
+});
