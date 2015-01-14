@@ -35,6 +35,9 @@ app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
       desc: 'Subsystems',
     },{
       name: '',
+      desc: 'Acutator & Sensor Assiginment',
+    },{
+      name: '',
       desc: 'Action Code',
     },{
       name: '',
