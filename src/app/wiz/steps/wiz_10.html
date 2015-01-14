@@ -1,0 +1,52 @@
+<div class="row" ng-controller="Wiz5Ctrl as step5">
+	<form name="commands" novalidate class="col-lg-6">
+    <h1>Commands</h1>
+		<ol>
+			<li>
+				<button ng-click="wiz.step5.addCommand()" class="btn btn-success pull-right">Add</button>
+				Command Configuration
+				<table class="table">
+					<thead>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Requires</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(idx, item) in wiz.robot.commands">
+							<td>
+								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
+							</td>
+
+							<td>
+								<select ng-model="item.type" >
+									<option value="">Choose an option</option>
+									<option value="cmd">Command</option>
+									<option value="cmdgrp">Command Group</option>
+								</select>
+							</td>
+
+							<td>
+								<select ng-model="item.requires" ng-repeat="req in item.requires" ng-if="item.type == 'cmd'">
+									<option value="-n-">None</option>
+									<option value="{{subsystem.name}}" ng-repeat="subsystem in wiz.robot.subsystems">{{subsystem.name}}</option>
+								</select>
+								<button ng-click="wiz.step5.addRequires(item)" class="btn btn-xs">Add</button>
+							</td>
+
+							<td>
+								<button ng-hide="$first && wiz.robot.commands.length < 2" ng-click="wiz.step5.removeCommand(item)" class="btn btn-danger" >Remove</button>
+								<!-- <p ng-show="$first && wiz.robot.commands.length < 2">You must have at least one subsystem.</p> -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			<li ng-show="commands.$valid">
+				<!-- Done -->
+				<a class="btn btn-primary" href="#/wizard/6" ng-click="wiz.stepComplete(5)">Next &raquo;</a>
+			</li>
+		</ol>
+	</form>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
+</div>
