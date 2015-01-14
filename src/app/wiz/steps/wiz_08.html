@@ -1,0 +1,89 @@
+<div class="row" ng-controller="Wiz8Ctrl as step">
+  <form name="asgn" novalidate class="col-lg-6">
+    <h1>Acutator &amp; Sensor Assiginment</h1>
+    <ol>
+      <li>
+        <p>Subsystem configuration</p>
+        <p>In this step we will assign each actuator and sensor to the subsystem which will be responsible for it.</p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Actuator Name</th>
+              <th>Actuator Type</th>
+              <th>Assigined Subsystem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="motor in Robot.data.controllers">
+              <td>{{motor.name}}</td>
+              <td>{{Robot.controller.toPretty(motor.type)}}</td>
+              <td>Options</td>
+            </tr>
+            <tr ng-repeat="item in Robot.data.sensors.analog">
+              <td>{{item.name}}</td>
+              <td>{{item.type}}</td>
+              <td>Options</td>
+            </tr>
+            <tr ng-repeat="item in Robot.data.sensors.digital">
+              <td>{{item.name}}</td>
+              <td>{{item.type}}</td>
+              <td>Options</td>
+            </tr>
+            <tr ng-repeat="item in Robot.data.sensors.solenoids">
+              <td>{{item.name}}</td>
+              <td>{{item.type}}</td>
+              <td>Options</td>
+            </tr>
+            <tr ng-if="Robot.data.hasDrivetrain">
+              <td>Drivetrain</td>
+              <td>{{Robot.data.drivetrain.mcType}}</td>
+              <td>
+                <select ng-model="Robot.data.drivetrain.subsystem" required class="form-control form-control-inline" >
+                  <option value="">Choose a Subsystem</option>
+                  <option
+                    value="{{Robot.data.drivetrain.subsystem}}"
+                    ng-repeat="subsys in Robot.data.subsystems"
+                    ng-disabled="Robot.isAnalogPortUsed(port)"
+                    ng-selected="{{port === item.port}}">
+                  {{port}} {{Robot.isAnalogPortUsed(port)? 'used' : ''}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <button ng-click="Robot.addSubsystem()" class="btn btn-success pull-right">Add Subsystem</button>
+        <table class="table">
+          <thead>
+            <th>Name</th>
+            <th>Actions</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in filtered = (Robot.data.subsystems | filter: { disabled: false })">
+              <td>
+                <input ng-model="item.name" required type="text" class="form-control form-control-inline">
+              </td>
+
+              <td>
+                <input type="text" ng-model="item.actions" ng-list class="form-control">
+              </td>
+              <td>
+                <button ng-hide="$first && filtered.length < 2" ng-click="Robot.removeSubsystem(item)" class="btn btn-danger" >Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button ng-click="Robot.addSubsystem()" class="btn btn-success pull-right">Add Subsystem</button>
+      </li>
+      <li ng-show="subsystems.$valid">
+        <!-- Done -->
+        <a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+      </li>
+    </ol>
+  </form>
+  <div ng-include="'app/wiz/steps/debug.html'"></div>
+</div>
+
