@@ -1,3 +1,22 @@
-<div class="row" ng-controller="Wiz9Ctrl as step">
-  <h2>Step 9</h2>
+<div class="col-lg-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Actions</h4>
+        </div>
+        <div class="panel-collapse collapse in" style="height: auto;">
+            <div class="panel-body" >
+                <div class="list-group">
+                    <a class="list-group-item" href>page</a>
+                </div>
+                <div class="btn-group btn-group-sm ng-scope">
+                    <button type="button" class="btn btn-default" ng-click="newPage()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="deletePage(currentPageName)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
