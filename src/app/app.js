@@ -7,6 +7,7 @@ angular.module('easyj', [
   'easyj.about',
   'easyj.wiz',
   'easyj.progress',
+  'ngTagsInput',
   ])
   .config(function ($routeProvider) {
     $routeProvider

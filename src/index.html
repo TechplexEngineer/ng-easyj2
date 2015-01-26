@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="../bower_components/ng-tags-input/ng-tags-input.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -35,7 +36,7 @@
     <ng-include src="'components/navbar/navbar.html'"></ng-include>
 
     <div class="content"> <!-- div.content is needed so that when ng-view is empty the footer still floats down -->
-      <ng-view></ng-view>
+      <ng-view autoscroll="true"></ng-view>
     </div>
 
     <ng-include src="'components/footer/footer.html'"></ng-include>
@@ -59,18 +60,19 @@
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/ngstorage/ngStorage.js"></script>
     <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="../bower_components/ng-tags-input/ng-tags-input.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,src}) scripts/app.js -->
     <!-- inject:js -->
-    <script src="components/progress/progress.c.js"></script>
-    <script src="app/app.js"></script>
-    <script src="components/navbar/navbar.c.js"></script>
-    <script src="components/footer/footer.c.js"></script>
     <script src="app/wiz/wiz.js"></script>
+    <script src="app/app.js"></script>
     <script src="app/main/main.c.js"></script>
     <script src="app/about/about.js"></script>
+    <script src="components/progress/progress.c.js"></script>
+    <script src="components/navbar/navbar.c.js"></script>
+    <script src="components/footer/footer.c.js"></script>
     <!-- endinject -->
 
     <!-- inject:partials -->

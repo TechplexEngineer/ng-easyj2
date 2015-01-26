@@ -107,12 +107,28 @@ app.factory('Robot', function($localStorage){
     $localStorage.$reset();
   };
 
+  Robot.getSubsystems = function() {
+  	return _.filter(Robot.data.subsystems, function(el){
+  		if (! el['disabled']) {
+  			return el;
+  		}
+  	});
+  };
+  //when displaying the subsystems form, make sure to show an empty slot.
+  Robot.getInitialSubsystems = function() {
+  	var subsys = Robot.getSubsystems();
+  	if (subsys.length == 0) {
+  		Robot.data.subsystems.push(_.clone(EMPTY_SUB));
+  	}
+  	return Robot.getSubsystems();
+  };
+
   // Drivetrain ----------------------------------------------------------------
 
   Robot.drivetrainChange = function() {
     Robot.data.subsystems = _.map(Robot.data.subsystems, function(el) {
       if (el.name == "Drivetrain") {
-        el.disabled = !el.disabled;
+        el.disabled = !(Robot.data.hasDrivetrain == 'yes');
       }
       return el;
     });

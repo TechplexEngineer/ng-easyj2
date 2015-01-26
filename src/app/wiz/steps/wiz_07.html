@@ -56,13 +56,14 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in filtered = (Robot.data.subsystems | filter: { disabled: false })">
+						<tr ng-repeat="item in Robot.getInitialSubsystems()">
 							<td>
 								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
 							</td>
 
 							<td>
-								<input type="text" ng-model="item.actions" ng-list class="form-control">
+								<!-- <input type="text" required ng-model="item.actions" ng-list class="form-control actiontagsinput"> -->
+								<tags-input ng-model="item.actions"></tags-input>
 							</td>
 							<td>
 								<button ng-hide="$first && filtered.length < 2" ng-click="Robot.removeSubsystem(item)" class="btn btn-danger" >Remove</button>

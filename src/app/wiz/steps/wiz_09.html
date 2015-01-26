@@ -1,22 +1,36 @@
-<div class="col-lg-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">Actions</h4>
-        </div>
-        <div class="panel-collapse collapse in" style="height: auto;">
-            <div class="panel-body" >
-                <div class="list-group">
-                    <a class="list-group-item" href>page</a>
-                </div>
-                <div class="btn-group btn-group-sm ng-scope">
-                    <button type="button" class="btn btn-default" ng-click="newPage()">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                    <button type="button" class="btn btn-default" ng-click="deletePage(currentPageName)">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="col-lg-2" ng-controller="Wiz9Ctrl as step">
+	<div class="panel panel-default">
+	  <div class="panel-heading">Current Subsystem</div>
+	  <div class="panel-body">
+	    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
+			</select> -->
+			<select class="form-control">
+        <option
+          ng-repeat="subsys in Robot.getSubsystems()"
+          value="{{subsys.name}}"
+          ng-selected="{{subsys.name === item.subsystem}}">
+        {{subsys.name}}</option>
+      </select>
+	  </div>
+	</div>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">Subsystem Actions</div>
+	  <div class="panel-body">
+		  <div class="list-group">
+				<a class="list-group-item" href> Done Action
+					<i class="fa fa-check text-success pull-right"></i>
+				</a>
+				<a class="list-group-item" href> Todo Action
+					<i class="fa fa-times text-danger pull-right"></i>
+				</a>
+			</div>
+
+			<button type="button" class="btn btn-default" ng-click="newPage()">
+				<span class="glyphicon glyphicon-plus"></span> Add Action
+			</button>
+		</div>
+	</div>
+
 </div>
+<div ng-include="'app/wiz/steps/debug.html'"></div>

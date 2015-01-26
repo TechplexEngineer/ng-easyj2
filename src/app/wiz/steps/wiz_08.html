@@ -23,7 +23,7 @@
                   <option value="">Choose a Subsystem</option>
                   <option
                     value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.data.subsystems | filter: { disabled: true }"
+                    ng-repeat="subsys in Robot.getSubsystems()"
                     ng-selected="{{subsys.name === item.subsystem}}">
                   {{subsys.name}}</option>
                 </select>
@@ -37,7 +37,7 @@
                   <option value="">Choose a Subsystem</option>
                   <option
                     value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.data.subsystems | filter: { disabled: true }"
+                    ng-repeat="subsys in Robot.getSubsystems()"
                     ng-selected="{{subsys.name === item.subsystem}}">
                   {{subsys.name}}</option>
                 </select>
@@ -51,7 +51,7 @@
                   <option value="">Choose a Subsystem</option>
                   <option
                     value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.data.subsystems | filter: { disabled: true }"
+                    ng-repeat="subsys in Robot.getSubsystems()"
                     ng-selected="{{subsys.name === item.subsystem}}">
                   {{subsys.name}}</option>
                 </select>
@@ -65,7 +65,7 @@
                   <option value="">Choose a Subsystem</option>
                   <option
                     value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.data.subsystems | filter: { disabled: true }"
+                    ng-repeat="subsys in Robot.getSubsystems()"
                     ng-selected="{{subsys.name === item.subsystem}}">
                   {{subsys.name}}</option>
                 </select>
@@ -79,7 +79,7 @@
                   <option value="">Choose a Subsystem</option>
                   <option
                     value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.data.subsystems | filter: { disabled: true }"
+                    ng-repeat="subsys in Robot.getSubsystems()"
                     ng-selected="{{subsys.name === Robot.data.drivetrain.subsystem}}">
                   {{subsys.name}}</option>
                 </select>
