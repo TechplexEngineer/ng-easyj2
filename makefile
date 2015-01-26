@@ -20,6 +20,7 @@ blockly:
 
 closure:
 	-rm master.zip
+	-rm -rf closure-library-master closure-library
 	wget https://github.com/google/closure-library/archive/master.zip
 	unzip master.zip
 	mv closure-library-master closure-library
