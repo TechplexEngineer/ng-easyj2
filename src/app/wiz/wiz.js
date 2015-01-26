@@ -114,6 +114,9 @@ app.factory('Robot', function($localStorage){
   		}
   	});
   };
+  Robot.getSubsystem = function(name) {
+  	return _.find(Robot.data.subsystems, {"name":name});
+  }
   //when displaying the subsystems form, make sure to show an empty slot.
   Robot.getInitialSubsystems = function() {
   	var subsys = Robot.getSubsystems();
@@ -382,8 +385,9 @@ app.controller('Wiz7Ctrl', function ($scope) {
 app.controller('Wiz8Ctrl', function ($scope) {
   this.num = 8;
 });
-app.controller('Wiz9Ctrl', function ($scope) {
+app.controller('Wiz9Ctrl', function (Robot, $scope) {
   this.num = 9;
+  this.currentSubsystem = Robot.getSubsystems()[0].name;
 });
 app.controller('Wiz10Ctrl', function ($scope) {
   this.num = 10;

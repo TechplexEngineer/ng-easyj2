@@ -4,7 +4,7 @@
 	  <div class="panel-body">
 	    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
 			</select> -->
-			<select class="form-control">
+			<select class="form-control" ng-model="step.currentSubsystem">
         <option
           ng-repeat="subsys in Robot.getSubsystems()"
           value="{{subsys.name}}"
@@ -18,17 +18,26 @@
 	  <div class="panel-heading">Subsystem Actions</div>
 	  <div class="panel-body">
 		  <div class="list-group">
-				<a class="list-group-item" href> Done Action
+				<a href
+					ng-repeat="action in Robot.getSubsystem(step.currentSubsystem).actions"
+					class="list-group-item">
+					{{action.text}}
+					<i ng-if="action.isDone" class="fa fa-check text-success pull-right"></i>
+					<i ng-if="!action.isDone" class="fa fa-circle text-danger pull-right"></i>
+				</a>
+
+				<!-- <a class="list-group-item" href> Done Action
 					<i class="fa fa-check text-success pull-right"></i>
 				</a>
 				<a class="list-group-item" href> Todo Action
 					<i class="fa fa-times text-danger pull-right"></i>
-				</a>
+				</a> -->
 			</div>
 
-			<button type="button" class="btn btn-default" ng-click="newPage()">
+			<!-- @todo
+			<button type="button" class="btn btn-default">
 				<span class="glyphicon glyphicon-plus"></span> Add Action
-			</button>
+			</button> -->
 		</div>
 	</div>
 
