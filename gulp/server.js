@@ -39,6 +39,7 @@ gulp.task('serve', ['watch'], function () {
   ], [
     'src/{app,components}/**/*.css',
     'src/{app,components}/**/*.js',
+    'src/blockly/**/*.js',
     'src/assets/images/**/*',
     '.tmp/*.html',
     '.tmp/{app,components}/**/*.html',

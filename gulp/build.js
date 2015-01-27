@@ -36,6 +36,13 @@ gulp.task('injector:js', ['scripts', 'injector:css'], function () {
     .pipe(gulp.dest('src/'));
 });
 
+gulp.task('blockly:js', [], function () {
+	return null;
+	// gulp.src(['src/index.html'])
+	//   .pipe($.inject(gulp.src(['src/blockly/**/*.js'], {read: false}), {name: 'blockly', relative: true}))
+	//   .pipe(gulp.dest('src/'));
+});
+
 gulp.task('partials', function () {
   return gulp.src(['src/{app,components}/**/*.html', '.tmp/{app,components}/**/*.html'])
     .pipe($.minifyHtml({
@@ -49,7 +56,7 @@ gulp.task('partials', function () {
     .pipe(gulp.dest('.tmp/inject/'));
 });
 
-gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], function () {
+gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials', 'blockly:js'], function () {
   var htmlFilter = $.filter('*.html');
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
