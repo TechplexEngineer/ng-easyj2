@@ -389,7 +389,7 @@ app.controller('Wiz7Ctrl', function ($scope) {
 app.controller('Wiz8Ctrl', function ($scope) {
   this.num = 8;
 });
-app.controller('Wiz9Ctrl', function (Robot, $scope) {
+app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	var step = this;
   step.num = 9;
   step.currentSubsystem = Robot.getSubsystems()[0].name;
@@ -398,6 +398,24 @@ app.controller('Wiz9Ctrl', function (Robot, $scope) {
 
   Blockly.inject(document.getElementById('blocklyDiv'),
         {toolbox: document.getElementById('toolbox')});
+
+  Blockly.mainWorkspace.reset = function() {
+		// Remove all blocks
+		Blockly.mainWorkspace.clear();
+		//Load the starting blocks
+		var startingBlocks = document.getElementById('startingblocks');
+		if (startingblocks.innerHTML !== "")
+		{
+			var xml = Blockly.Xml.textToDom(startingBlocks);
+			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+		} else {
+			console.error("No starting blocks to load");
+		}
+	};
+	$timeout(function() {
+		Blockly.mainWorkspace.reset();
+	}, 0);
+
 
   //Changes the active Action
 	step.setActiveAction = function(newAction) {
@@ -408,13 +426,12 @@ app.controller('Wiz9Ctrl', function (Robot, $scope) {
 		}
 		step.currentAction = newAction;
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
-		console.log(act);
 
 		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
+			Blockly.mainWorkspace.clear();
 			if (act.xmlcode) {
 				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(act.xmlcode));
 			}
-		// 	Blockly.Realtime.loadPage($scope.currentPageName);
 		// 	//Reload the Blockly toolbox to account for changes in blocks
 		// 	$timeout(function() {
 		// 		if(Blockly.Toolbox.HtmlDiv) {
@@ -442,7 +459,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope) {
 	}
 	Blockly.addChangeListener(onchange);
 
-	step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+	// step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
 
 });
 app.controller('Wiz10Ctrl', function ($scope) {
