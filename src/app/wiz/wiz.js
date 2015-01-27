@@ -407,8 +407,13 @@ app.controller('Wiz9Ctrl', function (Robot, $scope) {
 			return;
 		}
 		step.currentAction = newAction;
+		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
+		console.log(act);
 
-		// if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
+		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
+			if (act.xmlcode) {
+				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(act.xmlcode));
+			}
 		// 	Blockly.Realtime.loadPage($scope.currentPageName);
 		// 	//Reload the Blockly toolbox to account for changes in blocks
 		// 	$timeout(function() {
@@ -418,11 +423,24 @@ app.controller('Wiz9Ctrl', function (Robot, $scope) {
 		// 			Blockly.Toolbox.init();
 		// 		}
 		// 	}, 0);
-		// }
+		}
 	};
-	step.currentSubsysChange = function(){
+	step.currentSubsysChange = function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+	};
+	/**
+	 * When the workspace changes, save the user's code.
+	 */
+	function onchange() {
+		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
+
+	  // var act = Robot.getActions(step.currentSubsystem)[step.currentAction];
+	  act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace);
+	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
+	  act.isDone = true; //@todo need a better way to determine if their code is "done"
 	}
+	Blockly.addChangeListener(onchange);
 
 	step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
 
