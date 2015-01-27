@@ -1,49 +1,49 @@
-<div class="col-lg-2" ng-controller="Wiz9Ctrl as step">
-	<div class="panel panel-default">
-	  <div class="panel-heading">Current Subsystem</div>
-	  <div class="panel-body">
-	    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
-			</select> -->
-			<select class="form-control" ng-model="step.currentSubsystem">
-        <option
-          ng-repeat="subsys in Robot.getSubsystems()"
-          value="{{subsys.name}}"
-          ng-selected="{{subsys.name === item.subsystem}}">
-        {{subsys.name}}</option>
-      </select>
-	  </div>
-	</div>
-
-	<div class="panel panel-default">
-	  <div class="panel-heading">Subsystem Actions</div>
-	  <div class="panel-body">
-		  <div class="list-group">
-				<a href
-					ng-repeat="action in Robot.getSubsystem(step.currentSubsystem).actions"
-					class="list-group-item">
-					{{action.text}}
-					<i ng-if="action.isDone" class="fa fa-check text-success pull-right"></i>
-					<i ng-if="!action.isDone" class="fa fa-circle text-danger pull-right"></i>
-				</a>
-
-				<!-- <a class="list-group-item" href> Done Action
-					<i class="fa fa-check text-success pull-right"></i>
-				</a>
-				<a class="list-group-item" href> Todo Action
-					<i class="fa fa-times text-danger pull-right"></i>
-				</a> -->
-			</div>
-
-			<!-- @todo
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-plus"></span> Add Action
-			</button> -->
+<div ng-controller="Wiz9Ctrl as step">
+	<div class="col-lg-2">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Current Subsystem</div>
+		  <div class="panel-body">
+		    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
+				</select> -->
+				<select class="form-control" ng-model="step.currentSubsystem">
+	        <option
+	          ng-repeat="subsys in Robot.getSubsystems()"
+	          value="{{subsys.name}}"
+	          ng-selected="{{subsys.name === item.subsystem}}">
+	        {{subsys.name}}</option>
+	      </select>
+		  </div>
 		</div>
-	</div>
 
-</div>
-<div class="col-lg-10">
-	<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">Subsystem Actions</div>
+		  <div class="panel-body">
+			  <div class="list-group">
+					<a href
+						ng-repeat="action in Robot.getSubsystem(step.currentSubsystem).actions"
+						class="list-group-item">
+						{{action.text}}
+						<i ng-if="action.isDone" class="fa fa-check text-success pull-right"></i>
+						<i ng-if="!action.isDone" class="fa fa-circle text-danger pull-right"></i>
+					</a>
+
+					<!-- <a class="list-group-item" href> Done Action
+						<i class="fa fa-check text-success pull-right"></i>
+					</a>
+					<a class="list-group-item" href> Todo Action
+						<i class="fa fa-times text-danger pull-right"></i>
+					</a> -->
+				</div>
+
+				<!-- @todo
+				<button type="button" class="btn btn-default">
+					<span class="glyphicon glyphicon-plus"></span> Add Action
+				</button> -->
+			</div>
+		</div>
+
+	</div>
+	<div id="blocklyDiv" class="col-lg-10" style="height: 480px;"></div>
 
   <xml id="toolbox" style="display: none">
     <category name="Logic">
@@ -357,5 +357,6 @@
       </category>
     </category>
   </xml>
+
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>
-<div ng-include="'app/wiz/steps/debug.html'"></div>
