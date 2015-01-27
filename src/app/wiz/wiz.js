@@ -126,6 +126,10 @@ app.factory('Robot', function($localStorage){
   	return Robot.getSubsystems();
   };
 
+  Robot.getActions = function(subsys) {
+  	return Robot.getSubsystem(subsys).actions;
+  };
+
   // Drivetrain ----------------------------------------------------------------
 
   Robot.drivetrainChange = function() {
@@ -386,10 +390,42 @@ app.controller('Wiz8Ctrl', function ($scope) {
   this.num = 8;
 });
 app.controller('Wiz9Ctrl', function (Robot, $scope) {
-  this.num = 9;
-  this.currentSubsystem = Robot.getSubsystems()[0].name;
+	var step = this;
+  step.num = 9;
+  step.currentSubsystem = Robot.getSubsystems()[0].name;
+  step.currentAction = Robot.getSubsystems()[0].actions[0].text;
+  console.log(step.currentSubsystem, step.currentAction);
+
   Blockly.inject(document.getElementById('blocklyDiv'),
         {toolbox: document.getElementById('toolbox')});
+
+  //Changes the active Action
+	step.setActiveAction = function(newAction) {
+
+		if(!_.contains(_.pluck(Robot.getActions(step.currentSubsystem), 'text'), newAction)) {
+			alert('Page "' + title + '" does not exist.');
+			return;
+		}
+		step.currentAction = newAction;
+
+		// if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
+		// 	Blockly.Realtime.loadPage($scope.currentPageName);
+		// 	//Reload the Blockly toolbox to account for changes in blocks
+		// 	$timeout(function() {
+		// 		if(Blockly.Toolbox.HtmlDiv) {
+		// 			Blockly.Toolbox.HtmlDiv.innerHTML = '';
+		// 			Blockly.languageTree = document.getElementById('blockly-toolbox');
+		// 			Blockly.Toolbox.init();
+		// 		}
+		// 	}, 0);
+		// }
+	};
+	step.currentSubsysChange = function(){
+		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+	}
+
+	step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+
 });
 app.controller('Wiz10Ctrl', function ($scope) {
   this.num = 10;
