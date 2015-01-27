@@ -388,6 +388,8 @@ app.controller('Wiz8Ctrl', function ($scope) {
 app.controller('Wiz9Ctrl', function (Robot, $scope) {
   this.num = 9;
   this.currentSubsystem = Robot.getSubsystems()[0].name;
+  Blockly.inject(document.getElementById('blocklyDiv'),
+        {toolbox: document.getElementById('toolbox')});
 });
 app.controller('Wiz10Ctrl', function ($scope) {
   this.num = 10;

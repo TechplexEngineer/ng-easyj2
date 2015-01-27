@@ -14,7 +14,9 @@ function browserSyncInit(baseDir, files, browser) {
   var routes = null;
   if(baseDir === 'src' || (util.isArray(baseDir) && baseDir.indexOf('src') !== -1)) {
     routes = {
-      '/bower_components': 'bower_components'
+      '/bower_components': 'bower_components',
+      '/blockly': 'blockly',
+      '/closure-library': 'closure-library'
     };
   }
 
