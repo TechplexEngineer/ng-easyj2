@@ -56,7 +56,7 @@ Blockly.Blocks['text'] = {
     } else {
       var file = 'quote0.png';
     }
-    return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+    return new Blockly.FieldImage(Blockly.pathToMedia + file,
                                   12, 12, '"');
   },
   onchange: function(evt) {
