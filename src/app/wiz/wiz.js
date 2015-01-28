@@ -107,6 +107,19 @@ app.factory('Robot', function($localStorage){
     $localStorage.$reset();
   };
 
+  Robot.resetBlocks = function() {
+  	for (var i = 0; i < Robot.data.subsystems.length; i++) {
+  		var act = Robot.data.subsystems[i].actions;
+  		for (var j = 0; j < act.length; j++) {
+  			console.log(act[j]);
+  			delete act[j].code;
+  			delete act[j].xmlcode;
+  			delete act[j].isDone;
+  		}
+  	}
+  	Blockly.mainWorkspace.reset();
+  };
+
   Robot.getSubsystems = function() {
   	return _.filter(Robot.data.subsystems, function(el){
   		if (! el['disabled']) {
@@ -344,7 +357,6 @@ function pad(n, width, z) {
 app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, $window) {
 
 	this.stepComplete = function (num) {
-    console.log(num);
     if (typeof $localStorage.curStep === 'undefined') {
       $localStorage.curStep = num+1;
     } else {
@@ -403,16 +415,21 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
   step.currentAction = Robot.getSubsystems()[0].actions[0].text;
 
   Blockly.inject(document.getElementById('blocklyDiv'),
-        {toolbox: document.getElementById('toolbox')});
+        {
+        	path:'/blockly/',
+        	toolbox: document.getElementById('toolbox'),
+        	media:'/blockly/media/'
+        });
 
   Blockly.mainWorkspace.reset = function() {
 		// Remove all blocks
 		Blockly.mainWorkspace.clear();
 		//Load the starting blocks
 		var startingBlocks = document.getElementById('startingblocks');
-		if (startingblocks.innerHTML !== "")
+		console.log(startingBlocks);
+		if (startingblocks.innerHTML !== "") //if there are blocks
 		{
-			var xml = Blockly.Xml.textToDom(startingBlocks);
+			var xml = startingBlocks; //Blockly.Xml.textToDom(startingBlocks);
 			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 		} else {
 			console.error("No starting blocks to load");
@@ -434,9 +451,13 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
-			Blockly.mainWorkspace.clear();
+			Blockly.mainWorkspace.reset();
 			if (act.xmlcode) {
-				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(act.xmlcode));
+				var dom = Blockly.Xml.textToDom(act.xmlcode);
+				if (dom.innerHTML !== "") {
+					Blockly.mainWorkspace.clear();
+					Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+				}
 			}
 		// 	//Reload the Blockly toolbox to account for changes in blocks
 		// 	$timeout(function() {
@@ -458,7 +479,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 	  // var act = Robot.getActions(step.currentSubsystem)[step.currentAction];
-	  act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace);
+	  // act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace); //@todo
 	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
 	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
 	  act.isDone = true; //@todo need a better way to determine if their code is "done"

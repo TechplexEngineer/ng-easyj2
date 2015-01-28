@@ -1,5 +1,6 @@
 <div class="col-lg-4">
-  <button ng-click="Robot.resetStorage()">Reset</button> <span>Step: {{$localStorage.curStep}}</span>
+  <button ng-click="Robot.resetStorage()">Reset</button> <button ng-click="Robot.resetBlocks()">Clear Blocks</button> <span>Step: {{$localStorage.curStep}}</span>
+
   <h4>Robot Data:</h4>
   <pre>
 {{Robot.data | json:4}}
