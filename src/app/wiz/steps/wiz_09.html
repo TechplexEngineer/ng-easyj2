@@ -5,7 +5,7 @@
 		  <div class="panel-body">
 		    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
 				</select> -->
-				<select class="form-control" ng-model="step.currentSubsystem" ng-change="step.currentSubsysChange()">
+				<select class="form-control" id="currentSubsystem" ng-model="step.currentSubsystem" ng-change="step.currentSubsysChange()">
 	        <option
 	          ng-repeat="subsys in Robot.getSubsystems()"
 	          value="{{subsys.name}}"

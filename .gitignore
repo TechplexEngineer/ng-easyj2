@@ -3,5 +3,5 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
-blockly/
+/blockly
 closure-library/
