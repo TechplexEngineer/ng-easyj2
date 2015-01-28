@@ -127,7 +127,7 @@ app.factory('Robot', function($localStorage){
   };
 
   Robot.getActions = function(subsys) {
-  	return Robot.getSubsystem(subsys).actions;
+  	return Robot.getSubsystem(subsys) && Robot.getSubsystem(subsys).actions;
   };
 
   // Drivetrain ----------------------------------------------------------------
@@ -394,7 +394,6 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
   step.num = 9;
   step.currentSubsystem = Robot.getSubsystems()[0].name;
   step.currentAction = Robot.getSubsystems()[0].actions[0].text;
-  console.log(step.currentSubsystem, step.currentAction);
 
   Blockly.inject(document.getElementById('blocklyDiv'),
         {toolbox: document.getElementById('toolbox')});
@@ -412,9 +411,9 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 			console.error("No starting blocks to load");
 		}
 	};
-	$timeout(function() {
-		Blockly.mainWorkspace.reset();
-	}, 0);
+	// $timeout(function() {
+	// 	Blockly.mainWorkspace.reset();
+	// }, 0);
 
 
   //Changes the active Action
@@ -456,10 +455,15 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
 	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
 	  act.isDone = true; //@todo need a better way to determine if their code is "done"
+
 	}
 	Blockly.addChangeListener(onchange);
 
-	// step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+	// After the page is finished rendering, loadup blockly blocks
+	$timeout(function() {
+		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+	}, 0);
+
 
 });
 app.controller('Wiz10Ctrl', function ($scope) {

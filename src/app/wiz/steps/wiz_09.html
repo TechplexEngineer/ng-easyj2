@@ -58,37 +58,36 @@
 	<xml id="startingblocks" style="display: none"></xml>
 
   <xml id="toolbox" style="display: none">
-
     <category name="Input &amp; Sensors">
 
-      <category name="User (Joystick)">
-        <block type="declare_joystick"></block>
+      <!-- <category name="User (Joystick)"> -->
+        <!-- <block type="declare_joystick"></block>
         <block type="get_joystick_axis"></block>
-        <block type="get_joystick_button"></block>
-      </category>
+        <block type="get_joystick_button"></block> -->
+      <!-- </category> -->
 
-      <category name="Gyro">
-        <block type="declare_gyro"></block>
+      <!-- <category name="Gyro"> -->
+        <!-- <block type="declare_gyro"></block> -->
         <block type="get_gyro"></block>
         <block type="gyro_reset"></block>
-      </category>
+      <!-- </category> -->
 
-      <category name="Digital">
-        <block type="declare_digital_input"></block>
+      <!-- <category name="Digital"> -->
+        <!-- <block type="declare_digital_input"></block> -->
         <block type="get_digital_input_value"></block>
-      </category>
+      <!-- </category> -->
 
-      <category name="Analog">
-        <block type="declare_analog_input"></block>
+      <!-- <category name="Analog"> -->
+        <!-- <block type="declare_analog_input"></block> -->
         <block type="get_analog_input_value"></block>
-      </category>
+      <!-- </category> -->
 
     </category>
 
     <category name="Outputs">
-      <category name="Digital">
+      <!-- <category name="Digital"> -->
 
-        <block type="declare_digital_output"></block>
+        <!-- <block type="declare_digital_output"></block> -->
         <block type="set_digital_output">
           <value name="VALUE">
             <block type="logic_boolean" id="16" x="245" y="191">
@@ -97,15 +96,15 @@
           </value>
         </block>
 
-      </category>
-      <category name="Relay">
-        <block type="declare_relay"></block>
+      <!-- </category> -->
+      <!-- <category name="Relay"> -->
+        <!-- <block type="declare_relay"></block> -->
         <block type="set_relay"></block>
-      </category>
+      <!-- </category> -->
     </category>
 
     <category name="Motors">
-      <block type="declare_motor_controller"></block>
+      <!-- <block type="declare_motor_controller"></block> -->
       <block type="move_motor_controller">
         <value name="SPEED">
           <block type="math_number">
@@ -114,8 +113,7 @@
         </value>
       </block>
       <block type="stop_motor_controller"></block>
-
-      <block type="declare_drivetrain"></block>
+      <!-- <block type="declare_drivetrain"></block> -->
       <block type="move_drivetrain">
         <value name="MOVE">
           <block type="math_number">
@@ -133,12 +131,12 @@
     </category>
 
     <category name="Pneumatics">
-      <category name="Compressor">
-        <block type="declare_compressor"></block>
-        <block type="compressor_start"></block>
-      </category>
-      <category name="Solenoid (Valve)">
-        <block type="declare_solenoid_single"></block>
+      <!-- <category name="Compressor"> -->
+        <!-- <block type="declare_compressor"></block> -->
+        <!-- <block type="compressor_start"></block> -->
+      <!-- </category> -->
+      <!-- <category name="Solenoid (Valve)"> -->
+        <!-- <block type="declare_solenoid_single"></block> -->
         <block type="set_solenoid_single">
           <value name="VALUE">
             <block type="logic_boolean" id="16" x="245" y="191">
@@ -146,11 +144,11 @@
             </block>
           </value>
         </block>
-      </category>
-      <category name="Double Solenoid (Valve)">
-        <block type="declare_solenoid_double"></block>
+      <!-- </category> -->
+      <!-- <category name="Double Solenoid (Valve)"> -->
+        <!-- <block type="declare_solenoid_double"></block> -->
         <block type="double_solenoid_set"></block>
-      </category>
+      <!-- </category> -->
 
 
     </category>
@@ -199,9 +197,9 @@
     <category name="Math">
       <block type="math_number"></block>
       <block type="math_arithmetic"></block>
-<!--       <block type="math_single"></block> -->
-<!--       <block type="math_constant"></block> -->
-      <category name="More">
+      <!-- <block type="math_single"></block> -->
+      <!-- <block type="math_constant"></block> -->
+
         <block type="math_number_property"></block>
 <!--         <block type="math_change"></block> -->
         <block type="math_round"></block>
@@ -211,7 +209,7 @@
 <!--         <block type="math_constrain"></block>
         <block type="math_random_int"></block>
         <block type="math_random_float"></block> -->
-      </category>
+
     </category>
 
     <category name="Text">
@@ -222,32 +220,10 @@
         </value>
       </block>
       <block type="text_join"></block>
-      <!-- <category name="More"> -->
-
-<!--         <block type="text_length"></block>
-        <block type="text_isEmpty"></block>
-        <block type="text_indexOf"></block>
-        <block type="text_charAt"></block>
-        <block type="text_getSubstring"></block>
-        <block type="text_changeCase"></block>
-        <block type="text_trim"></block> -->
-<!--         <block type="text_prompt"></block> -->
-      <!-- </category> -->
     </category>
 
 
     <category name="Timing">
-      <block type="delay">
-        <value name="AMOUNT">
-          <block type="math_number">
-            <field name="NUM">1.5</field>
-          </block>
-        </value>
-      </block>
-      <block type="declare_timer"></block>
-      <block type="start_timer"></block>
-      <block type="stop_timer"></block>
-      <block type="reset_timer"></block>
       <block type="us_counter"></block>
     </category>
 
