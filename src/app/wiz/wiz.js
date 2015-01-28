@@ -341,10 +341,9 @@ function pad(n, width, z) {
 }
 
 
-app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) {
-  this.step = pad($routeParams.step,2); //this is used to determine what template to load
+app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, $window) {
 
-  this.stepComplete = function (num) {
+	this.stepComplete = function (num) {
     console.log(num);
     if (typeof $localStorage.curStep === 'undefined') {
       $localStorage.curStep = num+1;
@@ -353,11 +352,19 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) 
         $localStorage.curStep = num+1;
       }
     }
-    console.log($localStorage.curStep);
   };
-  // this.getCurStep = function () {
-  //   return $localStorage.curStep || 1;
-  // }
+  this.getCurStep = function () {
+    return $localStorage.curStep || 1;
+  };
+
+	if ($routeParams.step > this.getCurStep()) {
+		$window.location.href = '/#/wizard/'+this.getCurStep();
+		return;
+	}
+
+  this.step = pad($routeParams.step,2); //this is used to determine what template to load
+
+
 
   //make robot available to all views
   $scope.Robot = Robot;
