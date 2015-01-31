@@ -56,7 +56,7 @@ Blockly.Blocks['text'] = {
     } else {
       var file = 'quote0.png';
     }
-    return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+    return new Blockly.FieldImage(Blockly.pathToMedia + file,
                                   12, 12, '"');
   },
   onchange: function(evt) {
@@ -653,7 +653,7 @@ Blockly.Blocks['text_print'] = {
                         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true, 'statement');
     this.setNextStatement(true, 'statement');
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+    this.setTooltip('Print the specified text, number or other value to the Riolog debug messages.');
   },
   onchange: function(evt) {
    if (!this.workspace || this.isInFlyout) {

@@ -109,7 +109,7 @@ EasyJ.Checker.EnsureNotTop_Init = function() {
   if (this.getSurroundParent() != null) {
     this.setWarningText(null);
   } else {
-    this.setWarningText("Error: This block must be within the Initialization block.");
+    this.setWarningText("Error: This block must be within the 'State Variables' block.");
   }
 };
 

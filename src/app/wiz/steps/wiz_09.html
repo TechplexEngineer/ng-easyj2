@@ -55,56 +55,34 @@
 	</div>
 	<div id="blocklyDiv" class="col-sm-10" style="height: 480px;"></div>
 
-	<xml id="startingblocks" style="display: none"></xml>
+	<xml id="startingblocks" style="display: none">
+		<block type="state_vars" x="179" y="226"></block>
+		<block type="procedures_defreturn" x="129" y="75">
+	    <mutation procname="{{step.currentAction}}"></mutation>
+	  </block>
+	</xml>
 
   <xml id="toolbox" style="display: none">
     <category name="Input &amp; Sensors">
-
-      <!-- <category name="User (Joystick)"> -->
-        <!-- <block type="declare_joystick"></block>
-        <block type="get_joystick_axis"></block>
-        <block type="get_joystick_button"></block> -->
-      <!-- </category> -->
-
-      <!-- <category name="Gyro"> -->
-        <!-- <block type="declare_gyro"></block> -->
-        <block type="get_gyro"></block>
-        <block type="gyro_reset"></block>
-      <!-- </category> -->
-
-      <!-- <category name="Digital"> -->
-        <!-- <block type="declare_digital_input"></block> -->
-        <block type="get_digital_input_value"></block>
-      <!-- </category> -->
-
-      <!-- <category name="Analog"> -->
-        <!-- <block type="declare_analog_input"></block> -->
-        <block type="get_analog_input_value"></block>
-      <!-- </category> -->
-
+      <block type="get_gyro"></block>
+      <block type="gyro_reset"></block>
+      <block type="get_digital_input_value"></block>
+      <block type="get_analog_input_value"></block>
     </category>
 
     <category name="Outputs">
-      <!-- <category name="Digital"> -->
+      <block type="set_digital_output">
+        <value name="VALUE">
+          <block type="logic_boolean" id="16" x="245" y="191">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+      </block>
+      <block type="set_relay"></block>
 
-        <!-- <block type="declare_digital_output"></block> -->
-        <block type="set_digital_output">
-          <value name="VALUE">
-            <block type="logic_boolean" id="16" x="245" y="191">
-              <field name="BOOL">TRUE</field>
-            </block>
-          </value>
-        </block>
-
-      <!-- </category> -->
-      <!-- <category name="Relay"> -->
-        <!-- <block type="declare_relay"></block> -->
-        <block type="set_relay"></block>
-      <!-- </category> -->
     </category>
 
     <category name="Motors">
-      <!-- <block type="declare_motor_controller"></block> -->
       <block type="move_motor_controller">
         <value name="SPEED">
           <block type="math_number">
@@ -113,7 +91,6 @@
         </value>
       </block>
       <block type="stop_motor_controller"></block>
-      <!-- <block type="declare_drivetrain"></block> -->
       <block type="move_drivetrain">
         <value name="MOVE">
           <block type="math_number">
@@ -131,26 +108,14 @@
     </category>
 
     <category name="Pneumatics">
-      <!-- <category name="Compressor"> -->
-        <!-- <block type="declare_compressor"></block> -->
-        <!-- <block type="compressor_start"></block> -->
-      <!-- </category> -->
-      <!-- <category name="Solenoid (Valve)"> -->
-        <!-- <block type="declare_solenoid_single"></block> -->
-        <block type="set_solenoid_single">
-          <value name="VALUE">
-            <block type="logic_boolean" id="16" x="245" y="191">
-              <field name="BOOL">TRUE</field>
-            </block>
-          </value>
-        </block>
-      <!-- </category> -->
-      <!-- <category name="Double Solenoid (Valve)"> -->
-        <!-- <block type="declare_solenoid_double"></block> -->
-        <block type="double_solenoid_set"></block>
-      <!-- </category> -->
-
-
+      <block type="set_solenoid_single">
+        <value name="VALUE">
+          <block type="logic_boolean" id="16" x="245" y="191">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+      </block>
+      <block type="double_solenoid_set"></block>
     </category>
 
     <category name="Logic">
@@ -159,7 +124,6 @@
       <block type="logic_operation"></block>
       <block type="logic_negate"></block>
       <block type="logic_boolean"></block>
-<!--       <block type="logic_null"></block> -->
       <block type="logic_ternary"></block>
     </category>
 
@@ -189,27 +153,14 @@
           </block>
         </value>
       </block>
-<!--       <block type="controls_flow_statements"></block>  LSL does not have a break or continue -->
-      <!-- <block type="controls_forEach"></block> -->
-      <!-- <block type="controls_repeat"></block> -->
     </category>
 
     <category name="Math">
       <block type="math_number"></block>
       <block type="math_arithmetic"></block>
-      <!-- <block type="math_single"></block> -->
-      <!-- <block type="math_constant"></block> -->
-
-        <block type="math_number_property"></block>
-<!--         <block type="math_change"></block> -->
-        <block type="math_round"></block>
-<!--         <block type="math_trig"></block> -->
-<!--         <block type="math_on_list"></block> -->
-        <block type="math_modulo"></block>
-<!--         <block type="math_constrain"></block>
-        <block type="math_random_int"></block>
-        <block type="math_random_float"></block> -->
-
+      <block type="math_number_property"></block>
+      <block type="math_round"></block>
+      <block type="math_modulo"></block>
     </category>
 
     <category name="Text">
@@ -222,13 +173,11 @@
       <block type="text_join"></block>
     </category>
 
-
     <category name="Timing">
       <block type="us_counter"></block>
     </category>
 
     <category name="Variables" custom="VARIABLE"></category>
-
 
   </xml>
 
