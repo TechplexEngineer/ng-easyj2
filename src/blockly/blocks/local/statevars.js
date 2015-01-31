@@ -8,7 +8,6 @@ Blockly.Blocks['state_vars'] = {
     this.appendStatementInput("STATE")
     		.setCheck("declare");
     this.setDeletable(false);
-    console.log("Init");
   }
 };
 

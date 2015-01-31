@@ -369,10 +369,10 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
     return $localStorage.curStep || 1;
   };
 
-	if ($routeParams.step > this.getCurStep()) {
-		$window.location.href = '/#/wizard/'+this.getCurStep();
-		return;
-	}
+	// if ($routeParams.step > this.getCurStep()) {
+	// 	$window.location.href = '/#/wizard/'+this.getCurStep();
+	// 	return;
+	// }
 
   this.step = pad($routeParams.step,2); //this is used to determine what template to load
 
@@ -426,7 +426,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		Blockly.mainWorkspace.clear();
 		//Load the starting blocks
 		var startingBlocks = document.getElementById('startingblocks');
-		console.log(startingBlocks);
+
 		if (startingblocks.innerHTML !== "") //if there are blocks
 		{
 			var xml = startingBlocks; //Blockly.Xml.textToDom(startingBlocks);
