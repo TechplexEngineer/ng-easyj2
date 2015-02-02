@@ -1,99 +1,99 @@
 <div class="row" ng-controller="Wiz8Ctrl as step">
-  <form name="asgn" novalidate class="col-lg-6">
-    <h1>Acutator &amp; Sensor Assiginment</h1>
-    <ol>
-      <li>
-        <p>Subsystem configuration</p>
-        <p>In this step we will assign each actuator and sensor to the subsystem which will be responsible for it.</p>
+	<form name="asgn" novalidate class="col-lg-6">
+		<h1>Acutator &amp; Sensor Assiginment</h1>
+		<ol>
+			<li>
+				<p>Subsystem configuration</p>
+				<p>In this step we will assign each actuator and sensor to the subsystem which will be responsible for it.</p>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Actuator Name</th>
-              <th>Actuator Type</th>
-              <th>Assigined Subsystem</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in Robot.data.controllers" ng-if="Robot.data.hasOtherMotors == 'yes'">
-              <td>Controller: {{item.name}}</td>
-              <td>{{Robot.controller.toPretty(item.type)}}</td>
-              <td>
-                <select ng-model="item.subsystem" required class="form-control form-control-inline" >
-                  <option value="">Choose a Subsystem</option>
-                  <option
-                    value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.getSubsystems()"
-                    ng-selected="{{subsys.name === item.subsystem}}">
-                  {{subsys.name}}</option>
-                </select>
-              </td>
-            </tr>
-            <tr ng-repeat="item in Robot.data.sensors.analog" ng-if="Robot.data.hasAIN == 'yes'">
-              <td>Analog: {{item.name}}</td>
-              <td>{{item.type}}</td>
-              <td>
-                <select ng-model="item.subsystem" required class="form-control form-control-inline" >
-                  <option value="">Choose a Subsystem</option>
-                  <option
-                    value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.getSubsystems()"
-                    ng-selected="{{subsys.name === item.subsystem}}">
-                  {{subsys.name}}</option>
-                </select>
-              </td>
-            </tr>
-            <tr ng-repeat="item in Robot.data.sensors.digital" ng-if="Robot.data.hasDIN == 'yes'">
-              <td>Digital: {{item.name}}</td>
-              <td>{{item.type}}</td>
-              <td>
-                <select ng-model="item.subsystem" required class="form-control form-control-inline" >
-                  <option value="">Choose a Subsystem</option>
-                  <option
-                    value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.getSubsystems()"
-                    ng-selected="{{subsys.name === item.subsystem}}">
-                  {{subsys.name}}</option>
-                </select>
-              </td>
-            </tr>
-            <tr ng-repeat="item in Robot.data.solenoids" ng-if="Robot.data.hasPneumatics == 'yes'">
-              <td>Solenoid: {{item.name}}</td>
-              <td>{{item.type}}</td>
-              <td>
-                <select ng-model="item.subsystem" required class="form-control form-control-inline" >
-                  <option value="">Choose a Subsystem</option>
-                  <option
-                    value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.getSubsystems()"
-                    ng-selected="{{subsys.name === item.subsystem}}">
-                  {{subsys.name}}</option>
-                </select>
-              </td>
-            </tr>
-            <tr ng-if="Robot.data.hasDrivetrain">
-              <td>Drivetrain</td>
-              <td>{{Robot.data.drivetrain.mcType}}</td>
-              <td>
-                <select ng-model="Robot.data.drivetrain.subsystem" required class="form-control form-control-inline" >
-                  <option value="">Choose a Subsystem</option>
-                  <option
-                    value="{{subsys.name}}"
-                    ng-repeat="subsys in Robot.getSubsystems()"
-                    ng-selected="{{subsys.name === Robot.data.drivetrain.subsystem}}">
-                  {{subsys.name}}</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li ng-show="asgn.$valid">
-        <!-- Done -->
-        <a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
-      </li>
-    </ol>
-  </form>
-  <div ng-include="'app/wiz/steps/debug.html'"></div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Actuator Name</th>
+							<th>Actuator Type</th>
+							<th>Assigined Subsystem</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in Robot.data.controllers" ng-if="Robot.data.hasOtherMotors == 'yes'">
+							<td>Controller: {{item.name}}</td>
+							<td>{{Robot.controller.toPretty(item.type)}}</td>
+							<td>
+								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
+									<option value="">Choose a Subsystem</option>
+									<option
+										value="{{subsys.name}}"
+										ng-repeat="subsys in Robot.getSubsystems()"
+										ng-selected="{{subsys.name === item.subsystem}}">
+									{{subsys.name}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr ng-repeat="item in Robot.data.sensors.analog" ng-if="Robot.data.hasAIN == 'yes'">
+							<td>Analog: {{item.name}}</td>
+							<td>{{item.type}}</td>
+							<td>
+								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
+									<option value="">Choose a Subsystem</option>
+									<option
+										value="{{subsys.name}}"
+										ng-repeat="subsys in Robot.getSubsystems()"
+										ng-selected="{{subsys.name === item.subsystem}}">
+									{{subsys.name}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr ng-repeat="item in Robot.data.sensors.digital" ng-if="Robot.data.hasDIN == 'yes'">
+							<td>Digital: {{item.name}}</td>
+							<td>{{item.type}}</td>
+							<td>
+								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
+									<option value="">Choose a Subsystem</option>
+									<option
+										value="{{subsys.name}}"
+										ng-repeat="subsys in Robot.getSubsystems()"
+										ng-selected="{{subsys.name === item.subsystem}}">
+									{{subsys.name}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr ng-repeat="item in Robot.data.solenoids" ng-if="Robot.data.hasPneumatics == 'yes'">
+							<td>Solenoid: {{item.name}}</td>
+							<td>{{item.type}}</td>
+							<td>
+								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
+									<option value="">Choose a Subsystem</option>
+									<option
+										value="{{subsys.name}}"
+										ng-repeat="subsys in Robot.getSubsystems()"
+										ng-selected="{{subsys.name === item.subsystem}}">
+									{{subsys.name}}</option>
+								</select>
+							</td>
+						</tr>
+						<tr ng-if="Robot.data.hasDrivetrain == 'yes'">
+							<td>Drivetrain</td>
+							<td>{{Robot.data.drivetrain.mcType}}</td>
+							<td>
+								<select ng-model="Robot.data.drivetrain.subsystem" required class="form-control form-control-inline" >
+									<option value="">Choose a Subsystem</option>
+									<option
+										value="{{subsys.name}}"
+										ng-repeat="subsys in Robot.getSubsystems()"
+										ng-selected="{{subsys.name === Robot.data.drivetrain.subsystem}}">
+									{{subsys.name}}</option>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			<li ng-show="asgn.$valid">
+				<!-- Done -->
+				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+			</li>
+		</ol>
+	</form>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>
 
