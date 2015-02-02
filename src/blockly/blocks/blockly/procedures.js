@@ -28,6 +28,17 @@ goog.provide('Blockly.Blocks.procedures');
 
 goog.require('Blockly.Blocks');
 
+//@temporary
+Blockly.zr_cpp = {};
+
+Blockly.zr_cpp.C_VARIABLE_TYPES =
+	[['float', 'float'],
+	 ['int', 'int'],
+	 ['unsigned int', 'unsigned int'],
+	 ['short', 'short'],
+	 ['unsigned short', 'unsigned short'],
+	 ['bool', 'bool']];
+
 
 Blockly.Blocks.procedures.HUE = 290;
 
@@ -103,6 +114,8 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		// 	paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS +
 		// 			' ' + this.arguments_.join(', ');
 		// }
+		console.log(this);
+		console.log("here", this.getArgString(false));
 		this.setFieldValue(this.getArgString(false), 'PARAMS');
 	},
 
@@ -158,8 +171,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 	 * @this Blockly.Block
 	 */
 	decompose: function(workspace) {
-		var containerBlock = Blockly.Block.obtain(workspace,
-																							'procedures_mutatorcontainer');
+		var containerBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorcontainer');
 		containerBlock.initSvg();
 
 		// Check/uncheck the allow statement box.
@@ -183,8 +195,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 			connection = paramBlock.nextConnection;
 		}
 		// Initialize procedure's callers with blank IDs.
-		Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
-																		 this.workspace, this.getArgList(), null);
+		Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.workspace, this.getArgList(), null);
 		return containerBlock;
 	},
 
@@ -404,9 +415,7 @@ Blockly.Blocks['procedures_defreturn'] = {
 		var name = Blockly.Procedures.findLegalName(
 				Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
 		this.appendDummyInput()
-				.appendField(Blockly.Msg.PROCEDURES_DEFRETURN_TITLE)
-				.appendField(new Blockly.FieldTextInput(name,
-				Blockly.Procedures.rename), 'NAME')
+				.appendField('myFunction', 'NAME')
 				.appendField('', 'PARAMS');
 		this.appendValueInput('RETURN')
 				.setAlign(Blockly.ALIGN_RIGHT)
@@ -439,6 +448,10 @@ Blockly.Blocks['procedures_defreturn'] = {
 	getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
 	renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
 	customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
+	getArgString: Blockly.Blocks['procedures_defnoreturn'].getArgString,
+	getArgList: Blockly.Blocks['procedures_defnoreturn'].getArgList,
+	onchange: Blockly.Blocks['procedures_defnoreturn'].onchange,
+	beforedispose: Blockly.Blocks['procedures_defnoreturn'].beforedispose,
 	callType_: 'procedures_callreturn'
 };
 
@@ -450,11 +463,14 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
 	init: function() {
 		this.setColour(Blockly.Blocks.procedures.HUE);
 		this.appendDummyInput()
-				.appendField(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
+				.appendField('inputs to method:');
 		this.appendStatementInput('STACK');
-		this.appendDummyInput('STATEMENT_INPUT')
+		this.appendDummyInput('STATEMENT_INPUT') //I think I'd like to hide this.
 				.appendField(Blockly.Msg.PROCEDURES_ALLOW_STATEMENTS)
 				.appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
+		this.appendDummyInput('RETURN_INPUT')
+				.appendField('has return value')
+				.appendField(new Blockly.FieldCheckbox('TRUE'), 'RETURN');
 		this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
 		this.contextMenu = false;
 	}
@@ -468,7 +484,10 @@ Blockly.Blocks['procedures_mutatorarg'] = {
 	init: function() {
 		this.setColour(Blockly.Blocks.procedures.HUE);
 		this.appendDummyInput()
-				.appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
+				.appendField('input')
+				.appendField('type:')
+				.appendField(new Blockly.FieldDropdown(Blockly.zr_cpp.C_VARIABLE_TYPES), 'TYPE')
+				.appendField('name:')
 				.appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
 		this.setPreviousStatement(true);
 		this.setNextStatement(true);
