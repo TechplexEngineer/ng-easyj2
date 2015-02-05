@@ -4,7 +4,7 @@ var app = angular.module('easyj.wiz', [
   'ngResource',
   'ngRoute',
   'ngStorage',
-  ])
+  ]);
 
 app.config(function ($routeProvider) {
   $routeProvider
@@ -58,7 +58,7 @@ app.factory('Robot', function($localStorage){
     // This really should be conditional based on the users earlier selected pref
     subsystems:[{name:'Drivetrain',actions:['drive','turn','drive with hid'], disabled:false}],
 
-    commands:[{name: "ArcadeDrive",requires: ["Drivetrain"],type: "cmd"}],
+    commands:[{name: 'ArcadeDrive',requires: ['Drivetrain'],type: 'cmd'}],
   };
 
   // //the data about the user's robot stored here
@@ -482,7 +482,11 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	  // act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace); //@todo
 	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
 	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
-	  act.isDone = true; //@todo need a better way to determine if their code is "done"
+	  if ( !act.isDone && Blockly.mainWorkspace.getAllBlocks().length > 2 ) {
+	  	$scope.$apply(function () {
+        act.isDone = true; //@todo need a better way to determine if their code is "done"
+      });
+	  }
 
 	}
 	Blockly.addChangeListener(onchange);
