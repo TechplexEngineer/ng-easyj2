@@ -111,7 +111,6 @@ app.factory('Robot', function($localStorage){
   	for (var i = 0; i < Robot.data.subsystems.length; i++) {
   		var act = Robot.data.subsystems[i].actions;
   		for (var j = 0; j < act.length; j++) {
-  			console.log(act[j]);
   			delete act[j].code;
   			delete act[j].xmlcode;
   			delete act[j].isDone;
@@ -422,18 +421,20 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
         });
 
   Blockly.mainWorkspace.reset = function() {
-		// Remove all blocks
-		Blockly.mainWorkspace.clear();
-		//Load the starting blocks
-		var startingBlocks = document.getElementById('startingblocks');
+  	$timeout(function() { //this wits for the {{step.currentAction}} to be injected before reloading blocks
+			// Remove all blocks
+			Blockly.mainWorkspace.clear();
+			//Load the starting blocks
+			var startingBlocks = document.getElementById('startingblocks');
 
-		if (startingblocks.innerHTML !== "") //if there are blocks
-		{
-			var xml = startingBlocks; //Blockly.Xml.textToDom(startingBlocks);
-			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-		} else {
-			console.error("No starting blocks to load");
-		}
+			if (startingblocks.innerHTML !== "") //if there are blocks
+			{
+				var xml = startingBlocks; //Blockly.Xml.textToDom(startingBlocks);
+				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+			} else {
+				console.error("No starting blocks to load");
+			}
+		}, 0);
 	};
 	// $timeout(function() {
 	// 	Blockly.mainWorkspace.reset();
@@ -451,13 +452,14 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
-			Blockly.mainWorkspace.reset();
 			if (act.xmlcode) {
 				var dom = Blockly.Xml.textToDom(act.xmlcode);
 				if (dom.innerHTML !== "") {
 					Blockly.mainWorkspace.clear();
 					Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
 				}
+			} else {
+				Blockly.mainWorkspace.reset();
 			}
 		// 	//Reload the Blockly toolbox to account for changes in blocks
 		// 	$timeout(function() {
@@ -472,24 +474,35 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	step.currentSubsysChange = function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
 	};
-	/**
-	 * When the workspace changes, save the user's code.
-	 */
-	function onchange() {
+	step.persistCode = function() {
+
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
+
+		//Blockly.extensions.blockTypeToDom('state_Vars')
 
 	  // var act = Robot.getActions(step.currentSubsystem)[step.currentAction];
 	  // act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace); //@todo
 	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
 	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
 	  act.isDone = true; //@todo need a better way to determine if their code is "done"
+	  console.log(act);
 
+	};
+	step.showNextButton = function() {
+		return _.every(_.pluck(Robot.getActions(step.currentSubsystem), 'isDone'));
+	};
+	/**
+	 * When the workspace changes:
+	 */
+	function onchange() {
+		step.persistCode();
+		console.log("changed");
 	}
-	Blockly.addChangeListener(onchange);
 
 	// After the page is finished rendering, loadup blockly blocks
 	$timeout(function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
+		Blockly.addChangeListener(onchange);
 	}, 0);
 
 
