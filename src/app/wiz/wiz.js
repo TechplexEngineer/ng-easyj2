@@ -369,10 +369,11 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
     return $localStorage.curStep || 1;
   };
 
-	// if ($routeParams.step > this.getCurStep()) {
-	// 	$window.location.href = '/#/wizard/'+this.getCurStep();
-	// 	return;
-	// }
+  //Make sure that you can't get to a step that isn't complete.
+	if ($routeParams.step > this.getCurStep()) {
+		$window.location.href = '/#/wizard/'+this.getCurStep();
+		return;
+	}
 
   this.step = pad($routeParams.step,2); //this is used to determine what template to load
 
