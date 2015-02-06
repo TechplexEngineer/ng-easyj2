@@ -47,10 +47,10 @@ app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
       desc: 'Command Code',
     },{
       name: '',
-      desc: 'Autonomous',
+      desc: 'Operator Interface (OI)',
     },{
       name: '',
-      desc: 'Operator Interface (OI)',
+      desc: 'Autonomous',
     },
   ];
 

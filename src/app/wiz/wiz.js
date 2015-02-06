@@ -395,10 +395,10 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
   };
 
   //Make sure that you can't get to a step that isn't complete.
-	if ($routeParams.step > this.getCurStep()) {
-		$window.location.href = '/#/wizard/'+this.getCurStep();
-		return;
-	}
+	// if ($routeParams.step > this.getCurStep()) {
+	// 	$window.location.href = '/#/wizard/'+this.getCurStep();
+	// 	return;
+	// }
 
   this.step = pad($routeParams.step,2); //this is used to determine what template to load
 
@@ -588,4 +588,7 @@ app.controller('Wiz11Ctrl', function ($scope) {
 });
 app.controller('Wiz12Ctrl', function ($scope) {
   this.num = 12;
+});
+app.controller('Wiz12Ctrl', function ($scope) {
+  this.num = 13;
 });
