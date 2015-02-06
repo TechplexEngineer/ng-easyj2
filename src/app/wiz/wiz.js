@@ -473,9 +473,51 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		// 	}, 0);
 		}
 	};
+	step.nextAction = function() {
+		var index = _.indexOf(_.pluck(Robot.getActions(step.currentSubsystem), 'text'), step.currentAction);
+		if (index+1 >= Robot.getActions(step.currentSubsystem).length ) {
+			console.error("Unable to go to next action, because there are no more actions!");
+		} else {
+			step.setActiveAction(Robot.getActions(step.currentSubsystem)[index+1].text);
+		}
+	};
+	step.isActionComplete = function() {
+		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
+		return act['isDone'];
+	};
+
+	//true when every action in the current susbsystem is true.
+	step.isSubsystemComplete = function(subsys) {
+		if (typeof subsys === 'undefined') {
+			subsys = step.currentSubsystem;
+		}
+		return _.every(_.pluck(Robot.getActions(subsys), 'isDone'));
+	};
+	step.nextSubsystem = function() {
+
+		var index = _.indexOf(_.pluck(Robot.getSubsystems(), 'name'), step.currentSubsystem);
+		if (index+1 >= Robot.getSubsystems().length ) {
+			console.error("Unable to go to next subsystem, because there are no more subsystems!");
+		} else {
+			step.currentSubsystem = Robot.getSubsystems()[index+1].name
+			var action = Robot.getSubsystems()[index+1].actions[0].text;
+			step.setActiveAction(action);
+		}
+	};
+	step.isStepComplete = function() {
+		//
+		var done = _.map(Robot.getSubsystems(), function(subsys) {
+			return step.isSubsystemComplete(subsys)
+		});
+		return _.every(done);
+	};
+
+	//used for the current subsystem dropdown
 	step.currentSubsysChange = function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
 	};
+
+	//save the users code and blocks
 	step.persistCode = function() {
 
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
@@ -494,9 +536,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	  }
 
 	};
-	step.showNextButton = function() {
-		return _.every(_.pluck(Robot.getActions(step.currentSubsystem), 'isDone'));
-	};
+
 	/**
 	 * When the workspace changes:
 	 */
