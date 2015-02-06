@@ -4,6 +4,8 @@ var app = angular.module('easyj.wiz', [
   'ngResource',
   'ngRoute',
   'ngStorage',
+  'angular-tour',
+  'mgcrea.ngStrap'
   ]);
 
 app.config(function ($routeProvider) {
@@ -342,6 +344,29 @@ app.factory('Robot', function($localStorage){
       return el !== item;
     });
   };
+  // Commands ------------------------------------------------------------------
+
+	Robot.addCommand = function() {
+		if (!_.isArray(Robot.data.commands)) {
+			Robot.data.commands = [];
+		}
+		Robot.data.commands.push(_.clone(EMPTY_CMD));
+	};
+	Robot.removeCommand = function(item) {
+		Robot.data.commands = Robot.data.commands.filter(function(el){
+			return el !== item;
+		});
+	};
+	Robot.addRequires = function(cmd) {
+		if (cmd.requires.length < Robot.data.subsystems.length
+			&& _.indexOf(cmd.requires, "") == -1 ) {//not in list
+			cmd.requires.push("ted");
+			console.log("here");
+		} else {
+			console.error("Can't add requires.");
+		}
+
+	};
 
   return Robot;
 });
@@ -414,7 +439,10 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
   step.num = 9;
   step.currentSubsystem = Robot.getSubsystems()[0].name;
   step.currentAction = Robot.getSubsystems()[0].actions[0].text;
-
+  if (_.isNull(document.getElementById('blocklyDiv'))) {
+  	console.error("It seems the blocklyDiv is missing.");
+  	return;
+  }
   Blockly.inject(document.getElementById('blocklyDiv'),
         {
         	path:'/blockly/',
