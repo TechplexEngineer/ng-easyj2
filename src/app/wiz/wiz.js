@@ -30,6 +30,7 @@ app.factory('Robot', function($localStorage){
   var EMPTY_DIO = _.clone(EMPTY_SOL);
   var EMPTY_SUB = {name:'', actions:[], disabled:false};
   var EMPTY_CMD = {name:'', requires:[]};
+  //@note: when cloning EMPTY_* make sure to use cloneDeep when an array is involved
 
   var Robot ={};
 
@@ -133,7 +134,7 @@ app.factory('Robot', function($localStorage){
   Robot.getInitialSubsystems = function() {
   	var subsys = Robot.getSubsystems();
   	if (subsys.length == 0) {
-  		Robot.data.subsystems.push(_.clone(EMPTY_SUB));
+  		Robot.data.subsystems.push(_.cloneDeep(EMPTY_SUB));
   	}
   	return Robot.getSubsystems();
   };
@@ -333,7 +334,7 @@ app.factory('Robot', function($localStorage){
   };
    // Subsystems ---------------------------------------------------------------
   Robot.addSubsystem = function() {
-    Robot.data.subsystems.push(_.clone(EMPTY_SUB));
+    Robot.data.subsystems.push(_.cloneDeep(EMPTY_SUB));
 
   };
   Robot.removeSubsystem = function(item) {
