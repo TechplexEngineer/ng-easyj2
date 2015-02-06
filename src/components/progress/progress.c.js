@@ -48,6 +48,9 @@ app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
     },{
       name: '',
       desc: 'Autonomous',
+    },{
+      name: '',
+      desc: 'Operator Interface (OI)',
     },
   ];
 
