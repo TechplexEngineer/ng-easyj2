@@ -542,7 +542,6 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 	 */
 	function onchange() {
 		step.persistCode();
-		console.log("changed");
 	}
 
 	// After the page is finished rendering, loadup blockly blocks

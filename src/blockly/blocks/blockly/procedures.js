@@ -114,8 +114,6 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		// 	paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS +
 		// 			' ' + this.arguments_.join(', ');
 		// }
-		console.log(this);
-		console.log("here", this.getArgString(false));
 		this.setFieldValue(this.getArgString(false), 'PARAMS');
 	},
 

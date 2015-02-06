@@ -128,7 +128,6 @@ EasyJ.Checker.PickWarning = function(block, warnings) {
 };
 
 EasyJ.Checker.EnsureVariablesExist = function(block) {
-	console.log('here');
   var blkvars = Blockly.Java.getTypedVarsFromBlock(block, false);
   for (var i=0; i<blkvars.length; i++) {
     var vartype = blkvars[i].vartype;
