@@ -66,11 +66,45 @@
 	</xml>
 
   <xml id="toolbox" style="display: none">
+
+  	<category name="Logic">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_ternary"></block>
+    </category>
+
+    <category name="Math">
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_number_property"></block>
+      <block type="math_round"></block>
+      <block type="math_modulo"></block>
+    </category>
+
+    <category name="Text">
+      <block type="text"></block>
+      <block type="text_print">
+        <value name="TEXT">
+          <block type="text"></block>
+        </value>
+      </block>
+      <block type="text_join"></block>
+    </category>
+
+		<category name="Variables" custom="VARIABLE"></category>
+
+    <sep></sep>
+
     <category name="Input &amp; Sensors">
       <block type="get_gyro"></block>
       <block type="gyro_reset"></block>
       <block type="get_digital_input_value"></block>
       <block type="get_analog_input_value"></block>
+      <block type="get_joystick_axis"></block>
+      <block type="get_joystick_button"></block>
     </category>
 
     <category name="Outputs">
@@ -121,16 +155,9 @@
       <block type="double_solenoid_set"></block>
     </category>
 
-    <category name="Logic">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_ternary"></block>
-    </category>
 
-    <category name="Loops">
+
+    <!-- <category name="Loops">
       <block type="controls_repeat_ext">
         <value name="TIMES">
           <block type="math_number">
@@ -156,31 +183,13 @@
           </block>
         </value>
       </block>
-    </category>
-
-    <category name="Math">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_number_property"></block>
-      <block type="math_round"></block>
-      <block type="math_modulo"></block>
-    </category>
-
-    <category name="Text">
-      <block type="text"></block>
-      <block type="text_print">
-        <value name="TEXT">
-          <block type="text"></block>
-        </value>
-      </block>
-      <block type="text_join"></block>
-    </category>
+    </category> -->
 
     <category name="Timing">
       <block type="us_counter"></block>
     </category>
 
-    <category name="Variables" custom="VARIABLE"></category>
+
 
   </xml>
 
