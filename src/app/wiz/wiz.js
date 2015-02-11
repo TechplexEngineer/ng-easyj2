@@ -113,6 +113,7 @@ app.factory('Robot', function($localStorage){
   Robot.resetBlocks = function() {
   	for (var i = 0; i < Robot.data.subsystems.length; i++) {
   		var act = Robot.data.subsystems[i].actions;
+  		delete Robot.data.subsystems[i].state_vars;
   		for (var j = 0; j < act.length; j++) {
   			delete act[j].code;
   			delete act[j].xmlcode;
@@ -434,7 +435,7 @@ app.controller('Wiz7Ctrl', function ($scope) {
 app.controller('Wiz8Ctrl', function ($scope) {
   this.num = 8;
 });
-app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
+app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	var step = this;
   step.num = 9;
   step.currentSubsystem = Robot.getSubsystems()[0].name;
@@ -482,15 +483,28 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
-			if (act.xmlcode) {
-				var dom = Blockly.Xml.textToDom(act.xmlcode);
-				if (dom.innerHTML !== "") {
-					Blockly.mainWorkspace.clear();
-					Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
-				}
-			} else {
-				Blockly.mainWorkspace.reset();
+			var saved = {
+				proc: act.xmlcode,
+				vars: Robot.getSubsystem(step.currentSubsystem).state_vars
 			}
+
+			var dom = $('#startingblocks').clone();
+			//Set the procedure name properly even if the html hasn't finished rendering
+			$('block[type="procedures_defreturn"] mutation', dom).attr('procname', step.currentAction);
+
+
+			if (saved.vars) {
+				$('block[type="state_vars"]',dom).html($('block[type="state_vars"]',saved.vars).html())
+			}
+			if (saved.proc) {
+				$('block[type="procedures_defreturn"]',dom).html($('block[type="procedures_defreturn"]',saved.proc).html())
+			}
+
+			dom = dom.get(0); //get the raw dom element from the jquery element
+			Blockly.mainWorkspace.clear();
+			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+
+
 		// 	//Reload the Blockly toolbox to account for changes in blocks
 		// 	$timeout(function() {
 		// 		if(Blockly.Toolbox.HtmlDiv) {
@@ -509,17 +523,29 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 			step.setActiveAction(Robot.getActions(step.currentSubsystem)[index+1].text);
 		}
 	};
-	step.isActionComplete = function() {
-		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
-		return act['isDone'];
+	step.isActionComplete = function(action, subsys) {
+		if (_.isUndefined(action)) {
+			action = step.currentAction;
+		}
+		if (_.isUndefined(subsys)) {
+			subsys = step.currentSubsystem;
+		}
+		var act = _.find(Robot.getActions(subsys), {'text':action});
+		return (!_.isUndefined(act['isDone']) && act['isDone']);
 	};
 
 	//true when every action in the current susbsystem is true.
 	step.isSubsystemComplete = function(subsys) {
-		if (typeof subsys === 'undefined') {
+		if (_.isUndefined(subsys)) {
 			subsys = step.currentSubsystem;
 		}
-		return _.every(_.pluck(Robot.getActions(subsys), 'isDone'));
+		if (_.isObject(subsys)) {
+			subsys = subsys.name;
+		}
+		var a = _.map(Robot.getActions(subsys), function(el) {
+			return step.isActionComplete(el.text, subsys);
+		});
+		return _.every(a);
 	};
 	step.nextSubsystem = function() {
 
@@ -550,20 +576,28 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout) {
 
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
-		//Blockly.extensions.blockTypeToDom('state_Vars')
 
-	  // var act = Robot.getActions(step.currentSubsystem)[step.currentAction];
-	  // act.code = Blockly.Java.workspaceToCode(Blockly.mainWorkspace); //@todo
-	  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-	  act.xmlcode = Blockly.Xml.domToPrettyText(xmlDom);
+	  var state_vars = Blockly.extensions.blockTypeToDom('state_vars');
+	  state_vars = Blockly.Xml.domToPrettyText(state_vars);
+		Robot.getSubsystem(step.currentSubsystem).state_vars = state_vars;
+
+		var proc = Blockly.extensions.blockTypeToDom('procedures_defreturn');
+	  proc = Blockly.Xml.domToPrettyText(proc);
+		act.xmlcode = proc;
 
 	  if ( !act.isDone && Blockly.mainWorkspace.getAllBlocks().length > 2 ) {
 	  	$scope.$apply(function () {
         act.isDone = true; //@todo need a better way to determine if their code is "done"
       });
 	  }
-
 	};
+	//Save the user's code if they refresh the page.
+	// Sometimes mutator changes were not being saved
+	//$window.onunload =
+	$window.onbeforeunload = function() {
+		// console.log("Here", Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)));
+		//@todo For some reason mutations are not saved if executed just before a refresh
+	}
 
 	/**
 	 * When the workspace changes:
