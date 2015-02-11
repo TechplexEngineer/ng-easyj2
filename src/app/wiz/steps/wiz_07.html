@@ -3,25 +3,31 @@
 		<h1>Subsystems</h1>
     <ol>
 			<li>
-				<p>Subsystem configuration</p>
-				<p>You may create as many subsystems as makes sense. A subsystem should be a distinct part of the robot that performs a particular subset of actions. To begin thinking about what the subsystems are on your robot keep these in mind:
+				<p>To begin thinking about what the subsystems are on your robot keep these in mind:</p>
 				<ul>
 					<li>The robot is the system.</li>
 					<li>A subsystem cannot be nested in another subsystem.</li>
           <li>A subsystem can only do one action at a time. This means that only one command can control a subsystem at a time.</li>
-          <li>To have two things happening at the same time, they must be in separate subsystems.</li>
+          <li>To have 2 things happening at the same time, they must be in separate subsystems.</li>
+          <li>You may create as many subsystems as makes sense.</li>
+          <li>A subsystem should be a distinct part of the robot that performs a particular subset of actions.</li>
+          <li>A subsystem is a way of grouping the components(sensors, actuators, actions and state) to make coding easier.</li>
 				</ul>
-				</p>
+
+
+				<div class="hidden">
 				<p>
           A subsystem is a way of grouping the components(sensors, actuators, actions and state) to make coding easier.
-				<ul>
-					<li><strong>Sensors:</strong> buttons, switches, potentiometers, encoders, etc.</li>
-					<li><strong>Actuators:</strong> motors &amp; solenoids</li>
-					<li><strong>Actions:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
-					<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors. ex: the position of an arm. </li>
-				</ul>
+					<ul>
+						<li><strong>Sensors:</strong> buttons, switches, potentiometers, encoders, etc.</li>
+						<li><strong>Actuators:</strong> motors &amp; solenoids</li>
+						<li><strong>Actions:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
+						<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors. ex: the position of an arm. </li>
+					</ul>
 				</p>
-				<p>Some examples of good subsystems:</p>
+				</div>
+
+				<p>Some examples of good subsystems: (Note: We will assigin components in the next step.)</p>
         <table class="table">
           <thead>
             <tr>
@@ -39,7 +45,7 @@
             <tr>
               <td>Arm</td>
               <td>up, down, rollerOn, rollerOff, rollerReverse</td>
-              <td>victor roller, Solenoid deploy</td>
+              <td>Victor roller, Solenoid deploy</td>
             </tr>
             <tr>
               <td>Kicker</td>

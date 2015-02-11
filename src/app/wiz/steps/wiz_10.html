@@ -3,11 +3,17 @@
     <h1>Commands</h1>
 		<ol>
 			<li>
-				<button ng-click="Robot.addCommand()" class="btn btn-success pull-right">Add</button>
-				<p>Command Configuration</p>
-				<p>A command is a single action performed by the robot. Commands usually require at least one subsystem which they act with. After being started, a command runs for a period of time until either it is finished performing its task or it is interrupted. Interruptions can occur either when a command is canceled or when another command that requires the same subsystem is run.</p>
-				<p>What does it mean for a command to require a subsystem?</p>
+				<p>To begin thinking about what the commands are needed keep these in mind:</p>
+				<ul>
+					<li>A command is a single action performed by the robot.</li>
+					<li>Commands usually require at least one subsystem which they act with.</li>
+					<li>After being started, a command runs for a period of time until either it is finished performing its task or it is interrupted.</li>
+					<li>Interruptions can occur either when a command is canceled or when another command that requires the same subsystem is run.</li>
+				</ul>
+				<p></p>
+				<p><strong>What does it mean for a command to require a subsystem?</strong></p>
 				<p>When a command requires a subsystem, it claims exclusive control over that subsystem and will interrupt any other command that requires the same subsystem. This only works if all your commands properly require the subsystems that they use. </p>
+				<button ng-click="Robot.addCommand()" class="btn btn-success pull-right">Add</button>
 				<table class="table">
 					<thead>
 						<th>Name</th>
@@ -44,6 +50,7 @@
 						</tr>
 					</tbody>
 				</table>
+				<button ng-click="Robot.addCommand()" class="btn btn-success pull-right">Add</button>
 			</li>
 			<li ng-show="commands.$valid">
 				<!-- Done -->
