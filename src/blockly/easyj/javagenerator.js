@@ -101,15 +101,17 @@ Blockly.Variables.allVariablesOfType = function(type) {
 	var blocks;
 
 	var controllers = localStorage.getItem('ngStorage-controllers');
-	var hasDrivetrain = (localStorage.getItem('ngStorage-hasDrivetrain') == "yes");
+	var hasDrivetrain = localStorage.getItem('ngStorage-hasDrivetrain');
 	var solenoids = localStorage.getItem('ngStorage-solenoids');
 	var sensors = localStorage.getItem('ngStorage-sensors');
 
 	controllers = JSON.parse(controllers); //@todo try catch
+	hasDrivetrain = JSON.parse(hasDrivetrain);
 	solenoids = JSON.parse(solenoids);
 	sensors = JSON.parse(sensors);
 
 	controllers = _.where(controllers, {'subsystem':$('#currentSubsystem').val()});
+	hasDrivetrain = (hasDrivetrain == "yes");
 	solenoids = _.where(solenoids, {'subsystem':$('#currentSubsystem').val()});
 	sensors.analog = _.where(sensors.analog, {'subsystem':$('#currentSubsystem').val()});
 	sensors.digital = _.where(sensors.digital, {'subsystem':$('#currentSubsystem').val()});
@@ -122,7 +124,7 @@ Blockly.Variables.allVariablesOfType = function(type) {
 		'Gyro': _.pluck(_.where(sensors.analog, {type:'gyro'}), 'name'),
 		'Joystick': [],
 		'MotorController': _.pluck(controllers, 'name'),
-		'RobotDrive': (hasDrivetrain)?['Drivetrain']:[],
+		'RobotDrive': (hasDrivetrain && $('#currentSubsystem').val() == 'Drivetrain')?['Drivetrain']:[],
 		'Relay': [],
 		'DoubleSolenoid': _.pluck(_.where(solenoids, {"type":"double"}), 'name'),
 		'Solenoid': _.pluck(_.where(solenoids, {"type":"single"}), 'name'),
@@ -153,7 +155,11 @@ Blockly.Variables.allVariablesOfType = function(type) {
 		}
 	}
 	// console.log(type, variableHash[type]);
-	return variableHash[type] || [];
+	if (typeof type === "undefined") {
+		return variableHash;
+	} else {
+		return variableHash[type] || [];
+	}
 };
 
 /**
@@ -211,7 +217,6 @@ $(document).on("blocklyLoaded", function() {
  */
 // Blockly.Flyout.prototype.filterForCapacity_
 var ted = function() {
-	console.log("here blake");
 	var remainingCapacity = this.targetWorkspace_.remainingCapacity();
 	var blocks = this.workspace_.getTopBlocks(false); //Blocks in this flyout menu (workspace_ is the flyout)
 	// console.log("Blocks in this flyout menu:", blocks);
@@ -342,33 +347,33 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
 	// gaps.push(margin, margin * 3);
 	variableList.sort(goog.string.caseInsensitiveCompare);
 	a('boolean');
-//   console.log(Blockly.Blocks['variables_get_int']);
-// var type = 'int';
-//   var defaultVariable = undefined;
-//   for (var i = 0; i < variableList.length; i++) {
-//     if (variableList[i] === defaultVariable) {
-//       continue;
-//     }
-//     var getBlock = Blockly.Blocks['variables_get'+'_'+type] ?
-//         Blockly.Block.obtain(workspace, 'variables_get'+'_'+type) : null;
-//     getBlock && getBlock.initSvg();
-//     var setBlock = Blockly.Blocks['variables_set'+'_'+type] ?
-//         Blockly.Block.obtain(workspace, 'variables_set'+'_'+type) : null;
-//     setBlock && setBlock.initSvg();
-//     if (variableList[i] === null) {
-//       defaultVariable = (getBlock || setBlock).getVars()[0];
-//     } else {
-//       getBlock && getBlock.setFieldValue(variableList[i], 'NAME');
-//       setBlock && setBlock.setFieldValue(variableList[i], 'NAME');
-//     }
-//     setBlock && blocks.push(setBlock);
-//     getBlock && blocks.push(getBlock);
-//     if (getBlock && setBlock) {
-//       gaps.push(margin, margin * 3);
-//     } else {
-//       gaps.push(margin * 2);
-//     }
-//   }
+	//   console.log(Blockly.Blocks['variables_get_int']);
+	// var type = 'int';
+	//   var defaultVariable = undefined;
+	//   for (var i = 0; i < variableList.length; i++) {
+	//     if (variableList[i] === defaultVariable) {
+	//       continue;
+	//     }
+	//     var getBlock = Blockly.Blocks['variables_get'+'_'+type] ?
+	//         Blockly.Block.obtain(workspace, 'variables_get'+'_'+type) : null;
+	//     getBlock && getBlock.initSvg();
+	//     var setBlock = Blockly.Blocks['variables_set'+'_'+type] ?
+	//         Blockly.Block.obtain(workspace, 'variables_set'+'_'+type) : null;
+	//     setBlock && setBlock.initSvg();
+	//     if (variableList[i] === null) {
+	//       defaultVariable = (getBlock || setBlock).getVars()[0];
+	//     } else {
+	//       getBlock && getBlock.setFieldValue(variableList[i], 'NAME');
+	//       setBlock && setBlock.setFieldValue(variableList[i], 'NAME');
+	//     }
+	//     setBlock && blocks.push(setBlock);
+	//     getBlock && blocks.push(getBlock);
+	//     if (getBlock && setBlock) {
+	//       gaps.push(margin, margin * 3);
+	//     } else {
+	//       gaps.push(margin * 2);
+	//     }
+	//   }
 
 
 	// var declareBlock_double = Blockly.Blocks['variables_declare_double'] ?
@@ -410,7 +415,48 @@ Blockly.extensions.blockTypeToDom = function(block_type) {
 	return xml;
 };
 
-
+/**
+ * Find all user-created variables.
+ * @param {!Blockly.Block|!Blockly.Workspace} root Root block or workspace.
+ * @return {!Array.<string>} Array of variable names.
+ */
+Blockly.Variables.allVariables = function(root) {
+  var blocks;
+  if (root.getDescendants) {
+    // Root is Block.
+    blocks = root.getDescendants();
+  } else if (root.getAllBlocks) {
+    // Root is Workspace.
+    blocks = root.getAllBlocks();
+  } else {
+    throw 'Not Block or Workspace: ' + root;
+  }
+  var variableHash = Object.create(null);
+  // Iterate through every block and add each variable to the hash.
+  for (var x = 0; x < blocks.length; x++) {
+    var func = blocks[x].getVars;
+    if (func) {
+      var blockVariables = func.call(blocks[x]);
+      for (var y = 0; y < blockVariables.length; y++) {
+        var varName = blockVariables[y];
+        // Variable name may be null if the block is only half-built.
+        if (varName) {
+        	if (typeof varname === "string") {
+          	variableHash[varName.toLowerCase()] = varName;
+          } else {
+          	variableHash[varName.name.toLowerCase()] = varName;
+          }
+        }
+      }
+    }
+  }
+  // Flatten the hash into a list.
+  var variableList = [];
+  for (var name in variableHash) {
+    variableList.push(variableHash[name]);
+  }
+  return variableList;
+};
 
 
 
