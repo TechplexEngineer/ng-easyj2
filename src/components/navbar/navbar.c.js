@@ -6,6 +6,6 @@ angular.module('easyj')
     var nav = this;
 
     nav.isActive = function (viewLocation) {
-      return viewLocation == $location.path();
+      return viewLocation === $location.path();
     };
   });

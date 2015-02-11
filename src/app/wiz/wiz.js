@@ -14,7 +14,7 @@ app.config(function ($routeProvider) {
       templateUrl: 'app/wiz/wiz.html'
     })
     .when('/wizard/:step', {
-      templateUrl: function ($routeParams) {
+      templateUrl: function () {
         return 'app/wiz/steps/wiz_steps.html';
       },
       controller: 'WizCtrl',
@@ -53,7 +53,7 @@ app.factory('Robot', function($localStorage){
     solenoids: [_.clone(EMPTY_SOL)],
     hasPneumatics: undefined,
 
-    hids: [{name:'JS1',port:'',type:''}],
+    hids: [{name:'Driver',port:'0',type:''}],
     sensors:{
       analog: [_.clone(EMPTY_AIO)],
       digital: [_.clone(EMPTY_DIO)],
@@ -87,21 +87,21 @@ app.factory('Robot', function($localStorage){
       prettyName:'Victor',
     },{
       name:'talon',
-      prettyName: "Talon",
+      prettyName: 'Talon',
     },{
       name:'jaguar',
-      prettyName: "Jaguar (Not Recommended)",
+      prettyName: 'Jaguar (Not Recommended)',
     },{
       name:'talonsrx',
-      prettyName: "Talon SRX (CAN)",
+      prettyName: 'Talon SRX (CAN)',
     },{
       name:'victorsp',
-      prettyName: "Victor SP",
+      prettyName: 'Victor SP',
     }
   ];
   Robot.controller.toPretty = function(name) {
     var out =_.find(Robot.controller.choices, function (el) {
-      return el.name == name;
+      return el.name === name;
     });
     return out && out.prettyName;
   };
@@ -113,7 +113,7 @@ app.factory('Robot', function($localStorage){
   Robot.resetBlocks = function() {
   	for (var i = 0; i < Robot.data.subsystems.length; i++) {
   		var act = Robot.data.subsystems[i].actions;
-  		delete Robot.data.subsystems[i].state_vars;
+  		delete Robot.data.subsystems[i].stateVars;
   		for (var j = 0; j < act.length; j++) {
   			delete act[j].code;
   			delete act[j].xmlcode;
@@ -125,18 +125,18 @@ app.factory('Robot', function($localStorage){
 
   Robot.getSubsystems = function() {
   	return _.filter(Robot.data.subsystems, function(el){
-  		if (! el['disabled']) {
+  		if (! el.disabled) {
   			return el;
   		}
   	});
   };
   Robot.getSubsystem = function(name) {
-  	return _.find(Robot.data.subsystems, {"name":name});
-  }
+  	return _.find(Robot.data.subsystems, {'name':name});
+  };
   //when displaying the subsystems form, make sure to show an empty slot.
   Robot.getInitialSubsystems = function() {
   	var subsys = Robot.getSubsystems();
-  	if (subsys.length == 0) {
+  	if (subsys.length === 0) {
   		Robot.data.subsystems.push(_.cloneDeep(EMPTY_SUB));
   	}
   	return Robot.getSubsystems();
@@ -150,8 +150,8 @@ app.factory('Robot', function($localStorage){
 
   Robot.drivetrainChange = function() {
     Robot.data.subsystems = _.map(Robot.data.subsystems, function(el) {
-      if (el.name == "Drivetrain") {
-        el.disabled = !(Robot.data.hasDrivetrain == 'yes');
+      if (el.name === 'Drivetrain') {
+        el.disabled = (Robot.data.hasDrivetrain !== 'yes');
       }
       return el;
     });
@@ -159,7 +159,7 @@ app.factory('Robot', function($localStorage){
 
   Robot.getNumPWM = function() {
     return _.map(_.range(0, Robot.limits.PWM), function(el){
-      return el.toString()
+      return el.toString();
     });
   };
 
@@ -174,7 +174,7 @@ app.factory('Robot', function($localStorage){
       }
     }
     //check other controllers
-    for (var i = 0; i < Robot.data.controllers.length; i++) {
+    for (i = 0; i < Robot.data.controllers.length; i++) {
       if (Robot.data.controllers[i].port === n) {
         out = true;
         break;
@@ -186,12 +186,12 @@ app.factory('Robot', function($localStorage){
   Robot.numMotorsChange = function () {
     Robot.data.drivetrain.controllers = [];
     var controllers = [];
-    if (Robot.data.drivetrain.numMotors == 2) {
+    if (Robot.data.drivetrain.numMotors === '2') {
       controllers = ['left','right'];
-    } else if (Robot.data.drivetrain.numMotors == 4) {
+    } else if (Robot.data.drivetrain.numMotors === '4') {
       controllers = ['frontLeft','rearLeft','frontRight','rearRight'];
     } else {
-      throw new Error("Invalid number of motors");
+      throw new Error('Invalid number of motors');
     }
 
     for (var i = 0; i < controllers.length; i++) {
@@ -238,7 +238,7 @@ app.factory('Robot', function($localStorage){
   };
   Robot.getNumSolPorts = function() {
     return _.map(_.range(0, Robot.limits.Sol), function(el){
-      return el.toString()
+      return el.toString();
     });
   };
 
@@ -257,7 +257,7 @@ app.factory('Robot', function($localStorage){
   // DS Inputs -----------------------------------------------------------------
   Robot.getNumUSBPorts = function() {
     return _.map(_.range(0, Robot.limits.ds.USB), function(el){
-      return el.toString()
+      return el.toString();
     });
   };
   Robot.isUSBPortUsed = function(n) {
@@ -284,7 +284,7 @@ app.factory('Robot', function($localStorage){
   // Digital Inputs ------------------------------------------------------------
   Robot.getNumDigitalPorts = function() {
     return _.map(_.range(0, Robot.limits.sensors.digital), function(el){
-      return el.toString()
+      return el.toString();
     });
   };
   Robot.isDigitalPortUsed = function(n) {
@@ -311,7 +311,7 @@ app.factory('Robot', function($localStorage){
   // Analog Inputs -------------------------------------------------------------
   Robot.getNumAnalogPorts = function() {
     return _.map(_.range(0, Robot.limits.sensors.analog), function(el){
-      return el.toString()
+      return el.toString();
     });
   };
   Robot.isAnalogPortUsed = function(n) {
@@ -359,12 +359,12 @@ app.factory('Robot', function($localStorage){
 		});
 	};
 	Robot.addRequires = function(cmd) {
-		if (cmd.requires.length < Robot.data.subsystems.length
-			&& _.indexOf(cmd.requires, "") == -1 ) {//not in list
-			cmd.requires.push("ted");
-			console.log("here");
+		if (cmd.requires.length < Robot.data.subsystems.length &&
+			_.indexOf(cmd.requires, '') === -1 ) {//not in list
+			cmd.requires.push('ted');
+			console.log('here');
 		} else {
-			console.error("Can't add requires.");
+			console.error('Can\'t add requires.');
 		}
 
 	};
@@ -380,7 +380,7 @@ function pad(n, width, z) {
 }
 
 
-app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, $window) {
+app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) {
 
 	this.stepComplete = function (num) {
     if (typeof $localStorage.curStep === 'undefined') {
@@ -411,28 +411,28 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
   $scope.$localStorage = $localStorage;
 });
 
-app.controller('Wiz1Ctrl', function (Robot, $scope, $localStorage) {
+app.controller('Wiz1Ctrl', function () {
   this.num = 1;
 });
-app.controller('Wiz2Ctrl', function ($scope) {
+app.controller('Wiz2Ctrl', function () {
   this.num = 2;
 });
-app.controller('Wiz3Ctrl', function ($scope) {
+app.controller('Wiz3Ctrl', function () {
   this.num = 3;
 });
-app.controller('Wiz4Ctrl', function ($scope) {
+app.controller('Wiz4Ctrl', function () {
   this.num = 4;
 });
-app.controller('Wiz5Ctrl', function ($scope) {
+app.controller('Wiz5Ctrl', function () {
   this.num = 5;
 });
-app.controller('Wiz6Ctrl', function ($scope) {
+app.controller('Wiz6Ctrl', function () {
   this.num = 6;
 });
-app.controller('Wiz7Ctrl', function ($scope) {
+app.controller('Wiz7Ctrl', function () {
   this.num = 7;
 });
-app.controller('Wiz8Ctrl', function ($scope) {
+app.controller('Wiz8Ctrl', function () {
   this.num = 8;
 });
 app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
@@ -441,7 +441,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
   step.currentSubsystem = Robot.getSubsystems()[0].name;
   step.currentAction = Robot.getSubsystems()[0].actions[0].text;
   if (_.isNull(document.getElementById('blocklyDiv'))) {
-  	console.error("It seems the blocklyDiv is missing.");
+  	console.error('It seems the blocklyDiv is missing.');
   	return;
   }
   Blockly.inject(document.getElementById('blocklyDiv'),
@@ -458,12 +458,12 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 			//Load the starting blocks
 			var startingBlocks = document.getElementById('startingblocks');
 
-			if (startingblocks.innerHTML !== "") //if there are blocks
+			if (startingBlocks.innerHTML !== '') //if there are blocks
 			{
 				var xml = startingBlocks; //Blockly.Xml.textToDom(startingBlocks);
 				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 			} else {
-				console.error("No starting blocks to load");
+				console.error('No starting blocks to load');
 			}
 		}, 0);
 	};
@@ -476,7 +476,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	step.setActiveAction = function(newAction) {
 
 		if(!_.contains(_.pluck(Robot.getActions(step.currentSubsystem), 'text'), newAction)) {
-			alert('Page "' + title + '" does not exist.');
+			alert('Action \"' + newAction + '\" does not exist.');
 			return;
 		}
 		step.currentAction = newAction;
@@ -485,8 +485,8 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		if(Blockly.mainWorkspace && Blockly.mainWorkspace.getMetrics()) {
 			var saved = {
 				proc: act.xmlcode,
-				vars: Robot.getSubsystem(step.currentSubsystem).state_vars
-			}
+				vars: Robot.getSubsystem(step.currentSubsystem).stateVars
+			};
 
 			var dom = $('#startingblocks').clone();
 			//Set the procedure name properly even if the html hasn't finished rendering
@@ -494,10 +494,10 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 
 
 			if (saved.vars) {
-				$('block[type="state_vars"]',dom).html($('block[type="state_vars"]',saved.vars).html())
+				$('block[type="state_vars"]',dom).html($('block[type="state_vars"]',saved.vars).html());
 			}
 			if (saved.proc) {
-				$('block[type="procedures_defreturn"]',dom).html($('block[type="procedures_defreturn"]',saved.proc).html())
+				$('block[type="procedures_defreturn"]',dom).html($('block[type="procedures_defreturn"]',saved.proc).html());
 			}
 
 			dom = dom.get(0); //get the raw dom element from the jquery element
@@ -518,7 +518,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	step.nextAction = function() {
 		var index = _.indexOf(_.pluck(Robot.getActions(step.currentSubsystem), 'text'), step.currentAction);
 		if (index+1 >= Robot.getActions(step.currentSubsystem).length ) {
-			console.error("Unable to go to next action, because there are no more actions!");
+			console.error('Unable to go to next action, because there are no more actions!');
 		} else {
 			step.setActiveAction(Robot.getActions(step.currentSubsystem)[index+1].text);
 		}
@@ -531,7 +531,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 			subsys = step.currentSubsystem;
 		}
 		var act = _.find(Robot.getActions(subsys), {'text':action});
-		return (!_.isUndefined(act['isDone']) && act['isDone']);
+		return (!_.isUndefined(act.isDone) && act.isDone);
 	};
 
 	//true when every action in the current susbsystem is true.
@@ -551,9 +551,9 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 
 		var index = _.indexOf(_.pluck(Robot.getSubsystems(), 'name'), step.currentSubsystem);
 		if (index+1 >= Robot.getSubsystems().length ) {
-			console.error("Unable to go to next subsystem, because there are no more subsystems!");
+			console.error('Unable to go to next subsystem, because there are no more subsystems!');
 		} else {
-			step.currentSubsystem = Robot.getSubsystems()[index+1].name
+			step.currentSubsystem = Robot.getSubsystems()[index+1].name;
 			var action = Robot.getSubsystems()[index+1].actions[0].text;
 			step.setActiveAction(action);
 		}
@@ -561,7 +561,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	step.isStepComplete = function() {
 		//
 		var done = _.map(Robot.getSubsystems(), function(subsys) {
-			return step.isSubsystemComplete(subsys)
+			return step.isSubsystemComplete(subsys);
 		});
 		return _.every(done);
 	};
@@ -577,9 +577,9 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 
-	  var state_vars = Blockly.extensions.blockTypeToDom('state_vars');
-	  state_vars = Blockly.Xml.domToPrettyText(state_vars);
-		Robot.getSubsystem(step.currentSubsystem).state_vars = state_vars;
+	  var stateVars = Blockly.extensions.blockTypeToDom('state_vars');
+	  stateVars = Blockly.Xml.domToPrettyText(stateVars);
+		Robot.getSubsystem(step.currentSubsystem).stateVars = stateVars;
 
 		var proc = Blockly.extensions.blockTypeToDom('procedures_defreturn');
 	  proc = Blockly.Xml.domToPrettyText(proc);
@@ -597,7 +597,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	$window.onbeforeunload = function() {
 		// console.log("Here", Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)));
 		//@todo For some reason mutations are not saved if executed just before a refresh
-	}
+	};
 
 	/**
 	 * When the workspace changes:
@@ -614,15 +614,15 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 
 
 });
-app.controller('Wiz10Ctrl', function ($scope) {
+app.controller('Wiz10Ctrl', function () {
   this.num = 10;
 });
-app.controller('Wiz11Ctrl', function ($scope) {
+app.controller('Wiz11Ctrl', function () {
   this.num = 11;
 });
-app.controller('Wiz12Ctrl', function ($scope) {
+app.controller('Wiz12Ctrl', function () {
   this.num = 12;
 });
-app.controller('Wiz12Ctrl', function ($scope) {
+app.controller('Wiz12Ctrl', function () {
   this.num = 13;
 });

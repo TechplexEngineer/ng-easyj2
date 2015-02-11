@@ -66,32 +66,27 @@ angular.module('easyj.about')
         'url': 'http://yeoman.io/',
         'description': 'Yeoman helps you to kickstart new projects, prescribing best practices and tools to help you stay productive.',
         'logo': 'yeoman.png'
-      },
-      {
+      },{
         'title': 'Blockly',
         'url': 'https://developers.google.com/blockly/',
         'description': 'Blockly is a library for building visual programming editors.',
         'logo': 'blockly.png'
-      }
-      ,{
+      },{
         'title': 'Lo-Dash',
         'url': 'https://lodash.com/',
         'description': 'A utility library delivering consistency, customization, performance, & extras',
         'logo': 'lodash.png'
-      }
-      ,{
+      },{
         'title': 'Bower',
         'url': 'http://bower.io/',
         'description': 'A package manager for the web',
         'logo': 'bower.png'
-      }
-      ,{
+      },{
         'title': 'NPM',
         'url': 'https://www.npmjs.com/',
         'description': 'Node Package manager',
         'logo': 'npm.png'
-      }
-      ,{
+      },{
         'title': 'generator-gulp-angular',
         'url': 'https://github.com/Swiip/generator-gulp-angular',
         'description': 'A fantastic generator for Yeoman which helps set the ball in motion.',

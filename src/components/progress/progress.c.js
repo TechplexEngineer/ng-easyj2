@@ -58,13 +58,13 @@ app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
     var out = 'disabled';
     if (prog.cur > s){
       out = 'complete';
-    } else if (prog.cur == s) {
+    } else if (prog.cur === s) {
       out = 'active';
     } else {
       out = 'disabled';
     }
-    if (s == $routeParams.step) {
-      out += " selected";
+    if (s.toString() === $routeParams.step) {
+      out += ' selected';
     }
     return out;
   };

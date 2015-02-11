@@ -32,12 +32,13 @@ goog.require('Blockly.Blocks');
 Blockly.zr_cpp = {};
 
 Blockly.zr_cpp.C_VARIABLE_TYPES =
-	[['int', 'int'],
+	[
 	 ['double', 'double'],
+	 ['int', 'int'],
 	 ['boolean', 'boolean'],
 	 ['String', 'String'],
 	 ['Joystick', 'Joystick']
-	 ];
+	];
 
 
 Blockly.Blocks.procedures.HUE = 290;
