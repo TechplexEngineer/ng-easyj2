@@ -5,7 +5,7 @@ Blockly.Blocks['variables_declare_boolean'] = {
     this.setColour(120);
     this.appendDummyInput()
         .appendField("Declare")
-        .appendField(new Blockly.TypedFieldVariable("boolean1", 'Boolean', true), "NAME")
+        .appendField(new Blockly.TypedFieldVariable("boolean1", 'boolean', true), "NAME")
         .appendField("of type 'boolean' value")
         // .appendField(new Blockly.FieldDropdown([["integer", "int"], ["boolean", "boolean"]]), "TYPE")
         // .appendField("value")
@@ -41,9 +41,9 @@ Blockly.Blocks['variables_set_boolean'] = {
     this.setColour(260);
     this.appendDummyInput()
         .appendField("set")
-        .appendField(new Blockly.TypedFieldVariable("item", 'Boolean'), "NAME");
+        .appendField(new Blockly.TypedFieldVariable("item", 'boolean'), "NAME");
     this.appendValueInput("VALUE")
-        .setCheck("Boolean")
+        .setCheck("boolean")
         .appendField("to");
     this.setInputsInline(true);
     this.setPreviousStatement(true, 'statement');
@@ -84,9 +84,9 @@ Blockly.Blocks['variables_get_boolean'] = {
     this.setColour(260);
     this.appendDummyInput()
         .appendField("get")
-        .appendField(new Blockly.TypedFieldVariable("item", 'Boolean'), "NAME");
+        .appendField(new Blockly.TypedFieldVariable("item", 'boolean'), "NAME");
     this.setInputsInline(true);
-    this.setOutput(true, 'Boolean');
+    this.setOutput(true, 'boolean');
   },
   onchange: function(evt) {
    if (!this.workspace || this.isInFlyout) {
