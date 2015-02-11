@@ -1,7 +1,7 @@
 Blockly.Blocks['declare_gyro'] = {
   init: function() {
     this.setHelpUrl('');
-    this.setTooltip('Create a gyro for measureing angle and heading.');
+    this.setTooltip('Create a gyro for measuring angle and heading.');
     this.setColour(120);
     this.appendDummyInput()
         .appendField("Declare Gyro")
@@ -57,7 +57,7 @@ Blockly.Blocks['get_gyro'] = {
 	this.setDependsOn("Gyro");
   },
   onchange: function(evt) {
-   if (!this.workspace || this.isInFlyout) {
+    if (!this.workspace || this.isInFlyout) {
       // Block has been deleted, or is in flyout
       return;
     }
