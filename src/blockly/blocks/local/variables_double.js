@@ -5,7 +5,7 @@ Blockly.Blocks['variables_declare_double'] = {
     this.setColour(120);
     this.appendDummyInput()
         .appendField("Declare")
-        .appendField(new Blockly.TypedFieldVariable("float1", 'Double', true), "NAME")
+        .appendField(new Blockly.TypedFieldVariable("float1", 'double', true), "NAME")
         .appendField("of type 'double' value")
         // .appendField(new Blockly.FieldDropdown([["integer", "int"], ["double", "double"]]), "TYPE")
         // .appendField("value")
@@ -40,9 +40,9 @@ Blockly.Blocks['variables_set_double'] = {
     this.setColour(260);
     this.appendDummyInput()
         .appendField("set")
-        .appendField(new Blockly.TypedFieldVariable("item", 'Double'), "NAME");
+        .appendField(new Blockly.TypedFieldVariable("item", 'double'), "NAME");
     this.appendValueInput("VALUE")
-        .setCheck(["Double", "Number"])
+        .setCheck(["double", "Number"])
         .appendField("to");
     this.setInputsInline(true);
     this.setPreviousStatement(true, 'statement');
@@ -83,9 +83,9 @@ Blockly.Blocks['variables_get_double'] = {
     this.setColour(260);
     this.appendDummyInput()
         .appendField("get")
-        .appendField(new Blockly.TypedFieldVariable("item", 'Double'), "NAME");
+        .appendField(new Blockly.TypedFieldVariable("item", 'double'), "NAME");
     this.setInputsInline(true);
-    this.setOutput(true, ["Double","Number"]);
+    this.setOutput(true, ["double","Number"]);
   },
   onchange: function(evt) {
    if (!this.workspace || this.isInFlyout) {
