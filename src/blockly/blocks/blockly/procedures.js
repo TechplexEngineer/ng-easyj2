@@ -126,7 +126,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		var container = document.createElement('mutation');
 		for (var i = 0; i < this.arguments_.length; i++) {
 			var parameter = document.createElement('arg');
-			parameter.setAttribute('type', this.arguments_[i].type);
+			parameter.setAttribute('type', this.arguments_[i].vartype);
 			parameter.setAttribute('name', this.arguments_[i].name);
 			container.appendChild(parameter);
 		}
@@ -149,7 +149,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
 			if (childNode.nodeName.toLowerCase() == 'arg') {
 				this.arguments_.push({
-					type: childNode.getAttribute('type'),
+					vartype: childNode.getAttribute('type'),
 					name: childNode.getAttribute('name'),
 					//length: Infinity //the ZR folks had this, is it needed?
 				});
@@ -185,7 +185,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		for (var i = 0; i < this.arguments_.length; i++) {
 			var paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg');
 			paramBlock.initSvg();
-			paramBlock.setFieldValue(this.arguments_[i].type, 'TYPE');
+			paramBlock.setFieldValue(this.arguments_[i].vartype, 'TYPE');
 			paramBlock.setFieldValue(this.arguments_[i].name, 'NAME');
 			// Store the old location.
 			paramBlock.oldLocation = i;
@@ -209,7 +209,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		var paramBlock = containerBlock.getInputTargetBlock('STACK');
 		while (paramBlock) {
 			this.arguments_.push({
-				type: paramBlock.getFieldValue('TYPE'),
+				vartype: paramBlock.getFieldValue('TYPE'),
 				name: paramBlock.getFieldValue('NAME'),
 			});
 			this.paramIds_.push(paramBlock.id);
@@ -332,7 +332,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		xmlMutation.setAttribute('name', name);
 		for (var i = 0; i < this.arguments_.length; i++) {
 			var xmlArg = goog.dom.createDom('arg');
-			xmlArg.setAttribute('type', this.arguments_[i].type);
+			xmlArg.setAttribute('type', this.arguments_[i].vartype);
 			xmlArg.setAttribute('name', this.arguments_[i].name);
 			xmlMutation.appendChild(xmlArg);
 		}
@@ -364,7 +364,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		var len = this.arguments_.length;
 		if (len) {
 			for (var i = 0; i < len; i++) {
-				paramString = paramString + (i == 0 ? '' : ', ') + this.arguments_[i].type + (this.arguments_[i].isArray === "TRUE" ? '* ' : ' ')
+				paramString = paramString + (i == 0 ? '' : ', ') + this.arguments_[i].vartype + (this.arguments_[i].isArray === "TRUE" ? '* ' : ' ')
 					+ (renameVars ? Blockly.zr_cpp.variableDB_.getName(this.arguments_[i].name, Blockly.Variables.NAME_TYPE) : this.arguments_[i].name);
 			}
 		}
@@ -466,9 +466,9 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
 		this.appendDummyInput('STATEMENT_INPUT') //I think I'd like to hide this.
 				.appendField(Blockly.Msg.PROCEDURES_ALLOW_STATEMENTS)
 				.appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
-		this.appendDummyInput('RETURN_INPUT')
-				.appendField('has return value')
-				.appendField(new Blockly.FieldCheckbox('TRUE'), 'RETURN');
+		// this.appendDummyInput('RETURN_INPUT')
+		// 		.appendField('has return value')
+		// 		.appendField(new Blockly.FieldCheckbox('TRUE'), 'RETURN');
 		this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
 		this.contextMenu = false;
 	}
