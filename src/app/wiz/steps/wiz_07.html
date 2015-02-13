@@ -21,7 +21,7 @@
 					<ul>
 						<li><strong>Sensors:</strong> buttons, switches, potentiometers, encoders, etc.</li>
 						<li><strong>Actuators:</strong> motors &amp; solenoids</li>
-						<li><strong>Actions:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
+						<li><strong>Action Methods:</strong> High level actions which the subsystem can be told to perform. These are generally methods on the specific subsystem class which change the state when called.</li>
 						<li><strong>State:</strong> Variables which hold the current status of the subsystem. Generally this includes values recorded from sensors. ex: the position of an arm. </li>
 					</ul>
 				</p>
@@ -32,7 +32,7 @@
           <thead>
             <tr>
               <th>Name (Capitalized)</th>
-              <th>Actions</th>
+              <th>Action Methods</th>
               <th>Components</th>
             </tr>
           </thead>
@@ -57,9 +57,9 @@
         <button ng-click="Robot.addSubsystem()" class="btn btn-success pull-right">Add Subsystem</button>
 				<table class="table">
 					<thead>
-						<th>Name</th>
-						<th>Actions</th>
-						<th>Action</th>
+						<th>Name (Capitalized)</th>
+						<th>Action Methods (comma separated)</th>
+						<th></th>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in Robot.getInitialSubsystems()">
@@ -74,6 +74,7 @@
 									min-length="2"
 									min-tags="1"
 									enable-editing-last-tag="true"
+									placeholder="Add an Action Method"
 									></tags-input>
 							</td>
 							<td>

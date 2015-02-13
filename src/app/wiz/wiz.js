@@ -53,13 +53,13 @@ app.factory('Robot', function($localStorage){
     solenoids: [_.clone(EMPTY_SOL)],
     hasPneumatics: undefined,
 
-    hids: [{name:'Driver',port:'0',type:''}],
+    hids: [{name:'driver1',port:'0',type:''}],
     sensors:{
       analog: [_.clone(EMPTY_AIO)],
       digital: [_.clone(EMPTY_DIO)],
     },
     // This really should be conditional based on the users earlier selected pref
-    subsystems:[{name:'Drivetrain',actions:['drive','turn','drive with hid'], disabled:false}],
+    subsystems:[{name:'Drivetrain',actions:['drive','drive with joystick'], disabled:false}],
 
     commands:[{name: 'ArcadeDrive',requires: ['Drivetrain'],type: 'cmd'}],
   };
@@ -108,6 +108,8 @@ app.factory('Robot', function($localStorage){
 
   Robot.resetStorage = function() {
     $localStorage.$reset();
+    $localStorage.$default(_.clone(def));
+    $localStorage.curStep = 1;
   };
 
   Robot.resetBlocks = function() {
@@ -168,14 +170,14 @@ app.factory('Robot', function($localStorage){
     n=n.toString();
     //check drivetrain
     for (var i = 0; i < Robot.data.drivetrain.controllers.length; i++) {
-      if (Robot.data.drivetrain.controllers[i].port === n) {
+      if (Robot.data.drivetrain.controllers[i].port.toString() === n.toString()) {
         out = true;
         break;
       }
     }
     //check other controllers
     for (i = 0; i < Robot.data.controllers.length; i++) {
-      if (Robot.data.controllers[i].port === n) {
+      if (Robot.data.controllers[i].port.toString() === n.toString()) {
         out = true;
         break;
       }
@@ -197,6 +199,7 @@ app.factory('Robot', function($localStorage){
     for (var i = 0; i < controllers.length; i++) {
       var con = _.clone(EMPTY_CON);
       con.name = controllers[i];
+      con.port = (! Robot.isPWMUsed(i)) ? i : "" ;
       con.type = Robot.data.drivetrain.mcType;
       Robot.data.drivetrain.controllers.push(con);
     }
@@ -380,7 +383,7 @@ function pad(n, width, z) {
 }
 
 
-app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) {
+app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, $window) {
 
 	this.stepComplete = function (num) {
     if (typeof $localStorage.curStep === 'undefined') {
@@ -395,11 +398,11 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage) 
     return $localStorage.curStep || 1;
   };
 
-  //Make sure that you can't get to a step that isn't complete.
-	// if ($routeParams.step > this.getCurStep()) {
-	// 	$window.location.href = '/#/wizard/'+this.getCurStep();
-	// 	return;
-	// }
+  //@Make sure that you can't get to a step that isn't complete.
+	if ($routeParams.step > this.getCurStep()) {
+		$window.location.href = '/#/wizard/'+this.getCurStep();
+		return;
+	}
 
   this.step = pad($routeParams.step,2); //this is used to determine what template to load
 
