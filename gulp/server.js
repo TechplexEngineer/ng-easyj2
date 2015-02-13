@@ -15,7 +15,7 @@ function browserSyncInit(baseDir, files, browser) {
   if(baseDir === 'src' || (util.isArray(baseDir) && baseDir.indexOf('src') !== -1)) {
     routes = {
       '/bower_components': 'bower_components',
-      '/blockly': 'blockly',
+//      '/blockly': 'blockly',
       '/closure-library': 'closure-library'
     };
   }
@@ -39,7 +39,7 @@ gulp.task('serve', ['watch'], function () {
   ], [
     'src/{app,components}/**/*.css',
     'src/{app,components}/**/*.js',
-    'src/blockly/**/*.js',
+//    'src/blockly/**/*.js',
     'src/assets/images/**/*',
     '.tmp/*.html',
     '.tmp/{app,components}/**/*.html',

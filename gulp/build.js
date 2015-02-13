@@ -61,8 +61,8 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials', 'blockl
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var assets;
-
   return gulp.src(['src/*.html', '.tmp/*.html'])
+  	.pipe($.replace(/blockly_uncompressed\.js/g, 'blockly_compressed\.js'))
     .pipe($.inject(gulp.src('.tmp/inject/templateCacheHtml.js', {read: false}), {
       starttag: '<!-- inject:partials -->',
       ignorePath: '.tmp',
