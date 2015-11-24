@@ -85,18 +85,23 @@ app.factory('Robot', function($localStorage){
     {
       name:'victor',
       prettyName:'Victor',
+      img:'victor_888.jpg',
     },{
       name:'talon',
-      prettyName: 'Talon',
+      prettyName: 'Talon SR',
+      img:'talon_sr.jpg',
     },{
       name:'jaguar',
-      prettyName: 'Jaguar (Not Recommended)',
+      prettyName:'Jaguar (Not Recommended)',
+      img:'jaguar.jpg',
     },{
       name:'talonsrx',
-      prettyName: 'Talon SRX (CAN)',
+      prettyName: 'Talon SRX (PWM)',
+      img:'talon_srx.jpg',
     },{
       name:'victorsp',
       prettyName: 'Victor SP',
+      img:'victor_sp.jpg',
     }
   ];
   Robot.controller.toPretty = function(name) {
