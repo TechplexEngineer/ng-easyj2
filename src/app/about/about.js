@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easyj.about', ['ngResource', 'ngRoute'])
+angular.module('easyj.about', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/about', {

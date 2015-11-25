@@ -1,11 +1,8 @@
 'use strict';
 
 var app = angular.module('easyj.wiz', [
-  'ngResource',
   'ngRoute',
-  'ngStorage',
-  // 'angular-tour',
-  // 'mgcrea.ngStrap'
+  'ngStorage'
 ]);
 
 app.config(function ($routeProvider) {

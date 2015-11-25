@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('easyj', [
-  'ngResource',
   'ngRoute',
   'ngStorage',
   'easyj.about',
