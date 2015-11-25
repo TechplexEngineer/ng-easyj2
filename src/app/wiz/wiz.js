@@ -47,6 +47,7 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
 
   wiz.invalidateFutureSteps = function() {
   	if ($routeParams.step < wiz.getCurStep()) {
+  		console.log("Invaliate!",parseInt($routeParams.step));
   		$localStorage.curStep = parseInt($routeParams.step);
   	}
   };
