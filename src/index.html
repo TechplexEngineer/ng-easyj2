@@ -20,7 +20,7 @@
     <!-- build:css({.tmp,src}) styles/app.css -->
     <!-- inject:css -->
     <link rel="stylesheet" href="app/app.css">
-    <link rel="stylesheet" href="components/progress/progress.css">
+    <link rel="stylesheet" href="app/components/progress/progress.css">
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -38,13 +38,13 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <ng-include src="'components/navbar/navbar.html'"></ng-include>
+    <ng-include src="'app/components/navbar/navbar.html'"></ng-include>
 
     <div class="content"> <!-- div.content is needed so that when ng-view is empty the footer still floats down -->
       <ng-view autoscroll="true"></ng-view>
     </div>
 
-    <ng-include src="'components/footer/footer.html'"></ng-include>
+    <ng-include src="'app/components/footer/footer.html'"></ng-include>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!-- <script>
@@ -121,10 +121,10 @@
 
     <!-- build:js({.tmp,src}) scripts/app.js -->
     <!-- inject:js -->
-    <script src="components/progress/progress.c.js"></script>
+    <script src="app/components/progress/progress.c.js"></script>
     <script src="app/app.js"></script>
-    <script src="components/navbar/navbar.c.js"></script>
-    <script src="components/footer/footer.c.js"></script>
+    <script src="app/components/navbar/navbar.c.js"></script>
+    <script src="app/components/footer/footer.c.js"></script>
     <script src="app/wiz/wiz.js"></script>
     <script src="app/wiz/robot.js"></script>
     <script src="app/main/main.c.js"></script>
