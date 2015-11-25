@@ -1,7 +1,9 @@
 {
   "name": "ngEasyj3",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-consolidate": "^0.1.2"
+  },
   "scripts": {
     "test": "gulp test"
   },
