@@ -1,0 +1,46 @@
+<script src="../blockly/blockly_uncompressed.js"></script>
+
+	<script src="../blockly/msg/js/en.js"></script>
+
+		<!-- build:js(src) scripts/easyj.js -->
+	<script src="blockly/easyj/easyj.js"></script>
+	<script src="blockly/easyj/easyj.checker.js"></script>
+
+		<script src="blockly/generators/java.js"></script>
+	<script src="blockly/easyj/javagenerator.js"></script>
+
+	<script src="blockly/field_variable_typed.js"></script>
+
+	<script src="blockly/easyj/tabifier.js"></script>
+
+	<script src="blockly/blocks/blockly/lists.js"></script>
+	<script src="blockly/blocks/blockly/logic.js"></script>
+	<script src="blockly/blocks/blockly/loops.js"></script>
+	<script src="blockly/blocks/blockly/math.js"></script>
+	<script src="blockly/blocks/blockly/procedures.js"></script>
+	<script src="blockly/blocks/blockly/text.js"></script>
+	<script src="blockly/blocks/blockly/variables.js"></script>
+	<script src="blockly/blocks/local/analog.js"></script>
+	<script src="blockly/blocks/local/blocks.js"></script>
+	<script src="blockly/blocks/local/digital_input.js"></script>
+	<script src="blockly/blocks/local/digital_output.js"></script>
+	<script src="blockly/blocks/local/gyro.js"></script>
+	<script src="blockly/blocks/local/iterativerobot.js"></script>
+	<script src="blockly/blocks/local/joystick.js"></script>
+	<script src="blockly/blocks/local/motors.js"></script>
+	<script src="blockly/blocks/local/relay.js"></script>
+	<script src="blockly/blocks/local/simplerobot.js"></script>
+	<script src="blockly/blocks/local/solenoid_double.js"></script>
+	<script src="blockly/blocks/local/solenoid_single.js"></script>
+	<script src="blockly/blocks/local/timing.js"></script>
+	<script src="blockly/blocks/local/variables_boolean.js"></script>
+	<script src="blockly/blocks/local/variables_double.js"></script>
+	<script src="blockly/blocks/local/variables_int.js"></script>
+	<script src="blockly/blocks/local/statevars.js"></script>
+
+	<script src="blockly/generators/java/logic.js"></script>
+	<script src="blockly/generators/java/loops.js"></script>
+	<script src="blockly/generators/java/math.js"></script>
+	<script src="blockly/generators/java/procedures.js"></script>
+	<script src="blockly/generators/java/text.js"></script>
+	<!-- endbuild -->

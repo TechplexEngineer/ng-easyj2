@@ -1,3 +1,4 @@
+'use strict';
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -618,12 +619,12 @@
                     (last_type === 'TK_RESERVED' && flags.last_text === 'return' && !input_wanted_newline) ||
                     (last_type === 'TK_RESERVED' && flags.last_text === 'else' && !(token_type === 'TK_RESERVED' && token_text === 'if')) ||
                     (last_type === 'TK_END_EXPR' && (previous_flags.mode === MODE.ForInitializer || previous_flags.mode === MODE.Conditional)) ||
-                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement 
-                        && !flags.in_case 
-                        && !(token_text === '--' || token_text === '++') 
+                    (last_type === 'TK_WORD' && flags.mode === MODE.BlockStatement
+                        && !flags.in_case
+                        && !(token_text === '--' || token_text === '++')
                         && token_type !== 'TK_WORD' && token_type !== 'TK_RESERVED') ||
-                    (flags.mode === MODE.ObjectLiteral && flags.last_text === ':' && flags.ternary_depth === 0) 
-                        
+                    (flags.mode === MODE.ObjectLiteral && flags.last_text === ':' && flags.ternary_depth === 0)
+
                 ) {
 
                 set_mode(MODE.Statement);
@@ -1380,7 +1381,7 @@
                 prefix = 'SPACE';
             } else if (last_type === 'TK_STRING') {
                 prefix = 'NEWLINE';
-            } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' || 
+            } else if (last_type === 'TK_RESERVED' || last_type === 'TK_WORD' ||
                 (flags.last_text === '*' && last_last_text === 'function')) {
                 prefix = 'SPACE';
             } else if (last_type === 'TK_START_BLOCK') {
@@ -1484,7 +1485,7 @@
             if (start_of_statement()) {
                 // The conditional starts the statement if appropriate.
             }
-            
+
             if (flags.declaration_statement) {
                 // just got an '=' in a var-line, different formatting/line-breaking, etc will now be done
                 flags.declaration_assignment = true;
@@ -1513,7 +1514,7 @@
             }
 
             print_token();
-            if (flags.mode === MODE.ObjectLiteral || 
+            if (flags.mode === MODE.ObjectLiteral ||
                 (flags.mode === MODE.Statement && flags.parent.mode === MODE.ObjectLiteral)) {
                 if (flags.mode === MODE.Statement) {
                     restore_mode();
@@ -1523,7 +1524,7 @@
                 // EXPR or DO_BLOCK
                 output_space_before_token = true;
             }
-        
+
         }
 
         function handle_operator() {
@@ -1533,11 +1534,11 @@
                     (last_type === 'TK_WORD' || last_type === 'TK_RESERVED')){
                 flags.mode = MODE.ObjectLiteral;
             }
-            
+
             if (start_of_statement()) {
                 // The conditional starts the statement if appropriate.
             }
-            
+
             var space_before = true;
             var space_after = true;
             if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
@@ -1672,7 +1673,7 @@
             if (start_of_statement()) {
                 // The conditional starts the statement if appropriate.
             }
-            
+
             if (last_type === 'TK_RESERVED' && is_special_word(flags.last_text)) {
                 output_space_before_token = true;
             } else {

@@ -1,3 +1,4 @@
+'use strict';
 // This seems like a bit of a hack... but ohwells
 Blockly.Java.workspaceToCode = function (workspace, rootBlk) {
 	var declarations = [];

@@ -1,5 +1,5 @@
 {
-  "name": "ngEasyj3",
+  "name": "easyj",
   "version": "0.0.0",
   "dependencies": {
     "gulp-consolidate": "^0.1.2"

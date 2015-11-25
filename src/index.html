@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css({.tmp,src}) styles/vendor.css -->
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
@@ -17,7 +17,7 @@
     <!-- endbuild -->
 
 
-    <!-- build:css({.tmp,src}) styles/app.css -->
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
     <!-- inject:css -->
     <link rel="stylesheet" href="app/app.css">
     <link rel="stylesheet" href="app/components/progress/progress.css">
@@ -25,10 +25,6 @@
     <!-- endbuild -->
 
     <base href="/">
-    <script type="text/javascript">
-      window.heap=window.heap||[],heap.load=function(t,e){window.heap.appid=t,window.heap.config=e;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.heapanalytics.com/js/heap.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(t){return function(){heap.push([t].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
-      heap.load("3735007726");
-    </script>
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -53,70 +49,14 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script> -->
 
-    <!-- build:js scripts/vendor.js -->
+    <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/angular/angular.js"></script>
-    <script src="../bower_components/angular-resource/angular-resource.js"></script>
-    <script src="../bower_components/angular-route/angular-route.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../bower_components/ngstorage/ngStorage.js"></script>
-    <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
-    <script src="../bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-    <script src="../bower_components/angular-tour/dist/angular-tour-tpls.min.js"></script>
-    <script src="../bower_components/angular-animate/angular-animate.js"></script>
-    <script src="../bower_components/angular-strap/dist/angular-strap.js"></script>
-    <script src="../bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
-    <script src="../blockly/blockly_uncompressed.js"></script>
 
-    <script src="../blockly/msg/js/en.js"></script>
 
-		<!-- build:js scripts/easyj.js -->
-    <script src="blockly/easyj/easyj.js"></script>
-    <script src="blockly/easyj/easyj.checker.js"></script>
-
-		<script src="blockly/generators/java.js"></script>
-    <script src="blockly/easyj/javagenerator.js"></script>
-
-    <script src="blockly/field_variable_typed.js"></script>
-
-    <script src="blockly/easyj/tabifier.js"></script>
-
-    <script src="blockly/blocks/blockly/lists.js"></script>
-    <script src="blockly/blocks/blockly/logic.js"></script>
-    <script src="blockly/blocks/blockly/loops.js"></script>
-    <script src="blockly/blocks/blockly/math.js"></script>
-    <script src="blockly/blocks/blockly/procedures.js"></script>
-    <script src="blockly/blocks/blockly/text.js"></script>
-    <script src="blockly/blocks/blockly/variables.js"></script>
-    <script src="blockly/blocks/local/analog.js"></script>
-    <script src="blockly/blocks/local/blocks.js"></script>
-    <script src="blockly/blocks/local/digital_input.js"></script>
-    <script src="blockly/blocks/local/digital_output.js"></script>
-    <script src="blockly/blocks/local/gyro.js"></script>
-    <script src="blockly/blocks/local/iterativerobot.js"></script>
-    <script src="blockly/blocks/local/joystick.js"></script>
-    <script src="blockly/blocks/local/motors.js"></script>
-    <script src="blockly/blocks/local/relay.js"></script>
-    <script src="blockly/blocks/local/simplerobot.js"></script>
-    <script src="blockly/blocks/local/solenoid_double.js"></script>
-    <script src="blockly/blocks/local/solenoid_single.js"></script>
-    <script src="blockly/blocks/local/timing.js"></script>
-    <script src="blockly/blocks/local/variables_boolean.js"></script>
-    <script src="blockly/blocks/local/variables_double.js"></script>
-    <script src="blockly/blocks/local/variables_int.js"></script>
-    <script src="blockly/blocks/local/statevars.js"></script>
-
-    <script src="blockly/generators/java/logic.js"></script>
-    <script src="blockly/generators/java/loops.js"></script>
-    <script src="blockly/generators/java/math.js"></script>
-    <script src="blockly/generators/java/procedures.js"></script>
-    <script src="blockly/generators/java/text.js"></script>
-    <!-- endbuild -->
-
-    <!-- build:js({.tmp,src}) scripts/app.js -->
+    <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
     <script src="app/components/progress/progress.c.js"></script>
     <script src="app/app.js"></script>
