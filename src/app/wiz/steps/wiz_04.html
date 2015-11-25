@@ -21,7 +21,7 @@
               </td>
               <td>
                 <select ng-model="item.port" required class="form-control form-control-inline" >
-                  <option value="">Choose a port</option>
+                  <option value="" disabled>Choose a port</option>
                   <option
                     value="{{port}}"
                     ng-repeat="port in Robot.getNumUSBPorts()"
@@ -32,7 +32,7 @@
               </td>
               <td>
                 <select ng-model="item.type" required class="form-control form-control-inline">
-                  <option value="">Choose a type</option>
+                  <option value="" disabled>Choose a type</option>
                   <option value="joystick">Joystick</option>
                   <option value="xbox">XBox</option>
                   <option value="ps">Play Station</option>
@@ -47,9 +47,18 @@
         </table>
         <button ng-click="Robot.addHID()" class="btn btn-success pull-right">Add</button>
       </li>
-      <li ng-show="inputs.$valid">
+      <li>
         <!-- Done -->
-        <a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+        <a
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(inputs.$valid)">
+					Next &raquo;</button>
       </li>
     </ol>
   </form>

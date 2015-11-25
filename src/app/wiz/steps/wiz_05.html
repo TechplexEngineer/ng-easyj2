@@ -63,9 +63,18 @@
         <button ng-click="Robot.addDigitalSensor()" class="btn btn-success pull-right">Add Digital Input</button>
       </li>
 
-      <li ng-show="inputs.$valid || Robot.data.hasDIN == 'no'">
+      <li>
         <!-- Done -->
-        <a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+        <a
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(inputs.$valid)">
+					Next &raquo;</button>
       </li>
     </ol>
   </form>

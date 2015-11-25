@@ -13,45 +13,32 @@ app.controller('ProgressCtrl', function ($scope, $routeParams, $localStorage) {
   // it would be nice if we could extract this data from the steps directory
   prog.steps = [
     {
-      name: '',
-      desc: 'Drivetrain',
+      desc: 'Drivetrain'
     },{
-      name: '',
-      desc: 'Motors',
+      desc: 'Motors'
     },{
-      name: '',
-      desc: 'Pneumatics',
+      desc: 'Pneumatics'
     },{
-      name: '',
-      desc: 'Driver Station Inputs',
+      desc: 'Driver Station Inputs'
     },{
-      name: '',
-      desc: 'Digital Inputs',
+      desc: 'Digital Inputs'
     },{
-      name: '',
-      desc: 'Analog Inputs',
+      desc: 'Analog Inputs'
     },{
-      name: '',
-      desc: 'Subsystems',
+      desc: 'Subsystems'
     },{
-      name: '',
-      desc: 'Acutator & Sensor Assiginment',
+      desc: 'Acutator & Sensor Assiginment'
     },{
-      name: '',
-      desc: 'Action Code',
+      desc: 'Action Code'
     },{
-      name: '',
-      desc: 'Commands',
+      desc: 'Commands'
     },{
-      name: '',
-      desc: 'Command Code',
+      desc: 'Command Code'
     },{
-      name: '',
-      desc: 'Operator Interface (OI)',
+      desc: 'Operator Interface (OI)'
     },{
-      name: '',
-      desc: 'Autonomous',
-    },
+      desc: 'Autonomous'
+    }
   ];
 
   prog.getClass = function(s) {

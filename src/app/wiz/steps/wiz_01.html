@@ -2,28 +2,28 @@
 	<form name="drivetrain" novalidate class="col-lg-6">
 		<h1>Drivetrain</h1>
 		<ol>
-
+			<!-- 1 -->
 			<li>
 				Does your robot have a drivetrain?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.hasDrivetrain" ng-change="Robot.drivetrainChange()" value="yes">
+						<input type="radio" value="yes"
+							ng-model="Robot.data.hasDrivetrain"
+							ng-change="Robot.drivetrainChange()">
 						Yes, it has wheels!
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.hasDrivetrain" ng-change="Robot.drivetrainChange()" value="no" required>
+						<input type="radio"  value="no" required
+							ng-model="Robot.data.hasDrivetrain"
+							ng-change="Robot.drivetrainChange()">
 						No, its stationary.
 					</label>
 				</div>
 			</li>
 
-			<li ng-show="Robot.data.hasDrivetrain == 'no'">
-				<!-- No -->
-				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
-			</li>
-
+			<!-- 2 -->
 			<li ng-show="Robot.data.hasDrivetrain == 'yes'">
 				What type of motor controllers will be used?
 				<div class="form-group" >
@@ -31,7 +31,7 @@
 						ng-model="Robot.data.drivetrain.mcType"
 						class="form-control form-control-inline"
 						ng-change="Robot.mcTypeChange()" required>
-						<option value="">Choose a type</option>
+						<option value="" disabled>Choose a type</option>
 						<option
 							value="{{mc.name}}"
 							ng-repeat="mc in Robot.controller.choices"
@@ -43,23 +43,29 @@
 				</div>
 			</li>
 
+			<!-- 3 -->
 			<li ng-show="Robot.data.drivetrain.mcType && Robot.data.hasDrivetrain == 'yes'">
 				<!-- Yes -->
 				How many motors does it use?
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.drivetrain.numMotors" value="2" required ng-change="Robot.numMotorsChange()">
+						<input type="radio" value="2" required
+							ng-change="Robot.numMotorsChange()"
+							ng-model="Robot.data.drivetrain.numMotors">
 						2 motors
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" ng-model="Robot.data.drivetrain.numMotors" value="4" required ng-change="Robot.numMotorsChange()">
+						<input type="radio" value="4" required
+							ng-change="Robot.numMotorsChange()"
+							ng-model="Robot.data.drivetrain.numMotors">
 						4 motors (also for 6 or 8 wheel drive)
 					</label>
 				</div>
 			</li>
 
+			<!-- 4 -->
 			<li ng-show="Robot.data.drivetrain.mcType && Robot.data.drivetrain.numMotors && Robot.data.hasDrivetrain == 'yes'">
 				What type of driving will you be doing?
 				<div class="radio">
@@ -74,7 +80,9 @@
 						tank drive
 					</label>
 				</div>
-				<div class="radio" ng-show="Robot.data.numMotors == 4 || Robot.data.numMotors == 8"> <!-- this might be a dumb assumption -->
+				<div class="radio"
+					ng-show="Robot.data.drivetrain.numMotors == 4 || Robot.data.drivetrain.numMotors == 8">
+					<!-- 8 might be a dumb assumption -->
 					<label>
 						<input type="radio" ng-model="Robot.data.drivetrain.type" value="mecanum">
 						mecanum drive
@@ -82,6 +90,7 @@
 				</div>
 			</li>
 
+			<!-- 5 -->
 			<li ng-show="Robot.data.drivetrain.mcType && Robot.data.drivetrain.type && Robot.data.hasDrivetrain == 'yes'">
 				What ports are your motors connected to?
 				<table class="table">
@@ -93,11 +102,13 @@
 					<tbody>
 						<tr ng-repeat="controller in Robot.data.drivetrain.controllers">
 							<td>
-								<input ng-model="controller.name" required class="form-control form-control-inline" type="text">
+								<input ng-model="controller.name" required
+									class="form-control form-control-inline" type="text">
 							</td>
 							<td>
-								<select ng-model="controller.port" required class="form-control form-control-inline">
-									<option value="">Choose a port</option>
+								<select ng-model="controller.port" required
+									class="form-control form-control-inline">
+									<option value="" disabled>Choose a port</option>
 									<option
 										ng-repeat="port in Robot.getNumPWM()"
 										value="{{port}}"
@@ -114,27 +125,18 @@
 				</table>
 			</li>
 
-			<li ng-show="drivetrain.$valid && Robot.data.hasDrivetrain == 'yes'">
+			<li>
 				<!-- Done -->
-				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)">Next &raquo;</a>
+				<button
+					class="btn btn-primary"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(drivetrain.$valid)"
+					>Next &raquo;</button>
 			</li>
 
 		</ol>
 	</form>
-	<!-- <div ng-include="'app/wiz/steps/debug.html'"></div> -->
-	<div class="col-lg-4">
-		<!-- <img src="assets/images/mc/talon_sr.jpg" alt="Talon SR" class="img-responsive img-thumbnail"> -->
+	<div ng-include="'app/wiz/mc.html'"></div>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 
-		<figure class="figure col-lg-3" ng-repeat="mc in Robot.controller.choices">
-			<img ng-src="assets/images/mc/{{mc.img}}" class="img-rounded" alt="{{mc.alt}}" width="150">
-			<figcaption class="figure-caption text-center">{{mc.prettyName}}</figcaption>
-		</figure>
-		<!-- <div class="row">
-			<div class="col-lg-2"></div>
-			<div class="col-lg-2"></div>
-			<div class="col-lg-2"></div>
-			<div class="col-lg-2"></div>
-
-		</div> -->
-	</div>
 </div>
