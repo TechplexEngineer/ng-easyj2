@@ -19,11 +19,11 @@ app.directive('ngSparkline', function() {
 			prog.cur = $scope.ngModel();
 			prog.baseLink = '#/wizard/';
 
-			prog.getClass = function(s) {
+			prog.getClass = function(s, cur) {
 				var out = 'disabled';
-				if (prog.cur > s){
+				if (cur > s){
 					out = 'complete';
-				} else if (prog.cur === s) {
+				} else if (cur === s) {
 					out = 'active';
 				} else {
 					out = 'disabled';
@@ -67,20 +67,13 @@ app.directive('ngSparkline', function() {
 			for (var i = 0; i < prog.steps.length; i++) {
 				prog.steps[i].class = prog.getClass(i+1);
 			}
-			console.log("ctrl");
+
+			//remember ngModel is the highest acheived step
 			$scope.$watch('ngModel()', function() {
 
-				console.log("changed!");
-
-				//@note welp I feel like this should work...
-				$timeout(function() {
-					// anything you want can go here and will safely be run on the next digest.
-					$scope.$apply(function(){
-						for (var i = 0; i < prog.steps.length; i++) {
-							prog.steps[i].class = prog.getClass(i+1);
-						}
-					});
-				});
+				for (var i = 0; i < prog.steps.length; i++) {
+					prog.steps[i].class = prog.getClass(i+1);
+				}
 
 			});
 		}
