@@ -90,7 +90,7 @@ angular.module('easyj.about')
         'title': 'generator-gulp-angular',
         'url': 'https://github.com/Swiip/generator-gulp-angular',
         'description': 'A fantastic generator for Yeoman which helps set the ball in motion.',
-        'logo': ''
+        'logo': 'generator-gulp-angular-logo.png'
       }
 
 
