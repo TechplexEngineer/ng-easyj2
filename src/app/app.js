@@ -7,6 +7,7 @@ angular.module('easyj', [
   'easyj.wiz',
   'easyj.progress',
   'ngTagsInput',
+  'easyj.sparkline'
   ])
   .config(function ($routeProvider) {
     $routeProvider
