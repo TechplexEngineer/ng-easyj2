@@ -13,11 +13,26 @@ app.directive('ngSparkline', function() {
 		// template: '"Directive":{{ngModel()}}',
 		templateUrl: 'app/components/progress/progress.html',
 		controllerAs: 'prog',
-		controller: function($scope, $routeParams) {
+		controller: function($scope, $routeParams, $timeout) {
 			var prog = this;
 
 			prog.cur = $scope.ngModel();
 			prog.baseLink = '#/wizard/';
+
+			prog.getClass = function(s) {
+				var out = 'disabled';
+				if (prog.cur > s){
+					out = 'complete';
+				} else if (prog.cur === s) {
+					out = 'active';
+				} else {
+					out = 'disabled';
+				}
+				if (s.toString() === $routeParams.step) {
+					out += ' selected';
+				}
+				return out;
+			};
 
 			// it would be nice if we could extract this data from the steps directory
 			prog.steps = [
@@ -49,25 +64,25 @@ app.directive('ngSparkline', function() {
 					desc: 'Autonomous'
 				}
 			];
+			for (var i = 0; i < prog.steps.length; i++) {
+				prog.steps[i].class = prog.getClass(i+1);
+			}
+			console.log("ctrl");
+			$scope.$watch('ngModel()', function() {
 
-			prog.getClass = function(s) {
-				var out = 'disabled';
-				if (prog.cur > s){
-					out = 'complete';
-				} else if (prog.cur === s) {
-					out = 'active';
-				} else {
-					out = 'disabled';
-				}
-				if (s.toString() === $routeParams.step) {
-					out += ' selected';
-				}
-				return out;
-			};
-		},
-		link: function(scope, iElement, iAttrs, ctrl) {
-			// scope.getTemp(iAttrs.ngCity);
+				console.log("changed!");
 
+				//@note welp I feel like this should work...
+				$timeout(function() {
+					// anything you want can go here and will safely be run on the next digest.
+					$scope.$apply(function(){
+						for (var i = 0; i < prog.steps.length; i++) {
+							prog.steps[i].class = prog.getClass(i+1);
+						}
+					});
+				});
+
+			});
 		}
 	}
 });
