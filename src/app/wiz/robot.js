@@ -156,14 +156,14 @@ app.factory('Robot', function($localStorage, $window){
     n=n.toString();
     //check drivetrain
     for (var i = 0; i < Robot.data.drivetrain.controllers.length; i++) {
-      if (Robot.data.drivetrain.controllers[i].port.toString() === n) {
+      if (Robot.data.drivetrain.controllers[i].port.toString() === n.toString()) {
         out = true;
         break;
       }
     }
     //check other controllers
     for (i = 0; i < Robot.data.controllers.length; i++) {
-      if (Robot.data.controllers[i].port.toString() === n) {
+      if (Robot.data.controllers[i].port.toString() === n.toString()) {
         out = true;
         break;
       }
@@ -185,7 +185,7 @@ app.factory('Robot', function($localStorage, $window){
     for (var i = 0; i < controllers.length; i++) {
       var con = _.clone(EMPTY_CON);
       con.name = controllers[i];
-      con.port = (! Robot.isPWMUsed(i)) ? i : '' ;
+      con.port = ((! Robot.isPWMUsed(i)) ? i : '').toString() ;
       con.type = Robot.data.drivetrain.mcType;
       Robot.data.drivetrain.controllers.push(con);
     }
