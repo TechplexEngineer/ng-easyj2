@@ -1,71 +1,71 @@
 <div class="row" ng-controller="Wiz5Ctrl as step">
-  <form name="inputs" novalidate class="col-lg-6">
-    <h1>Digital Inputs</h1>
-    <p>Digital inputs are most often used as limit stitches.</p>
-    <ol>
-      <li>
-        Does your robot use Digital Inputs?
-        <div class="radio">
-          <label>
-            <input type="radio" ng-model="Robot.data.hasDIN" value="yes">
-            Yes!
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" ng-model="Robot.data.hasDIN" value="no" required>
-            No.
-          </label>
-        </div>
-      </li>
+	<form name="inputs" novalidate class="col-lg-6">
+		<h1>Digital Inputs</h1>
+		<p>Digital inputs are most often used as limit stitches.</p>
+		<ol>
+			<li>
+				Does your robot use Digital Inputs?
+				<div class="radio">
+					<label>
+						<input type="radio" ng-model="Robot.data.hasDIN" value="yes">
+						Yes!
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" ng-model="Robot.data.hasDIN" value="no" required>
+						No.
+					</label>
+				</div>
+			</li>
 
-      <li ng-if="Robot.data.hasDIN == 'yes'">
-        <button ng-click="Robot.addDigitalSensor()" class="btn btn-success pull-right">Add Digital Input</button>
-        Digital Input configuration <!-- @todo Digital Output -->
-        <table class="table">
-          <thead>
-            <th>Name</th>
-            <th><abbr title="General Purpose Digital Input and Output">GPDIO</abbr> Port</th>
-            <th>Type</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in Robot.data.sensors.digital">
-              <td>
-                <input ng-model="item.name" required type="text" class="form-control form-control-inline">
-              </td>
-              <td>
-                <select ng-model="item.port" required class="form-control form-control-inline" >
-                  <option value="">Choose a port</option>
-                  <option
-                    value="{{port}}"
-                    ng-repeat="port in Robot.getNumDigitalPorts()"
-                    ng-disabled="Robot.isDigitalPortUsed(port)"
-                    ng-selected="{{port == item.port}}">
-                  {{port}} {{Robot.isDigitalPortUsed(port)? 'used' : ''}}</option>
-                </select>
-              </td>
-              <td>
-                <select ng-model="item.type" required class="form-control form-control-inline">
-                  <option value="">Choose a type</option>
-                  <option value="switch">Switch (limit switch, push button etc)</option>
-                  <!-- <option value="encoder">Encoder</option> // can't do it because it uses two ports -->
-                  <!-- <option value="ultra">Utltrasonic</option> // can't do it because it uses two ports -->
-                </select>
-              </td>
-              <td>
-                <button ng-hide="$first && Robot.data.sensors.digital.length < 2" ng-click="Robot.removeDigitalSensor(item)" class="btn btn-danger" >Remove</button>
+			<li ng-if="Robot.data.hasDIN == 'yes'">
+				<button ng-click="Robot.addDigitalSensor()" class="btn btn-success pull-right">Add Digital Input</button>
+				Digital Input configuration <!-- @todo Digital Output -->
+				<table class="table">
+					<thead>
+						<th>Name</th>
+						<th><abbr title="General Purpose Digital Input and Output">GPDIO</abbr> Port</th>
+						<th>Type</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in Robot.data.sensors.digital">
+							<td>
+								<input ng-model="item.name" required type="text" class="form-control form-control-inline">
+							</td>
+							<td>
+								<select ng-model="item.port" required class="form-control form-control-inline" >
+									<option value="">Choose a port</option>
+									<option
+										value="{{port}}"
+										ng-repeat="port in Robot.getNumDigitalPorts()"
+										ng-disabled="Robot.isDigitalPortUsed(port)"
+										ng-selected="{{port == item.port}}">
+									{{port}} {{Robot.isDigitalPortUsed(port)? 'used' : ''}}</option>
+								</select>
+							</td>
+							<td>
+								<select ng-model="item.type" required class="form-control form-control-inline">
+									<option value="">Choose a type</option>
+									<option value="switch">Switch (limit switch, push button etc)</option>
+									<!-- <option value="encoder">Encoder</option> // can't do it because it uses two ports -->
+									<!-- <option value="ultra">Utltrasonic</option> // can't do it because it uses two ports -->
+								</select>
+							</td>
+							<td>
+								<button ng-hide="$first && Robot.data.sensors.digital.length < 2" ng-click="Robot.removeDigitalSensor(item)" class="btn btn-danger" >Remove</button>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button ng-click="Robot.addDigitalSensor()" class="btn btn-success pull-right">Add Digital Input</button>
-      </li>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button ng-click="Robot.addDigitalSensor()" class="btn btn-success pull-right">Add Digital Input</button>
+			</li>
 
-      <li>
-        <!-- Done -->
-        <a
+			<li>
+				<!-- Done -->
+				<a
 					class="btn btn-info"
 					href="#/wizard/{{step.num-1}}">
 					&laquo; Back</a>
@@ -75,8 +75,8 @@
 					ng-click="wiz.stepComplete(step.num)"
 					ng-disabled="!step.complete(inputs.$valid)">
 					Next &raquo;</button>
-      </li>
-    </ol>
-  </form>
-  <div ng-include="'app/wiz/steps/debug.html'"></div>
+			</li>
+		</ol>
+	</form>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>

@@ -1,24 +1,24 @@
 <div class="row" ng-controller="Wiz9Ctrl as step">
 	<div class="col-sm-2">
 		<div class="panel panel-default">
-		  <div class="panel-heading">Current Subsystem</div>
-		  <div class="panel-body">
-		    <!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
+			<div class="panel-heading">Current Subsystem</div>
+			<div class="panel-body">
+				<!-- <select class="form-control" ng-options="item.name for item in Robot.getSubsystems()">
 				</select> -->
 				<select class="form-control" id="currentSubsystem" ng-model="step.currentSubsystem" ng-change="step.currentSubsysChange()">
-	        <option
-	          ng-repeat="subsys in Robot.getSubsystems()"
-	          value="{{subsys.name}}"
-	          ng-selected="{{subsys.name === item.subsystem}}">
-	        {{subsys.name}}</option>
-	      </select>
-		  </div>
+					<option
+						ng-repeat="subsys in Robot.getSubsystems()"
+						value="{{subsys.name}}"
+						ng-selected="{{subsys.name === item.subsystem}}">
+					{{subsys.name}}</option>
+				</select>
+			</div>
 		</div>
 
 		<div class="panel panel-default">
-		  <div class="panel-heading">Subsystem Actions</div>
-		  <div class="panel-body">
-			  <div class="list-group">
+			<div class="panel-heading">Subsystem Actions</div>
+			<div class="panel-body">
+				<div class="list-group">
 					<a href
 						ng-repeat="action in Robot.getActions(step.currentSubsystem)"
 						class="list-group-item"
@@ -28,12 +28,12 @@
 						<!-- <i ng-if="!action.isDone" class="fa fa-circle text-danger pull-right" title="Action code is incomplete."></i> -->
 
 						<span ng-if="!action.isDone" class="fa-stack pull-right" title="Action code is incomplete.">
-						  <i class="fa fa-circle fa-stack-2x" style="color:white;"></i>
-						  <i class="fa fa-times fa-stack-1x text-danger" style="line-height: 27px;"></i>
+							<i class="fa fa-circle fa-stack-2x" style="color:white;"></i>
+							<i class="fa fa-times fa-stack-1x text-danger" style="line-height: 27px;"></i>
 						</span>
 						<span ng-if="action.isDone" class="fa-stack pull-right" title="Action code is complete!">
-						  <i class="fa fa-circle fa-stack-2x" style="color:white;"></i>
-						  <i class="fa fa-check fa-stack-1x text-success"></i>
+							<i class="fa fa-circle fa-stack-2x" style="color:white;"></i>
+							<i class="fa fa-check fa-stack-1x text-success"></i>
 						</span>
 					</a>
 
@@ -61,137 +61,137 @@
 	<xml id="startingblocks" style="display: none">
 		<block type="state_vars" x="250" y="0"></block>
 		<block type="procedures_defreturn" x="250" y="100">
-	    <mutation procname="{{step.currentAction}}"></mutation>
-	  </block>
+			<mutation procname="{{step.currentAction}}"></mutation>
+		</block>
 	</xml>
 
-  <xml id="toolbox" style="display: none">
+	<xml id="toolbox" style="display: none">
 
-  	<category name="Logic">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_ternary"></block>
-    </category>
+		<category name="Logic">
+			<block type="controls_if"></block>
+			<block type="logic_compare"></block>
+			<block type="logic_operation"></block>
+			<block type="logic_negate"></block>
+			<block type="logic_boolean"></block>
+			<block type="logic_ternary"></block>
+		</category>
 
-    <category name="Math">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_number_property"></block>
-      <block type="math_round"></block>
-      <block type="math_modulo"></block>
-    </category>
+		<category name="Math">
+			<block type="math_number"></block>
+			<block type="math_arithmetic"></block>
+			<block type="math_number_property"></block>
+			<block type="math_round"></block>
+			<block type="math_modulo"></block>
+		</category>
 
-    <category name="Text">
-      <block type="text"></block>
-      <block type="text_print">
-        <value name="TEXT">
-          <block type="text"></block>
-        </value>
-      </block>
-      <block type="text_join"></block>
-    </category>
+		<category name="Text">
+			<block type="text"></block>
+			<block type="text_print">
+				<value name="TEXT">
+					<block type="text"></block>
+				</value>
+			</block>
+			<block type="text_join"></block>
+		</category>
 
 		<category name="Variables" custom="VARIABLE"></category>
 
-    <sep></sep>
+		<sep></sep>
 
-    <category name="Input &amp; Sensors">
-      <block type="get_gyro"></block>
-      <block type="gyro_reset"></block>
-      <block type="get_digital_input_value"></block>
-      <block type="get_analog_input_value"></block>
-      <block type="get_joystick_axis"></block>
-      <block type="get_joystick_button"></block>
-    </category>
+		<category name="Input &amp; Sensors">
+			<block type="get_gyro"></block>
+			<block type="gyro_reset"></block>
+			<block type="get_digital_input_value"></block>
+			<block type="get_analog_input_value"></block>
+			<block type="get_joystick_axis"></block>
+			<block type="get_joystick_button"></block>
+		</category>
 
-    <category name="Outputs">
-      <block type="set_digital_output">
-        <value name="VALUE">
-          <block type="logic_boolean" id="16" x="245" y="191">
-            <field name="BOOL">TRUE</field>
-          </block>
-        </value>
-      </block>
-      <block type="set_relay"></block>
+		<category name="Outputs">
+			<block type="set_digital_output">
+				<value name="VALUE">
+					<block type="logic_boolean" id="16" x="245" y="191">
+						<field name="BOOL">TRUE</field>
+					</block>
+				</value>
+			</block>
+			<block type="set_relay"></block>
 
-    </category>
+		</category>
 
-    <category name="Motors">
-      <block type="move_motor_controller">
-        <value name="SPEED">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-      <block type="stop_motor_controller"></block>
-      <block type="move_drivetrain">
-        <value name="MOVE">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="TURN">
-          <block type="math_number">
-            <field name="NUM">0</field>
-          </block>
-        </value>
-      </block>
-      <block type="stop_drivetrain"></block>
-      <block type="move_with_joystick"></block>
-    </category>
+		<category name="Motors">
+			<block type="move_motor_controller">
+				<value name="SPEED">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+			</block>
+			<block type="stop_motor_controller"></block>
+			<block type="move_drivetrain">
+				<value name="MOVE">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+				<value name="TURN">
+					<block type="math_number">
+						<field name="NUM">0</field>
+					</block>
+				</value>
+			</block>
+			<block type="stop_drivetrain"></block>
+			<block type="move_with_joystick"></block>
+		</category>
 
-    <category name="Pneumatics">
-      <block type="set_solenoid_single">
-        <value name="VALUE">
-          <block type="logic_boolean" id="16" x="245" y="191">
-            <field name="BOOL">TRUE</field>
-          </block>
-        </value>
-      </block>
-      <block type="double_solenoid_set"></block>
-    </category>
-
-
-
-    <!-- <category name="Loops">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <value name="FROM">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="TO">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-        <value name="BY">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-    </category> -->
-
-    <category name="Timing">
-      <block type="us_counter"></block>
-    </category>
+		<category name="Pneumatics">
+			<block type="set_solenoid_single">
+				<value name="VALUE">
+					<block type="logic_boolean" id="16" x="245" y="191">
+						<field name="BOOL">TRUE</field>
+					</block>
+				</value>
+			</block>
+			<block type="double_solenoid_set"></block>
+		</category>
 
 
 
-  </xml>
+		<!-- <category name="Loops">
+			<block type="controls_repeat_ext">
+				<value name="TIMES">
+					<block type="math_number">
+						<field name="NUM">10</field>
+					</block>
+				</value>
+			</block>
+			<block type="controls_whileUntil"></block>
+			<block type="controls_for">
+				<value name="FROM">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+				<value name="TO">
+					<block type="math_number">
+						<field name="NUM">10</field>
+					</block>
+				</value>
+				<value name="BY">
+					<block type="math_number">
+						<field name="NUM">1</field>
+					</block>
+				</value>
+			</block>
+		</category> -->
+
+		<category name="Timing">
+			<block type="us_counter"></block>
+		</category>
+
+
+
+	</xml>
 
 
 

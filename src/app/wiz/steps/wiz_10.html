@@ -1,6 +1,6 @@
 <div class="row" ng-controller="Wiz10Ctrl as step">
 	<form name="commands" novalidate class="col-lg-6">
-    <h1>Commands</h1>
+		<h1>Commands</h1>
 		<ol>
 			<li>
 				<p>To begin thinking about what the commands are needed keep these in mind:</p>
@@ -56,15 +56,15 @@
 			<li>
 				<!-- Done -->
 				<a
-          class="btn btn-info"
-          href="#/wizard/{{step.num-1}}">
-          &laquo; Back</a>
-        <button
-          class="btn btn-primary"
-          href="#/wizard/{{step.num+1}}"
-          ng-click="wiz.stepComplete(step.num)"
-          ng-disabled="!step.complete(commands.$valid)">
-          Next &raquo;</button>
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(commands.$valid)">
+					Next &raquo;</button>
 			</li>
 		</ol>
 	</form>

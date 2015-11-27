@@ -1,140 +1,140 @@
 'use strict';
 
 var app = angular.module('easyj.wiz', [
-  'ngRoute',
-  'ngStorage'
+	'ngRoute',
+	'ngStorage'
 ]);
 
 app.config(function ($routeProvider) {
-  $routeProvider
-    .when('/wizard', {
-      templateUrl: 'app/wiz/wiz.html'
-    })
-    .when('/wizard/:step', {
-      templateUrl: function () {
-        return 'app/wiz/steps/wiz_steps.html';
-      },
-      controller: 'WizCtrl',
-      controllerAs: 'wiz'
-    });
+	$routeProvider
+		.when('/wizard', {
+			templateUrl: 'app/wiz/wiz.html'
+		})
+		.when('/wizard/:step', {
+			templateUrl: function () {
+				return 'app/wiz/steps/wiz_steps.html';
+			},
+			controller: 'WizCtrl',
+			controllerAs: 'wiz'
+		});
 });
 
 
 
 //zero pad a number
 function pad(n, width, z) {
-  z = z || '0';
-  n = n + '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	z = z || '0';
+	n = n + '';
+	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
 
 app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, $window) {
 	var wiz = this;
 	wiz.stepComplete = function (num) {
-    if (typeof $localStorage.curStep === 'undefined') {
-      $localStorage.curStep = num+1;
-    } else {
-      if (num >= $localStorage.curStep) {
-        $localStorage.curStep = num+1;
-      }
-    }
-    $window.location.href = '/#/wizard/'+(parseInt($routeParams.step)+1);
-  };
-  wiz.getCurStep = function () {
-    return $localStorage.curStep || 1;
-  };
+		if (typeof $localStorage.curStep === 'undefined') {
+			$localStorage.curStep = num+1;
+		} else {
+			if (num >= $localStorage.curStep) {
+				$localStorage.curStep = num+1;
+			}
+		}
+		$window.location.href = '/#/wizard/'+(parseInt($routeParams.step)+1);
+	};
+	wiz.getCurStep = function () {
+		return $localStorage.curStep || 1;
+	};
 
-  wiz.invalidateFutureSteps = function() {
-  	if ($routeParams.step < wiz.getCurStep()) {
-  		$localStorage.curStep = parseInt($routeParams.step);
-  	}
-  };
+	wiz.invalidateFutureSteps = function() {
+		if ($routeParams.step < wiz.getCurStep()) {
+			$localStorage.curStep = parseInt($routeParams.step);
+		}
+	};
 
-  //@Make sure that you can't get to a step that isn't complete.
+	//@Make sure that you can't get to a step that isn't complete.
 	if ($routeParams.step > this.getCurStep()) {
 		$window.location.href = '/#/wizard/'+this.getCurStep();
 		return;
 	}
 
-  this.step = pad($routeParams.step,2); //this is used to determine what template to load
+	this.step = pad($routeParams.step,2); //this is used to determine what template to load
 
 
 
-  //make robot available to all views
-  $scope.Robot = Robot;
+	//make robot available to all views
+	$scope.Robot = Robot;
 
-  $scope.$localStorage = $localStorage;
+	$scope.$localStorage = $localStorage;
 });
 
 app.controller('Wiz1Ctrl', function (Robot) {
-  this.num = 1;
-  this.complete = function (isValid) {
-  	return (isValid && Robot.data.hasDrivetrain == 'yes') || Robot.data.hasDrivetrain == 'no';
-  };
+	this.num = 1;
+	this.complete = function (isValid) {
+		return (isValid && Robot.data.hasDrivetrain == 'yes') || Robot.data.hasDrivetrain == 'no';
+	};
 });
 app.controller('Wiz2Ctrl', function (Robot) {
-  this.num = 2;
-  this.complete = function (isValid) {
-  	return (isValid && Robot.data.hasOtherMotors == 'yes') || Robot.data.hasOtherMotors == 'no';
-  };
+	this.num = 2;
+	this.complete = function (isValid) {
+		return (isValid && Robot.data.hasOtherMotors == 'yes') || Robot.data.hasOtherMotors == 'no';
+	};
 
 });
 app.controller('Wiz3Ctrl', function (Robot) {
-  this.num = 3;
-  this.complete = function (isValid) {
-  	return (isValid && Robot.data.hasPneumatics == 'yes') || Robot.data.hasPneumatics == 'no';
-  };
+	this.num = 3;
+	this.complete = function (isValid) {
+		return (isValid && Robot.data.hasPneumatics == 'yes') || Robot.data.hasPneumatics == 'no';
+	};
 });
 app.controller('Wiz4Ctrl', function (Robot) {
-  this.num = 4;
-  this.complete = function (isValid) {
-  	return isValid;
-  };
+	this.num = 4;
+	this.complete = function (isValid) {
+		return isValid;
+	};
 });
 app.controller('Wiz5Ctrl', function (Robot) {
-  this.num = 5;
-  this.complete = function (isValid) {
-  	return (isValid && Robot.data.hasDIN == 'yes') || Robot.data.hasDIN == 'no';
-  };
+	this.num = 5;
+	this.complete = function (isValid) {
+		return (isValid && Robot.data.hasDIN == 'yes') || Robot.data.hasDIN == 'no';
+	};
 
 });
 app.controller('Wiz6Ctrl', function (Robot) {
-  this.num = 6;
-  this.complete = function (isValid) {
-  	return (isValid && Robot.data.hasAIN == 'yes') || Robot.data.hasAIN == 'no';
-  };
+	this.num = 6;
+	this.complete = function (isValid) {
+		return (isValid && Robot.data.hasAIN == 'yes') || Robot.data.hasAIN == 'no';
+	};
 });
 app.controller('Wiz7Ctrl', function (Robot) {
-  this.num = 7;
-  this.complete = function (isValid) {
-  	return isValid;
-  };
+	this.num = 7;
+	this.complete = function (isValid) {
+		return isValid;
+	};
 });
 app.controller('Wiz8Ctrl', function (Robot) {
-  this.num = 8;
-  this.complete = function (isValid) {
-  	return isValid;
-  };
+	this.num = 8;
+	this.complete = function (isValid) {
+		return isValid;
+	};
 });
 app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	var step = this;
-  step.num = 9;
-  step.currentSubsystem = Robot.getSubsystems()[0].name;
-  step.currentAction = Robot.getSubsystems()[0].actions[0].text;
-  if (_.isNull(document.getElementById('blocklyDiv'))) {
-  	console.error('It seems the blocklyDiv is missing.');
-  	return;
-  }
-  Blockly.inject(document.getElementById('blocklyDiv'),
-        {
-        	path:'/blockly-src/',
-        	toolbox: document.getElementById('toolbox'),
-        	media:'/blockly-src/media/'
-        });
+	step.num = 9;
+	step.currentSubsystem = Robot.getSubsystems()[0].name;
+	step.currentAction = Robot.getSubsystems()[0].actions[0].text;
+	if (_.isNull(document.getElementById('blocklyDiv'))) {
+		console.error('It seems the blocklyDiv is missing.');
+		return;
+	}
+	Blockly.inject(document.getElementById('blocklyDiv'),
+				{
+					path:'/blockly-src/',
+					toolbox: document.getElementById('toolbox'),
+					media:'/blockly-src/media/'
+				});
 
-  Blockly.mainWorkspace.reset = function() {
-  	$timeout(function() { //this wits for the {{step.currentAction}} to be injected before reloading blocks
+	Blockly.mainWorkspace.reset = function() {
+		$timeout(function() { //this wits for the {{step.currentAction}} to be injected before reloading blocks
 			// Remove all blocks
 			Blockly.mainWorkspace.clear();
 			//Load the starting blocks
@@ -154,7 +154,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	// }, 0);
 
 
-  //Changes the active Action
+	//Changes the active Action
 	step.setActiveAction = function(newAction) {
 
 		if(!_.contains(_.pluck(Robot.getActions(step.currentSubsystem), 'text'), newAction)) {
@@ -259,19 +259,19 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
 
-	  var stateVars = Blockly.extensions.blockTypeToDom('state_vars');
-	  stateVars = Blockly.Xml.domToPrettyText(stateVars);
+		var stateVars = Blockly.extensions.blockTypeToDom('state_vars');
+		stateVars = Blockly.Xml.domToPrettyText(stateVars);
 		Robot.getSubsystem(step.currentSubsystem).stateVars = stateVars;
 
 		var proc = Blockly.extensions.blockTypeToDom('procedures_defreturn');
-	  proc = Blockly.Xml.domToPrettyText(proc);
+		proc = Blockly.Xml.domToPrettyText(proc);
 		act.xmlcode = proc;
 
-	  if ( !act.isDone && Blockly.mainWorkspace.getAllBlocks().length > 2 ) {
-	  	$scope.$apply(function () {
-        act.isDone = true; //@todo need a better way to determine if their code is "done"
-      });
-	  }
+		if ( !act.isDone && Blockly.mainWorkspace.getAllBlocks().length > 2 ) {
+			$scope.$apply(function () {
+				act.isDone = true; //@todo need a better way to determine if their code is "done"
+			});
+		}
 	};
 	//Save the user's code if they refresh the page.
 	// Sometimes mutator changes were not being saved
@@ -302,20 +302,20 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 
 });
 app.controller('Wiz10Ctrl', function () {
-  this.num = 10;
-  this.complete = function (isValid) {
-  	return isValid;
-  };
+	this.num = 10;
+	this.complete = function (isValid) {
+		return isValid;
+	};
 });
 app.controller('Wiz11Ctrl', function () {
-  this.num = 11;
-  this.complete = function (isValid) {
-  	return isValid;
-  };
+	this.num = 11;
+	this.complete = function (isValid) {
+		return isValid;
+	};
 });
 app.controller('Wiz12Ctrl', function () {
-  this.num = 12;
+	this.num = 12;
 });
 app.controller('Wiz12Ctrl', function () {
-  this.num = 13;
+	this.num = 13;
 });

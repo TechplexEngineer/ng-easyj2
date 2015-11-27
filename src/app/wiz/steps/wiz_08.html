@@ -90,15 +90,15 @@
 			<li>
 				<!-- Done -->
 				<a
-          class="btn btn-info"
-          href="#/wizard/{{step.num-1}}">
-          &laquo; Back</a>
-        <button
-          class="btn btn-primary"
-          href="#/wizard/{{step.num+1}}"
-          ng-click="wiz.stepComplete(step.num)"
-          ng-disabled="!step.complete(asgn.$valid)">
-          Next &raquo;</button>
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(asgn.$valid)">
+					Next &raquo;</button>
 			</li>
 		</ol>
 	</form>

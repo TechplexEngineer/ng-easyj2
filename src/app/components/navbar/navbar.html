@@ -1,21 +1,21 @@
 <nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl as nav">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#/">
-        <img src="assets/images/easyj4frc.png" alt="EasyJ Logo" height="40px" style="margin-top: -10px;">
-      </a>
-    </div>
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#/">
+				<img src="assets/images/easyj4frc.png" alt="EasyJ Logo" height="40px" style="margin-top: -10px;">
+			</a>
+		</div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-      <ul class="nav navbar-nav">
-        <li ng-class="{ active: nav.isActive('/')}"><a ng-href="#/">Home</a></li>
-        <li ng-class="{ active: nav.isActive('/about')}"><a ng-href="#/about">About</a></li>
-        <li><a ng-href="http://www.techwizworld.net/contact.html">Contact</a></li>
-      </ul>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+			<ul class="nav navbar-nav">
+				<li ng-class="{ active: nav.isActive('/')}"><a ng-href="#/">Home</a></li>
+				<li ng-class="{ active: nav.isActive('/about')}"><a ng-href="#/about">About</a></li>
+				<li><a ng-href="http://www.techwizworld.net/contact.html">Contact</a></li>
+			</ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><p class="navbar-text">Current date: {{ date | date:'yyyy-MM-dd' }}</p></li>
-      </ul>
-    </div>
-  </div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><p class="navbar-text">Current date: {{ date | date:'yyyy-MM-dd' }}</p></li>
+			</ul>
+		</div>
+	</div>
 </nav>

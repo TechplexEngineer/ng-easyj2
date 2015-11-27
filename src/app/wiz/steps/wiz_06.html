@@ -1,27 +1,27 @@
 <div class="row" ng-controller="Wiz6Ctrl as step">
 	<form name="inputs" novalidate class="col-lg-6">
-    <h1>Analog Inputs</h1>
-    <p>Analog inputs are most often used by sensors: potentiometers, gyroscopes, and acceleroemeters.</p>
+		<h1>Analog Inputs</h1>
+		<p>Analog inputs are most often used by sensors: potentiometers, gyroscopes, and acceleroemeters.</p>
 		<ol>
-      <li>
-        Does your robot use Analog Inputs?
-        <div class="radio">
-          <label>
-            <input type="radio" value="yes"
-            	ng-model="Robot.data.hasAIN"
-            	ng-change="wiz.invalidateFutureSteps()">
-            Yes!
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" value="no" required
-            	ng-model="Robot.data.hasAIN"
-            	ng-change="wiz.invalidateFutureSteps()">
-            No.
-          </label>
-        </div>
-      </li>
+			<li>
+				Does your robot use Analog Inputs?
+				<div class="radio">
+					<label>
+						<input type="radio" value="yes"
+							ng-model="Robot.data.hasAIN"
+							ng-change="wiz.invalidateFutureSteps()">
+						Yes!
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" value="no" required
+							ng-model="Robot.data.hasAIN"
+							ng-change="wiz.invalidateFutureSteps()">
+						No.
+					</label>
+				</div>
+			</li>
 			<li ng-if="Robot.data.hasAIN == 'yes'">
 				<button ng-click="Robot.addAnalogSensor()" class="btn btn-success pull-right">Add Analog Input</button>
 				Analog Sensor configuration
@@ -44,7 +44,7 @@
 										value="{{port}}"
 										ng-repeat="port in Robot.getNumAnalogPorts()"
 										ng-disabled="Robot.isAnalogPortUsed(port)"
-                    ng-selected="{{port === item.port}}">
+										ng-selected="{{port === item.port}}">
 									{{port}} {{Robot.isAnalogPortUsed(port)? 'used' : ''}}</option>
 								</select>
 							</td>
@@ -63,21 +63,21 @@
 						</tr>
 					</tbody>
 				</table>
-        <button ng-click="Robot.addAnalogSensor()" class="btn btn-success pull-right">Add Analog Input</button>
+				<button ng-click="Robot.addAnalogSensor()" class="btn btn-success pull-right">Add Analog Input</button>
 			</li>
 			<li>
 				<!-- Done -->
 				<a
-          class="btn btn-info"
-          href="#/wizard/{{step.num-1}}">
-          &laquo; Back</a>
-        <button
-          class="btn btn-primary"
-          href="#/wizard/{{step.num+1}}"
-          ng-click="wiz.stepComplete(step.num)"
-          ng-disabled="!step.complete(inputs.$valid)">
-          Next &raquo;</button>
-      </li>
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(inputs.$valid)">
+					Next &raquo;</button>
+			</li>
 			</li>
 		</ol>
 	</form>

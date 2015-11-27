@@ -1,95 +1,95 @@
 <div class="row" ng-controller="Wiz2Ctrl as step">
-  <form name="motors" novalidate class="col-lg-6">
-    <h1>Motors</h1>
-    <ol>
+	<form name="motors" novalidate class="col-lg-6">
+		<h1>Motors</h1>
+		<ol>
 
 			<!-- 1 -->
-      <li>
-        Does your robot have more motors? (other than the drive train motors)
-        <div class="radio">
-          <label>
-            <input type="radio" value="yes"
-            	ng-model="Robot.data.hasOtherMotors"
-            	ng-change="wiz.invalidateFutureSteps()">
-            Yes, it has more motors!
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" value="no" required
-            	ng-model="Robot.data.hasOtherMotors"
-            	ng-change="wiz.invalidateFutureSteps()">
-            Nope.
-          </label>
-        </div>
-      </li>
+			<li>
+				Does your robot have more motors? (other than the drive train motors)
+				<div class="radio">
+					<label>
+						<input type="radio" value="yes"
+							ng-model="Robot.data.hasOtherMotors"
+							ng-change="wiz.invalidateFutureSteps()">
+						Yes, it has more motors!
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" value="no" required
+							ng-model="Robot.data.hasOtherMotors"
+							ng-change="wiz.invalidateFutureSteps()">
+						Nope.
+					</label>
+				</div>
+			</li>
 
 			<!-- 2 -->
-      <li ng-show="Robot.data.hasOtherMotors == 'yes'">
-        <button ng-click="Robot.addController()" class="btn btn-success pull-right">Add Motor</button>
-        <p>What motor controllers are used?</p>
-        <p>How are they connected to your RoboRio?</p>
-        <table class="table">
-          <thead>
-            <th>Motor Name</th>
-            <th> <abbr title="Pulse Width Modulation - Used for motor control">PWM</abbr> Port</th>
-            <th>Type</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="controller in Robot.data.controllers">
-              <td>
-                <input ng-model="controller.name" required class="form-control form-control-inline" type="text">
-              </td>
-              <td>
-                <select ng-model="controller.port" required class="form-control form-control-inline">
-                  <option value="" disabled>Choose a port</option>
-                  <option
-                    ng-repeat="port in Robot.getNumPWM()"
-                    value="{{port}}"
-                    ng-disabled="Robot.isPWMUsed(port)"
-                    ng-selected="{{port == controller.port}}">
-                  {{port}} {{Robot.isPWMUsed(port)? 'used' : ''}}</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  ng-model="controller.type"
-                  class="form-control form-control-inline" required>
-                  <option value="" disabled>Choose a type</option>
-                  <option
-                    ng-repeat="mc in Robot.controller.choices"
-                    value="{{mc.name}}"
-                    ng-selected="{{mc.name == controller.type}}">
-                    {{mc.prettyName}}
-                  </option>
-                </select>
-              </td>
-              <td>
-                <button ng-hide="$first && Robot.data.controllers.length < 2" ng-click="Robot.removeController(controller)" class="btn btn-danger" >Remove</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button ng-click="Robot.addController()" class="btn btn-success pull-right">Add Motor</button>
+			<li ng-show="Robot.data.hasOtherMotors == 'yes'">
+				<button ng-click="Robot.addController()" class="btn btn-success pull-right">Add Motor</button>
+				<p>What motor controllers are used?</p>
+				<p>How are they connected to your RoboRio?</p>
+				<table class="table">
+					<thead>
+						<th>Motor Name</th>
+						<th> <abbr title="Pulse Width Modulation - Used for motor control">PWM</abbr> Port</th>
+						<th>Type</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="controller in Robot.data.controllers">
+							<td>
+								<input ng-model="controller.name" required class="form-control form-control-inline" type="text">
+							</td>
+							<td>
+								<select ng-model="controller.port" required class="form-control form-control-inline">
+									<option value="" disabled>Choose a port</option>
+									<option
+										ng-repeat="port in Robot.getNumPWM()"
+										value="{{port}}"
+										ng-disabled="Robot.isPWMUsed(port)"
+										ng-selected="{{port == controller.port}}">
+									{{port}} {{Robot.isPWMUsed(port)? 'used' : ''}}</option>
+								</select>
+							</td>
+							<td>
+								<select
+									ng-model="controller.type"
+									class="form-control form-control-inline" required>
+									<option value="" disabled>Choose a type</option>
+									<option
+										ng-repeat="mc in Robot.controller.choices"
+										value="{{mc.name}}"
+										ng-selected="{{mc.name == controller.type}}">
+										{{mc.prettyName}}
+									</option>
+								</select>
+							</td>
+							<td>
+								<button ng-hide="$first && Robot.data.controllers.length < 2" ng-click="Robot.removeController(controller)" class="btn btn-danger" >Remove</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button ng-click="Robot.addController()" class="btn btn-success pull-right">Add Motor</button>
 
-      </li>
+			</li>
 
-      <li>
-        <!-- Done -->
-        <a
-          class="btn btn-info"
-          href="#/wizard/{{step.num-1}}">
-          &laquo; Back</a>
-        <button
-          class="btn btn-primary"
-          href="#/wizard/{{step.num+1}}"
-          ng-click="wiz.stepComplete(step.num)"
-          ng-disabled="!step.complete(motors.$valid)">
-          Next &raquo;</button>
-      </li>
+			<li>
+				<!-- Done -->
+				<a
+					class="btn btn-info"
+					href="#/wizard/{{step.num-1}}">
+					&laquo; Back</a>
+				<button
+					class="btn btn-primary"
+					href="#/wizard/{{step.num+1}}"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-disabled="!step.complete(motors.$valid)">
+					Next &raquo;</button>
+			</li>
 
-    </ol>
-  </form>
-  <div ng-include="'app/wiz/mc.html'"></div>
-  <div ng-include="'app/wiz/steps/debug.html'"></div>
+		</ol>
+	</form>
+	<div ng-include="'app/wiz/mc.html'"></div>
+	<div ng-include="'app/wiz/steps/debug.html'"></div>
 </div>
