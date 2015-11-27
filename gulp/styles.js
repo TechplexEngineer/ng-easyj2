@@ -11,7 +11,7 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
-gulp.task('styles-reload', ['styles'], function() {
+gulp.task('styles-reload', function() { //is this required? , ['styles']
   return buildStyles()
     .pipe(browserSync.stream());
 });

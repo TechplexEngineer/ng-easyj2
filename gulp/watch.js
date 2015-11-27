@@ -12,6 +12,8 @@ function isOnlyChange(event) {
 
 gulp.task('watch', ['inject'], function () {
 
+	gulp.start('blockly-dev');
+
   gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject-reload']);
 
   gulp.watch([

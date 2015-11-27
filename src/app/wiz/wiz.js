@@ -128,9 +128,9 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
   }
   Blockly.inject(document.getElementById('blocklyDiv'),
         {
-        	path:'/blockly/',
+        	path:'/blockly-src/',
         	toolbox: document.getElementById('toolbox'),
-        	media:'/blockly/media/'
+        	media:'/blockly-src/media/'
         });
 
   Blockly.mainWorkspace.reset = function() {
@@ -280,6 +280,11 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		// console.log("Here", Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)));
 		//@todo For some reason mutations are not saved if executed just before a refresh
 	};
+	$scope.$on('$routeChangeStart', function(next, current) {
+		console.log("Route Change Start");
+		step.persistCode();
+		Blockly.mainWorkspace.dispose();
+	});
 
 	/**
 	 * When the workspace changes:
@@ -291,7 +296,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	// After the page is finished rendering, loadup blockly blocks
 	$timeout(function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
-		Blockly.addChangeListener(onchange);
+		Blockly.mainWorkspace.addChangeListener(onchange);
 	}, 0);
 
 
