@@ -52,9 +52,8 @@
 				</table>
 				<button ng-click="Robot.addCommand()" class="btn btn-success pull-right">Add</button>
 			</li>
+
 			<li>
-				<!-- Done -->
-				<li>
 				<!-- Done -->
 				<a
           class="btn btn-info"
@@ -66,7 +65,6 @@
           ng-click="wiz.stepComplete(step.num)"
           ng-disabled="!step.complete(commands.$valid)">
           Next &raquo;</button>
-			</li>
 			</li>
 		</ol>
 	</form>
