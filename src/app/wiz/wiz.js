@@ -127,11 +127,11 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		return;
 	}
 	Blockly.inject(document.getElementById('blocklyDiv'),
-				{
-					path:'/blockly-src/',
-					toolbox: document.getElementById('toolbox'),
-					media:'/blockly-src/media/'
-				});
+	{
+		path:'/blockly-src/', //@todo this will need to change in prod
+		toolbox: document.getElementById('toolbox'),
+		media:'/blockly-src/media/'
+	});
 
 	Blockly.mainWorkspace.reset = function() {
 		$timeout(function() { //this wits for the {{step.currentAction}} to be injected before reloading blocks
