@@ -23,5 +23,13 @@ closure:
 	-rm -rf src/closure-library-master src/closure-library
 	cd src; wget https://github.com/google/closure-library/archive/master.zip
 	cd src; unzip master.zip
+	cd src; master.zip
 	cd src; mv closure-library-master closure-library
-	cd src; rm master.zip
+
+cc:
+	-rm -rf bower_components/closure-compiler
+	mkdir -p bower_components/closure-compiler
+	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-latest.zip
+	cd bower_components/closure-compiler; unzip compiler-latest.zip
+	cd bower_components/closure-compiler; rm compiler-latest.zip
+
