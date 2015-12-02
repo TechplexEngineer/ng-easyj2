@@ -23,9 +23,9 @@ for (var i = 0; i < files_dev.length; i++) {
 }
 
 var files_prod = [
-"dist/blockly-compressed.js",
-"dist/blocks-compressed.js",
-"dist/java-compressed.js",
+"dist/scripts/blockly-compressed.js",
+"dist/scripts/blocks-compressed.js",
+"dist/scripts/java-compressed.js",
 ];
 
 gulp.task('blockly-dev', function() {
@@ -39,12 +39,11 @@ gulp.task('blockly-dev', function() {
 
   return gulp.src(path.join(conf.paths.tmp, '/serve/index.html'))
     .pipe($.inject(injectFile, injectOptions))
-    .pipe(require('gulp-debug')())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
 });
 
 
-gulp.task('blockly-prod', ['blockly-compressed', 'blocks-compressed', 'java-compressed'], function(){
+gulp.task('blockly-prod', ['inject', 'blockly-compressed', 'blocks-compressed', 'java-compressed'], function(){
 	var injectFile = gulp.src(files_prod, { read: false });
 	var injectOptions = {
     starttag: '<!-- inject:blockly -->',
@@ -70,8 +69,8 @@ gulp.task('blockly-compressed', function() {
       compilerFlags: {
         closure_entry_point: 'EasyJ',
         compilation_level: 'SIMPLE',
-        manage_closure_dependencies: true,
-        // only_closure_dependencies: true,
+        // manage_closure_dependencies: true,
+        only_closure_dependencies: true,
         //warning_level: 'VERBOSE'
       }
     }))
@@ -94,13 +93,14 @@ gulp.task('blocks-compressed', function() {
       }
     }))
     //@cat $@ | $(TRIM_LIC) > $@ @todo
-    .pipe(replace(/var Blockly=\{Blocks:\{\}\};/gi, ''))//@sed -i 's/var Blockly={Blocks:{}};//g' $@
+    .pipe($.replace(/var Blockly=\{Blocks:\{\}\};/gi, ''))//@sed -i 's/var Blockly={Blocks:{}};//g' $@
     .pipe(gulp.dest('dist/scripts'));
 });
 
 //generators
 gulp.task('java-compressed', function() {
 	return gulp.src([
+			'src/blockly-ext/shim/generator.js',
 			'src/blockly-ext/generators/java.js',
 			'src/blockly-ext/generators/java/*.js'
 		])
@@ -109,10 +109,12 @@ gulp.task('java-compressed', function() {
       fileName: 'java-compressed.js',
       compilerFlags: {
         compilation_level: 'SIMPLE'
+        // manage_closure_dependencies: false
       }
     }))
     //@cat $@ | $(TRIM_LIC) > $@ @todo
-    .pipe(replace(/var Blockly=\{Blocks:\{\}\};/gi, ''))//@sed -i 's/var Blockly={Blocks:{}};//g' $@
+    .pipe($.replace(/var Blockly=\{Blocks:\{\}\};/gi, ''))//@sed -i 's/var Blockly={Blocks:{}};//g' $@
+    .pipe($.replace(/var Blockly=\{Generator:\{\}\};/gi, ''))
     .pipe(gulp.dest('dist/scripts'));
 });
 
