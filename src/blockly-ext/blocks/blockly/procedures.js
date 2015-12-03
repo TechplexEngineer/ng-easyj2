@@ -151,7 +151,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 			if (childNode.nodeName.toLowerCase() == 'arg') {
 				this.arguments_.push({
 					vartype: childNode.getAttribute('type'),
-					name: childNode.getAttribute('name'),
+					name: childNode.getAttribute('name')
 					//length: Infinity //the ZR folks had this, is it needed?
 				});
 			}
@@ -211,7 +211,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		while (paramBlock) {
 			this.arguments_.push({
 				vartype: paramBlock.getFieldValue('TYPE'),
-				name: paramBlock.getFieldValue('NAME'),
+				name: paramBlock.getFieldValue('NAME')
 			});
 			this.paramIds_.push(paramBlock.id);
 			paramBlock = paramBlock.nextConnection &&
@@ -396,7 +396,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 		if(!Blockly.Realtime.enabled_ || this.isInFlyout) {
 			return;
 		}
-		Blockly.zr_cpp.procedures.delete(String(this.id));
+		Blockly.zr_cpp.procedures['delete'](String(this.id));
 	},
 	//end verbaitm from ZR
 
@@ -709,7 +709,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
 		};
 		options.push(option);
 	},
-	onchange: Blockly.Blocks.requireInFunction,
+	onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['procedures_callreturn'] = {
