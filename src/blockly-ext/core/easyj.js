@@ -31,4 +31,6 @@ goog.provide('EasyJ');
 goog.require('Blockly');
 goog.require('Blockly.TypedFieldVariable');
 
-var EasyJ = {};
+if (typeof EasyJ !== "object") {
+	var EasyJ = {};
+}
