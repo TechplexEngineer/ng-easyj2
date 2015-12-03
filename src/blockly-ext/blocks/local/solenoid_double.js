@@ -4,7 +4,7 @@
  */
 'use strict';
 
-goog.provide('EasyJ.Blocks.solenoid');
+goog.provide('EasyJ.Blocks.solenoidDouble');
 
 goog.require('Blockly.Blocks');
 
