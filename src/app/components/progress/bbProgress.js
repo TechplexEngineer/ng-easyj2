@@ -1,9 +1,9 @@
 
-var app = angular.module('easyj.sparkline', [
+var app = angular.module('easyj.progress', [
 	'ngStorage'
 ]);
 
-app.directive('ngSparkline', function() {
+app.directive('bbProgress', function() {
 	return {
 		restrict: 'A',
 		require: 'ngModel',
