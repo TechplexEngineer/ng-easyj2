@@ -24,8 +24,8 @@ for (var i = 0; i < files_dev.length; i++) {
 
 var files_prod = [
 "dist/scripts/blockly-compressed.js",
-"dist/scripts/blocks-compressed.js",
 "dist/scripts/java-compressed.js",
+"dist/scripts/blocks-compressed.js",
 ];
 
 gulp.task('blockly-dev', function() {
@@ -83,7 +83,8 @@ gulp.task('blockly-compressed', function() {
 gulp.task('blocks-compressed', function() {
 	return gulp.src([
 			'src/blockly-ext/shim/blocks.js',
-			'src/blockly-ext/blocks/*.js'
+			'src/blockly-ext/blocks/blockly/*.js',
+			'src/blockly-ext/blocks/local/*.js'
 		])
     .pipe(closureCompiler({
       compilerPath: 'bower_components/closure-compiler/compiler.jar',
