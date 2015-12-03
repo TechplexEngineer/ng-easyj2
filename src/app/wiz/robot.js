@@ -63,6 +63,10 @@ app.factory('Robot', function($localStorage, $window){
 	Robot.controller = {};
 	Robot.controller.choices = [
 		{
+			name:'victorsp',
+			prettyName: 'Victor SP',
+			img:'victor_sp.jpg',
+		},{
 			name:'victor',
 			prettyName:'Victor',
 			img:'victor_888.jpg',
@@ -71,17 +75,13 @@ app.factory('Robot', function($localStorage, $window){
 			prettyName: 'Talon SR',
 			img:'talon_sr.jpg',
 		},{
-			name:'jaguar',
-			prettyName:'Jaguar (Not Recommended)',
-			img:'jaguar.jpg',
-		},{
 			name:'talonsrx',
 			prettyName: 'Talon SRX (PWM)',
 			img:'talon_srx.jpg',
 		},{
-			name:'victorsp',
-			prettyName: 'Victor SP',
-			img:'victor_sp.jpg',
+			name:'jaguar',
+			prettyName:'Jaguar (Not Recommended)',
+			img:'jaguar.jpg',
 		}
 	];
 	Robot.controller.toPretty = function(name) {
