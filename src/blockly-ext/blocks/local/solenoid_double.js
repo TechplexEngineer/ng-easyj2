@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Double Solenoid blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.solenoid');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['declare_solenoid_double'] = {
   init: function() {
     this.setHelpUrl('');

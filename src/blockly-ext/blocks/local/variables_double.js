@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Variables blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.varDouble');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['variables_declare_double'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');

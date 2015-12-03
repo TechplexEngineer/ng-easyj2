@@ -1,4 +1,13 @@
-// Analog
+
+ /**
+ * @fileoverview Analog blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.analog');
+
+goog.require('Blockly.Blocks');
 
 Blockly.Blocks['declare_analog_input'] = {
   init: function() {

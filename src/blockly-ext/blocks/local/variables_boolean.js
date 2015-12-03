@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Variables Boolean blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.varBoolean');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['variables_declare_boolean'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');

@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Joystick blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.joystick');
+
+goog.require('Blockly.Blocks');
+
 // User Input Blocks
 Blockly.Blocks['declare_joystick'] = {
   init: function() {

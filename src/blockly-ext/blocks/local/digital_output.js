@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Digital Output blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.digital_out');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['declare_digital_output'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');

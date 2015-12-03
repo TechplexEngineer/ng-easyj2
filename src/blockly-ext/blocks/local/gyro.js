@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Gyro blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.gyro');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['declare_gyro'] = {
   init: function() {
     this.setHelpUrl('');

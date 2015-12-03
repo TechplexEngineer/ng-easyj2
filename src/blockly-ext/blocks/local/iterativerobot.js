@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Iterative blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.iterative');
+
+goog.require('Blockly.Blocks');
+
 // =============================================================================
 // Declare
 Blockly.Blocks['init_declare'] = {

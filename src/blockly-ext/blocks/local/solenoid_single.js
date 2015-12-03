@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Solenoid blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.solenoid');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['declare_solenoid_single'] = {
   init: function() {
     this.setHelpUrl('');

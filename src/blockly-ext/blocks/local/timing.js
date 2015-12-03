@@ -1,4 +1,12 @@
-// Timing Blocks
+ /**
+ * @fileoverview Timing blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.timing');
+
+goog.require('Blockly.Blocks');
 
 Blockly.Blocks['delay'] = {
   init: function() {

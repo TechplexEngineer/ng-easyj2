@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Relay blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.relay');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['declare_relay'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');

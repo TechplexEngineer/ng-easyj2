@@ -1,3 +1,12 @@
+ /**
+ * @fileoverview Variables Int blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.varInt');
+
+goog.require('Blockly.Blocks');
 
 Blockly.Blocks['variables_declare_int'] = {
   init: function() {

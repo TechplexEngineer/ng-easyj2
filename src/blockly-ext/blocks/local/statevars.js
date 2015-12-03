@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview State Var blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.vars');
+
+goog.require('Blockly.Blocks');
+
 Blockly.Blocks['state_vars'] = {
   init: function() {
     this.setHelpUrl('');

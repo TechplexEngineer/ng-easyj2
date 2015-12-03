@@ -1,3 +1,13 @@
+ /**
+ * @fileoverview Motors blocks for EasyJ.
+ * @author techplex.engineer@gmail.com (Blake Bourque)
+ */
+'use strict';
+
+goog.provide('EasyJ.Blocks.motors');
+
+goog.require('Blockly.Blocks');
+
 // Motors
 Blockly.Blocks['declare_motor_controller'] = {
   init: function() {
