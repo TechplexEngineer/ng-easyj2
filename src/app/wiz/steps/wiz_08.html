@@ -19,7 +19,7 @@
 							<td>{{Robot.controller.toPretty(item.type)}}</td>
 							<td>
 								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
-									<option value="">Choose a Subsystem</option>
+									<option value="" disabled>Choose a Subsystem</option>
 									<option
 										value="{{subsys.name}}"
 										ng-repeat="subsys in Robot.getSubsystems()"
@@ -33,7 +33,7 @@
 							<td>{{item.type}}</td>
 							<td>
 								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
-									<option value="">Choose a Subsystem</option>
+									<option value="" disabled>Choose a Subsystem</option>
 									<option
 										value="{{subsys.name}}"
 										ng-repeat="subsys in Robot.getSubsystems()"
@@ -47,7 +47,7 @@
 							<td>{{item.type}}</td>
 							<td>
 								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
-									<option value="">Choose a Subsystem</option>
+									<option value="" disabled>Choose a Subsystem</option>
 									<option
 										value="{{subsys.name}}"
 										ng-repeat="subsys in Robot.getSubsystems()"
@@ -61,7 +61,7 @@
 							<td>{{item.type}}</td>
 							<td>
 								<select ng-model="item.subsystem" required class="form-control form-control-inline" >
-									<option value="">Choose a Subsystem</option>
+									<option value="" disabled>Choose a Subsystem</option>
 									<option
 										value="{{subsys.name}}"
 										ng-repeat="subsys in Robot.getSubsystems()"
@@ -75,7 +75,7 @@
 							<td>{{Robot.data.drivetrain.mcType}}</td>
 							<td>
 								<select ng-model="Robot.data.drivetrain.subsystem" required class="form-control form-control-inline" >
-									<option value="">Choose a Subsystem</option>
+									<option value="" disabled>Choose a Subsystem</option>
 									<option
 										value="{{subsys.name}}"
 										ng-repeat="subsys in Robot.getSubsystems()"

@@ -36,7 +36,7 @@
 							</td>
 							<td>
 								<select ng-model="item.port" required class="form-control form-control-inline" >
-									<option value="">Choose a port</option>
+									<option value="" disabled>Choose a port</option>
 									<option
 										value="{{port}}"
 										ng-repeat="port in Robot.getNumDigitalPorts()"
@@ -47,7 +47,7 @@
 							</td>
 							<td>
 								<select ng-model="item.type" required class="form-control form-control-inline">
-									<option value="">Choose a type</option>
+									<option value="" disabled>Choose a type</option>
 									<option value="switch">Switch (limit switch, push button etc)</option>
 									<!-- <option value="encoder">Encoder</option> // can't do it because it uses two ports -->
 									<!-- <option value="ultra">Utltrasonic</option> // can't do it because it uses two ports -->
