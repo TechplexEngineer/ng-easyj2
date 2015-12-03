@@ -14,7 +14,7 @@ var files_dev = [
 "blockly-ext/easyj/javagenerator.js", //must come after java
 "blockly-ext/core/field_variable_typed.js",
 
-"blockly-ext/blocks/**/*.js",
+"blockly-ext/blocks/{blockly,local}/*.js",
 
 "blockly-ext/generators/java/*.js",
 ];
@@ -58,8 +58,7 @@ gulp.task('blockly-prod', ['inject', 'blockly-compressed', 'blocks-compressed', 
 //blockly
 gulp.task('blockly-compressed', function() {
 	return gulp.src([
-			'src/blockly-src/core/*.js',
-			'src/blockly-ext/core/*.js',
+			'src/blockly-{src,ext}/core/*.js',
 			'src/closure-library/closure/goog/**/*.js',
 			'src/closure-library/third_party/*.js'
 		])
