@@ -5,6 +5,9 @@
 			<!-- 1 -->
 			<li>
 				Does your robot use <abbr title="air pressure">pneumatics</abbr>?
+				<div bb-help title="MPneumatics">
+					<p>If your robot has air cylinders/pistons the solenoids(valves) which control the air flow to to the pistons can be input in this step.</p>
+				</div>
 				<div class="radio">
 					<label>
 						<input type="radio" value="yes"
@@ -41,6 +44,13 @@
 								<input ng-model="item.name" type="text" required class="form-control form-control-inline">
 							</td>
 							<td>
+								<select ng-model="item.type" required class="form-control form-control-inline">
+									<option value="" disabled>Choose a Solenoid type</option>
+									<option value="single">Single Solenoid (Spring return)</option>
+									<option value="double">Double Solenoid (Stays in place)</option> <!-- @todo second port? -->
+								</select>
+							</td>
+							<td>
 								<select ng-model="item.port" required class="form-control form-control-inline" >
 									<option value="" disabled>Choose a port</option>
 									<option
@@ -49,13 +59,6 @@
 										ng-disabled="Robot.isSolPortUsed(port)"
 										ng-selected="{{port === item.port}}">
 									{{port}} {{Robot.isSolPortUsed(port)? 'used' : ''}}</option>
-								</select>
-							</td>
-							<td>
-								<select ng-model="item.type" required class="form-control form-control-inline">
-									<option value="" disabled>Choose a Solenoid type</option>
-									<option value="single">Single Solenoid (Spring return)</option>
-									<option value="double">Double Solenoid (Stays in place)</option> <!-- @todo second port? -->
 								</select>
 							</td>
 							<td>

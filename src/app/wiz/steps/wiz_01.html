@@ -26,7 +26,10 @@
 			<!-- 2 -->
 			<li ng-show="Robot.data.hasDrivetrain == 'yes'">
 				What type of motor controllers will be used?
-				<div bb-help title="Choosing a Motor Controller">Recommendations</div>
+				<div bb-help title="More Motor Controller">
+					<p>Drivetrains with one CIM Motor per side will not work with Jaguar Motor Controllers as the Jaguar Controller can't handle the current spikes.</p>
+					<p>Victors Have the highest peak current output which roughly equates to maximum acceleration.</p>
+				</div>
 				<div class="form-group" >
 					<select
 						ng-model="Robot.data.drivetrain.mcType"
@@ -62,6 +65,10 @@
 							ng-change="Robot.numMotorsChange()"
 							ng-model="Robot.data.drivetrain.numMotors">
 						4 motors (also for 6 or 8 wheel drive)
+						<div bb-help title="More Motor Controller">
+							<p>The code can be configured for a max of two pairs of outputs.</p>
+							<p>PWM Signals can be easily split using a <a href="http://www.andymark.com/product-p/am-2261.htm" target="_blank">Servo Y-Cable</a>.</p>
+						</div>
 					</label>
 				</div>
 			</li>
@@ -73,15 +80,23 @@
 					<label>
 						<input type="radio" ng-model="Robot.data.drivetrain.type" value="arcade" required>
 						arcade drive (most people use this)
+						<div bb-help title="Arcade Drive">
+							<p>Much like a classic arcade game, arcade drive uses a single joystick. The Y-axis of the joystick is move value, forward/backward speed. The X-axis is the turn amount.</p>
+							<p>When in doubt, use arcade drive.</p>
+						</div>
 					</label>
 				</div>
 				<div class="radio">
 					<label>
 						<input type="radio" ng-model="Robot.data.drivetrain.type" value="tank">
 						tank drive
+						<div bb-help title="Tank Drive">
+							<p>Tank drive uses a two joysticks. The Y-axis of the joystick1 controls the left side of the drivetrain and joystick2 controls the right side of the drivetrain.</p>
+							<p>When in doubt, use arcade drive.</p>
+						</div>
 					</label>
 				</div>
-				<div class="radio"
+				<div class="radio hidden"
 					ng-show="Robot.data.drivetrain.numMotors == 4 || Robot.data.drivetrain.numMotors == 8">
 					<!-- 8 might be a dumb assumption -->
 					<label>
