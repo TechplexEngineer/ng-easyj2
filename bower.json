@@ -2,7 +2,6 @@
   "name": "easyj",
   "version": "0.0.0",
   "dependencies": {
-    "angular-animate": "~1.4.2",
     "angular-cookies": "~1.4.2",
     "angular-touch": "~1.4.2",
     "angular-sanitize": "~1.4.2",
@@ -11,8 +10,6 @@
     "jquery": "~2.1.4",
     "angular-route": "~1.4.2",
     "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.13.4",
-    "malarkey": "yuanqing/malarkey#~1.3.1",
     "angular-toastr": "~1.5.0",
     "moment": "~2.10.6",
     "animate.css": "~3.4.0",
@@ -28,12 +25,13 @@
   "overrides": {
     "bootstrap": {
       "main": [
-        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
         "dist/fonts/glyphicons-halflings-regular.eot",
         "dist/fonts/glyphicons-halflings-regular.svg",
         "dist/fonts/glyphicons-halflings-regular.ttf",
         "dist/fonts/glyphicons-halflings-regular.woff",
-        "dist/fonts/glyphicons-halflings-regular.woff2"
+        "dist/fonts/glyphicons-halflings-regular.woff2",
+        "dist/js/bootstrap.js"
       ]
     },
     "font-awesome": {
