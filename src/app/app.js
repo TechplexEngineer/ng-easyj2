@@ -3,11 +3,12 @@
 angular.module('easyj', [
 	'ngRoute',
 	'ngStorage',
+	'ngTagsInput',
 	'easyj.about',
 	'easyj.wiz',
 	'easyj.progress',
-	'ngTagsInput',
-	'easyj.progress'
+	'easyj.progress',
+	'easyj.help'
 	])
 	.config(function ($routeProvider) {
 		$routeProvider
