@@ -134,7 +134,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	});
 
 	Blockly.mainWorkspace.reset = function() {
-		$timeout(function() { //this wits for the {{step.currentAction}} to be injected before reloading blocks
+		$timeout(function() { //this waits for the {{step.currentAction}} to be injected before reloading blocks
 			// Remove all blocks
 			Blockly.mainWorkspace.clear();
 			//Load the starting blocks
