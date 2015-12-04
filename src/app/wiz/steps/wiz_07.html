@@ -12,6 +12,7 @@
 					<li>You may create as many subsystems as makes sense.</li>
 					<li>A subsystem should be a distinct part of the robot that performs a particular subset of actions.</li>
 					<li>A subsystem is a way of grouping the components(sensors, actuators, actions and state) to make coding easier.</li>
+					<li>A subsystem provides <strong>safe action methods</strong> which provide the safe interface to the underlying hardware to the rest of your robot code. Example: A lift subsystem would provide a move method that would only let the lift move if the top and bottom limit switches are not pressed.</li>
 				</ul>
 
 
