@@ -1,7 +1,7 @@
 <div class="row" ng-controller="Wiz6Ctrl as step">
 	<form name="inputs" novalidate class="col-lg-6">
 		<h1>Analog Inputs</h1>
-		<p>Analog inputs are most often used by sensors: potentiometers, gyroscopes, and acceleroemeters.</p>
+		<p>Analog inputs are most often used by sensors: potentiometers and gyroscopes.</p>
 		<ol>
 			<li>
 				Does your robot use Analog Inputs?
@@ -52,7 +52,7 @@
 								<select ng-model="item.type" required class="form-control form-control-inline">
 									<option value="" disabled>Choose a type</option>
 									<option value="gyro">Gyroscope</option>
-									<option value="accel">Accelerometer (external)</option>
+									<!-- <option value="accel">Accelerometer (external)</option> -->
 									<option value="pot">Potentiometer (standard analog input)</option>
 								</select>
 							</td>
