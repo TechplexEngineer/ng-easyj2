@@ -105,28 +105,32 @@ Blockly.Variables.allVariablesOfType = function(type) {
 	var hasDrivetrain = localStorage.getItem('ngStorage-hasDrivetrain');
 	var solenoids = localStorage.getItem('ngStorage-solenoids');
 	var sensors = localStorage.getItem('ngStorage-sensors');
+	var hids = localStorage.getItem('ngStorage-hids');
+
 
 	controllers = JSON.parse(controllers); //@todo try catch
 	hasDrivetrain = JSON.parse(hasDrivetrain);
 	solenoids = JSON.parse(solenoids);
 	sensors = JSON.parse(sensors);
+	hids = JSON.parse(hids);
 
 	controllers = _.where(controllers, {'subsystem':$('#currentSubsystem').val()});
 	hasDrivetrain = (hasDrivetrain == "yes");
 	solenoids = _.where(solenoids, {'subsystem':$('#currentSubsystem').val()});
 	sensors.analog = _.where(sensors.analog, {'subsystem':$('#currentSubsystem').val()});
 	sensors.digital = _.where(sensors.digital, {'subsystem':$('#currentSubsystem').val()});
+	// hids = _.where(hids, {'subsystem':$('#currentSubsystem').val()});
 
 	// var variableHash = Object.create(null);
 	var variableHash = {
-		'AnalogInput': [],
+		'AnalogInput': _.pluck(_.where(sensors.analog, {type:'pot'}), 'name'),
 		'DigitalInput': _.pluck(_.where(sensors.digital, {type:'switch'}), 'name'),
-		'DigitalOutput': [],
+		'DigitalOutput': [], //unused
 		'Gyro': _.pluck(_.where(sensors.analog, {type:'gyro'}), 'name'),
-		'Joystick': [],
+		'Joystick': _.pluck(hids, 'name'),
 		'MotorController': _.pluck(controllers, 'name'),
 		'RobotDrive': (hasDrivetrain && $('#currentSubsystem').val() == 'Drivetrain')?['Drivetrain']:[],
-		'Relay': [],
+		'Relay': [], //unused
 		'DoubleSolenoid': _.pluck(_.where(solenoids, {"type":"double"}), 'name'),
 		'Solenoid': _.pluck(_.where(solenoids, {"type":"single"}), 'name'),
 	};
