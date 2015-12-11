@@ -62,6 +62,8 @@ app.directive('bbProgress', function() {
 					desc: 'Operator Interface (OI)'
 				},{
 					desc: 'Autonomous'
+				},{
+					desc: 'Export'
 				}
 			];
 			for (var i = 0; i < prog.steps.length; i++) {

@@ -10,7 +10,7 @@ app.factory('Robot', function($localStorage, $window){
 	var EMPTY_HID = _.clone(EMPTY_SOL);
 	var EMPTY_AIO = _.clone(EMPTY_SOL);
 	var EMPTY_DIO = _.clone(EMPTY_SOL);
-	var EMPTY_SUB = {name:'', actions:[], disabled:false};
+	var EMPTY_SUB = {name:'', actions:"", disabled:false};
 	var EMPTY_CMD = {name:'', requires:[]};
 	//@note: when cloning EMPTY_* make sure to use cloneDeep when an array is involved
 
@@ -39,7 +39,7 @@ app.factory('Robot', function($localStorage, $window){
 			digital: [_.clone(EMPTY_DIO)],
 		},
 		// This really should be conditional based on the users earlier selected pref
-		subsystems:[{name:'Drivetrain',actions:['drive'], disabled:false}],
+		subsystems:[{name:'Drivetrain',actions:['drive','stop'], disabled:false}],
 
 		commands:[{name: 'ArcadeDrive',requires: ['Drivetrain'],type: 'cmd'}],
 	};
