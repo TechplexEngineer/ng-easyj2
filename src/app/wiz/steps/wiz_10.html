@@ -1,5 +1,5 @@
 <div class="row" ng-controller="Wiz10Ctrl as step">
-	<form name="commands" novalidate class="col-lg-6">
+	<form name="commands" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Commands</h1>
 		<ol>
 			<li>

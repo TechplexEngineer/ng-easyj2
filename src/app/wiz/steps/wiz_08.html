@@ -1,5 +1,5 @@
 <div class="row" ng-controller="Wiz8Ctrl as step">
-	<form name="asgn" novalidate class="col-lg-6">
+	<form name="asgn" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Acutator &amp; Sensor Assiginment</h1>
 		<ol>
 			<li>

@@ -45,10 +45,13 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
 		return $localStorage.curStep || 1;
 	};
 
-	wiz.invalidateFutureSteps = function() {
+	$scope.invalidateFutureSteps = wiz.invalidateFutureSteps = function() {
 		if ($routeParams.step < wiz.getCurStep()) {
 			$localStorage.curStep = parseInt($routeParams.step);
 		}
+	};
+	wiz.test = function() {
+		console.log("Test");
 	};
 
 	//@Make sure that you can't get to a step that isn't complete.
@@ -67,52 +70,60 @@ app.controller('WizCtrl', function (Robot, $scope, $routeParams, $localStorage, 
 	$scope.$localStorage = $localStorage;
 });
 
-app.controller('Wiz1Ctrl', function (Robot) {
+app.controller('Wiz1Ctrl', function (Robot, $scope) {
 	this.num = 1;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return (isValid && Robot.data.hasDrivetrain == 'yes') || Robot.data.hasDrivetrain == 'no';
 	};
 });
-app.controller('Wiz2Ctrl', function (Robot) {
+app.controller('Wiz2Ctrl', function (Robot, $scope) {
 	this.num = 2;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return (isValid && Robot.data.hasOtherMotors == 'yes') || Robot.data.hasOtherMotors == 'no';
 	};
 
 });
-app.controller('Wiz3Ctrl', function (Robot) {
+app.controller('Wiz3Ctrl', function (Robot, $scope) {
 	this.num = 3;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return (isValid && Robot.data.hasPneumatics == 'yes') || Robot.data.hasPneumatics == 'no';
 	};
 });
-app.controller('Wiz4Ctrl', function (Robot) {
+app.controller('Wiz4Ctrl', function (Robot, $scope) {
 	this.num = 4;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return isValid;
 	};
 });
-app.controller('Wiz5Ctrl', function (Robot) {
+app.controller('Wiz5Ctrl', function (Robot, $scope) {
 	this.num = 5;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return (isValid && Robot.data.hasDIN == 'yes') || Robot.data.hasDIN == 'no';
 	};
 
 });
-app.controller('Wiz6Ctrl', function (Robot) {
+app.controller('Wiz6Ctrl', function (Robot, $scope) {
 	this.num = 6;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return (isValid && Robot.data.hasAIN == 'yes') || Robot.data.hasAIN == 'no';
 	};
 });
-app.controller('Wiz7Ctrl', function (Robot) {
+app.controller('Wiz7Ctrl', function (Robot, $scope) {
 	this.num = 7;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return isValid;
 	};
 });
-app.controller('Wiz8Ctrl', function (Robot) {
+app.controller('Wiz8Ctrl', function (Robot, $scope) {
 	this.num = 8;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return isValid;
 	};
@@ -120,6 +131,7 @@ app.controller('Wiz8Ctrl', function (Robot) {
 app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	var step = this;
 	step.num = 9;
+	step.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	step.currentSubsystem = Robot.getSubsystems()[0].name;
 	step.currentAction = Robot.getSubsystems()[0].actions[0].text;
 	if (_.isNull(document.getElementById('blocklyDiv'))) {
@@ -132,6 +144,8 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		toolbox: document.getElementById('toolbox'),
 		media:'/blockly-src/media/'
 	});
+	console.log("Ready!");
+	$(document).trigger("blocklyLoaded");
 
 	Blockly.mainWorkspace.reset = function() {
 		$timeout(function() { //this waits for the {{step.currentAction}} to be injected before reloading blocks
@@ -161,6 +175,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 			alert('Action \"' + newAction + '\" does not exist.');
 			return;
 		}
+		console.log("Setting active action to:",newAction);
 		step.currentAction = newAction;
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 
@@ -291,6 +306,8 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	 */
 	function onchange() {
 		step.persistCode();
+		//whenever the workspace changes invalidate future steps
+		step.invalidateFutureSteps();
 	}
 
 	// After the page is finished rendering, loadup blockly blocks
@@ -301,21 +318,34 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 
 
 });
-app.controller('Wiz10Ctrl', function () {
+app.controller('Wiz10Ctrl', function ($scope) {
 	this.num = 10;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return isValid;
 	};
 });
-app.controller('Wiz11Ctrl', function () {
+app.controller('Wiz11Ctrl', function ($scope) {
 	this.num = 11;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 	this.complete = function (isValid) {
 		return isValid;
 	};
 });
-app.controller('Wiz12Ctrl', function () {
+app.controller('Wiz12Ctrl', function ($scope) {
 	this.num = 12;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 });
-app.controller('Wiz12Ctrl', function () {
+app.controller('Wiz13Ctrl', function ($scope) {
 	this.num = 13;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 });
+app.controller('Wiz14Ctrl', function ($scope) {
+	this.num = 14;
+	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
+});
+
+function invalidateFutureSteps(self) {
+	var el = angular.element(self);
+	el.controller().invalidateFutureSteps();
+}

@@ -1,5 +1,5 @@
 <div class="row" ng-controller="Wiz2Ctrl as step">
-	<form name="motors" novalidate class="col-lg-6">
+	<form name="motors" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Motors</h1>
 		<ol>
 
@@ -9,16 +9,14 @@
 				<div class="radio">
 					<label>
 						<input type="radio" value="yes"
-							ng-model="Robot.data.hasOtherMotors"
-							ng-change="wiz.invalidateFutureSteps()">
+							ng-model="Robot.data.hasOtherMotors">
 						Yes, it has more motors!
 					</label>
 				</div>
 				<div class="radio">
 					<label>
 						<input type="radio" value="no" required
-							ng-model="Robot.data.hasOtherMotors"
-							ng-change="wiz.invalidateFutureSteps()">
+							ng-model="Robot.data.hasOtherMotors">
 						Nope.
 					</label>
 				</div>

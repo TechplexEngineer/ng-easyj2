@@ -1,5 +1,5 @@
 <div class="row" ng-controller="Wiz7Ctrl as step">
-	<form name="subsystems" novalidate class="col-lg-6">
+	<form name="subsystems" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Subsystems</h1>
 		<ol>
 			<li>
@@ -94,7 +94,6 @@
 					&laquo; Back</a>
 				<button
 					class="btn btn-primary"
-					href="#/wizard/{{step.num+1}}"
 					ng-click="wiz.stepComplete(step.num)"
 					ng-disabled="!step.complete(subsystems.$valid)">
 					Next &raquo;</button>

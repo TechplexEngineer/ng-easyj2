@@ -1,5 +1,5 @@
 <div class="row" ng-controller="Wiz4Ctrl as step">
-	<form name="inputs" novalidate class="col-lg-6">
+	<form name="inputs" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Driver Station Inputs</h1>
 		<ol>
 			<li>

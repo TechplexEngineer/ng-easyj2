@@ -1,7 +1,7 @@
 <div class="row" ng-controller="Wiz5Ctrl as step">
-	<form name="inputs" novalidate class="col-lg-6">
+	<form name="inputs" novalidate class="col-lg-6" onchange="invalidateFutureSteps(this)">
 		<h1>Digital Inputs</h1>
-		<p>Digital inputs are most often used as limit stitches.</p>
+		<p>Digital inputs are most often used as limit switches.</p>
 		<ol>
 			<li>
 				Does your robot use Digital Inputs?

@@ -51,7 +51,12 @@
 				</button> -->
 				<a class="btn btn-info" href ng-click="step.nextAction()" ng-show="step.isActionComplete() && !step.isSubsystemComplete()">Next action &raquo;</a>
 				<a class="btn btn-info" href ng-click="step.nextSubsystem()" ng-show="step.isSubsystemComplete() && !step.isStepComplete()">Next subsystem &raquo;</a>
-				<a class="btn btn-primary" href="#/wizard/{{step.num+1}}" ng-click="wiz.stepComplete(step.num)" ng-show="step.isStepComplete()">Next step &raquo;</a>
+
+				<button
+					class="btn btn-primary"
+					ng-click="wiz.stepComplete(step.num)"
+					ng-show="step.isStepComplete()">
+					Next Step &raquo;</button>
 			</div>
 		</div>
 
