@@ -14,7 +14,7 @@ Blockly.Java.workspaceToCode = function (workspace, rootBlk) {
 
 	for (var x = 0, block; block = blocks[x]; x++) {
 		var line = this.blockToCode(block);
-		if (goog.isArray(line)) {
+		if (_.isArray(line)) {
 			// Value blocks return tuples of code and operator order.
 			// Top-level blocks don't care about operator order.
 			line = line[0];
