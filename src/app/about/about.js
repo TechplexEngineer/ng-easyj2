@@ -22,13 +22,13 @@ angular.module('easyj.about')
 			{
 				'title': 'BrowserSync',
 				'url': 'http://browsersync.io/',
-				'description': 'Time-saving synchronised browser testing.',
+				'description': 'Time-saving synchronised browser testing. During development file changes trigger browser reload.',
 				'logo': 'browsersync.png'
 			},
 			{
 				'title': 'GulpJS',
 				'url': 'http://gulpjs.com/',
-				'description': 'The streaming build system.',
+				'description': 'The streaming build system. Used to compress and minify the code for production.',
 				'logo': 'gulp.png'
 			},
 			// {
@@ -69,7 +69,7 @@ angular.module('easyj.about')
 			},{
 				'title': 'Blockly',
 				'url': 'https://developers.google.com/blockly/',
-				'description': 'Blockly is a library for building visual programming editors.',
+				'description': 'Blockly is a library for building visual programming editors. Used for the block coding steps.',
 				'logo': 'blockly.png'
 			},{
 				'title': 'Lo-Dash',
@@ -79,19 +79,30 @@ angular.module('easyj.about')
 			},{
 				'title': 'Bower',
 				'url': 'http://bower.io/',
-				'description': 'A package manager for the web',
+				'description': 'A package manager for the web. Used to manage the frontend dependencies and libraries.',
 				'logo': 'bower.png'
 			},{
 				'title': 'NPM',
 				'url': 'https://www.npmjs.com/',
-				'description': 'Node Package manager',
+				'description': 'Node Package manager. Used for gulp modules and dependencies.',
 				'logo': 'npm.png'
 			},{
 				'title': 'generator-gulp-angular',
 				'url': 'https://github.com/Swiip/generator-gulp-angular',
-				'description': 'A fantastic generator for Yeoman which helps set the ball in motion.',
+				'description': 'A fantastic generator for Yeoman which helps setup the whole project structure.',
 				'logo': 'generator-gulp-angular-logo.png'
+			},{
+				'title': 'Handlebars.js',
+				'url': 'http://handlebarsjs.com/',
+				'description': 'Minimal {{templating}} used for code generation.',
+				'logo': 'handlebars.png'
 			}
+			// ,{
+			// 	'title': 'Moment.js',
+			// 	'url': 'http://momentjs.com/',
+			// 	'description': 'Parse, validate, manipulate, and display dates in JavaScript.',
+			// 	'logo': 'moment.jpg'
+			// }
 
 
 		];
