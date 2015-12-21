@@ -82,6 +82,14 @@ app.factory('Robot', function($localStorage, $window){
 			name:'jaguar',
 			prettyName:'Jaguar (Not Recommended)',
 			img:'jaguar.jpg',
+		},{
+			name:'spark',
+			prettyName: 'Spark',
+			img: 'spark.jpg'
+		},{
+			name:'sd540',
+			prettyName: 'SD540',
+			img: 'sd540.jpg'
 		}
 	];
 	Robot.controller.toPretty = function(name) {
