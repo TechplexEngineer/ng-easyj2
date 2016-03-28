@@ -45,6 +45,9 @@
         "fonts/fontawesome-webfont.svg",
         "fonts/fontawesome-webfont.woff2"
       ]
+    },
+    "filesaver": {
+      "main": ["FileSaver.js"]
     }
   },
   "resolutions": {

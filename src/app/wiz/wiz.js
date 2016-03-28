@@ -2,7 +2,8 @@
 
 var app = angular.module('easyj.wiz', [
 	'ngRoute',
-	'ngStorage'
+	'ngStorage',
+	'easyj.export'
 ]);
 
 app.config(function ($routeProvider) {
@@ -340,9 +341,12 @@ app.controller('Wiz13Ctrl', function ($scope) {
 	this.num = 13;
 	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
 });
-app.controller('Wiz14Ctrl', function ($scope) {
+app.controller('Wiz14Ctrl', function ($scope, Robot, Exporter) {
 	this.num = 14;
 	this.invalidateFutureSteps = $scope.$parent.invalidateFutureSteps
+	this.export = function() {
+		Exporter.toEclipse(Robot.data);
+	};
 });
 
 function invalidateFutureSteps(self) {

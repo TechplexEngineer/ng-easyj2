@@ -2,8 +2,13 @@
 	<form name="code" novalidate class="col-lg-6">
 		<h1>Code</h1>
 		<ol>
-			<li>{{wiz.step}}</li>
-			<li>Autonomous!</li>
+			<li>
+				What is your team number?
+				<input type="text" ng-model="Robot.data.number" class="form-control" style="width: auto;">
+			</li>
+			<li ng-show="!!Robot.data.number">
+				<button class="btn btn-success"  ng-click="step.export()">Export Java</button>
+			</li>
 		</ol>
 	</form>
 	<div ng-include="'app/wiz/steps/debug.html'"></div>

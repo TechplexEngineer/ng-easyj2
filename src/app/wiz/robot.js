@@ -42,6 +42,7 @@ app.factory('Robot', function($localStorage, $window){
 		subsystems:[{name:'Drivetrain',actions:['drive','stop'], disabled:false}],
 
 		commands:[{name: 'ArcadeDrive',requires: ['Drivetrain'],type: 'cmd'}],
+		number: undefined,
 	};
 
 	// //the data about the user's robot stored here
