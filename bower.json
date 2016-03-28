@@ -19,7 +19,8 @@
     "lodash": "~3.10.1",
     "font-awesome": "~4.5.0",
     "jszip": "Stuk/jszip#~2.5.0",
-    "handlebars": "~4.0.5"
+    "handlebars": "~4.0.5",
+    "filesaver": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"
@@ -47,7 +48,9 @@
       ]
     },
     "filesaver": {
-      "main": ["FileSaver.js"]
+      "main": [
+        "FileSaver.js"
+      ]
     }
   },
   "resolutions": {
