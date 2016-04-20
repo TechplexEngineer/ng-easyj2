@@ -26,10 +26,10 @@ var files_prod = [
 "dist/scripts/blockly-compressed.js",
 "dist/scripts/java-compressed.js",
 "dist/scripts/blocks-compressed.js",
+"dist/scripts/blockly-messages-en.js"
 ];
 
 gulp.task('blockly-dev', function() {
-	console.log("blockly-dev");
 	var injectFile = gulp.src(files_dev, { read: false });
   var injectOptions = {
     starttag: '<!-- inject:blockly -->',
@@ -43,7 +43,7 @@ gulp.task('blockly-dev', function() {
 });
 
 
-gulp.task('blockly-prod', ['inject', 'blockly-compressed', 'blocks-compressed', 'java-compressed'], function(){
+gulp.task('blockly-prod', ['inject', 'blockly-compressed', 'blocks-compressed', 'java-compressed', 'copy2out'], function(){
 	var injectFile = gulp.src(files_prod, { read: false });
 	var injectOptions = {
     starttag: '<!-- inject:blockly -->',
@@ -55,6 +55,14 @@ gulp.task('blockly-prod', ['inject', 'blockly-compressed', 'blocks-compressed', 
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
 
 });
+
+gulp.task('copy2out', function() {
+
+	gulp.src('src/blockly-src/msg/js/en.js')
+	.pipe($.rename("blockly-messages-en.js"))
+	.pipe(gulp.dest('dist/scripts'));
+});
+
 //blockly
 gulp.task('blockly-compressed', function() {
 	return gulp.src([
@@ -94,6 +102,7 @@ gulp.task('blocks-compressed', function() {
     }))
     //@cat $@ | $(TRIM_LIC) > $@ @todo
     .pipe($.replace(/var Blockly=\{Blocks:\{\}\};/gi, ''))//@sed -i 's/var Blockly={Blocks:{}};//g' $@
+    .pipe($.replace(/var EasyJ=\{Blocks:\{\}\};/gi, 'EasyJ.Blocks={};'))
     .pipe(gulp.dest('dist/scripts'));
 });
 

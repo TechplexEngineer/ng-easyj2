@@ -209,7 +209,6 @@ function onchgupdatecountsfunc(event) {
 	}
 }
 $(document).on("blocklyLoaded", function() {
-	console.log("Loaded");
 	Blockly.bindEvent_(Blockly.mainWorkspace.getCanvas(), 'blocklyWorkspaceChange', null, onchgupdatecountsfunc);
 });
 

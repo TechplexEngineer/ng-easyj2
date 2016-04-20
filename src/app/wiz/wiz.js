@@ -145,7 +145,6 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 		toolbox: document.getElementById('toolbox'),
 		media:'/blockly-src/media/'
 	});
-	console.log("Ready!");
 	$(document).trigger("blocklyLoaded");
 
 	Blockly.mainWorkspace.reset = function() {
@@ -176,7 +175,6 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 			alert('Action \"' + newAction + '\" does not exist.');
 			return;
 		}
-		console.log("Setting active action to:",newAction);
 		step.currentAction = newAction;
 		var act = _.find(Robot.getActions(step.currentSubsystem), {'text':step.currentAction});
 

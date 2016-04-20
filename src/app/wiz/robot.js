@@ -42,8 +42,10 @@ app.factory('Robot', function($localStorage, $window){
 		subsystems:[{name:'Drivetrain',actions:['drive','stop'], disabled:false}],
 
 		commands:[{name: 'ArcadeDrive',requires: ['Drivetrain'],type: 'cmd'}],
-		number: undefined,
+		number: undefined
 	};
+
+	Robot.DEBUG = false;
 
 	// //the data about the user's robot stored here
 	Robot.data = $localStorage.$default(_.clone(def));
@@ -360,12 +362,20 @@ app.factory('Robot', function($localStorage, $window){
 		if (cmd.requires.length < Robot.data.subsystems.length &&
 			_.indexOf(cmd.requires, '') === -1 ) {//not in list
 			cmd.requires.push('ted');
-			console.log('here');
 		} else {
 			console.error('Can\'t add requires.');
 		}
 
 	};
+
+	// Debug ------------------------------------------------------------------
+	Robot.toggleDebug = function (bool) {
+		if (_.isUndefined(bool)) {
+			bool=!Robot.DEBUG;
+		}
+		Robot.DEBUG = bool;
+	}
+
 
 	return Robot;
 });

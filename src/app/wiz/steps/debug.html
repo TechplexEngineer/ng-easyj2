@@ -1,12 +1,16 @@
 <div class="col-lg-4">
-	<button ng-click="Robot.reset()" class="btn">Reset</button>
-	<button ng-click="Robot.resetBlocks()" class="btn">Clear Blocks</button>
-	<span>Step: {{$localStorage.curStep}}</span>
+	<button ng-click="Robot.toggleDebug()" class="btn">Debug</button>
+	<div ng-show="Robot.DEBUG">
+		<button ng-click="Robot.reset()" class="btn">Reset</button>
+		<button ng-click="Robot.resetBlocks()" class="btn">Clear Blocks</button>
+		<span>Step: {{$localStorage.curStep}}</span>
 
-	<div class="">
-		<h4>Robot Data:</h4>
-		<pre>{{Robot.data | json:4}}</pre>
-		<h4>Robot Limits:</h4>
-		<pre>{{Robot.limits | json:4}}</pre>
+		<div class="">
+			<h4>Robot Data:</h4>
+			<pre>{{Robot.data | json:4}}</pre>
+			<h4>Robot Limits:</h4>
+			<pre>{{Robot.limits | json:4}}</pre>
+		</div>
 	</div>
+
 </div>
