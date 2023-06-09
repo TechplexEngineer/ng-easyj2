@@ -18,8 +18,6 @@ blockly:
 	else git -C src clone https://github.com/google/blockly blockly-src; git -C src/blockly-src checkout 703ac981dab8020aa4d0410566616d28d349ac56; \
 	fi
 
-	git -C src clone -b 703ac981dab8020aa4d0410566616d28d349ac56 https://github.com/google/blockly blockly-src
-
 closure:
 	-rm src/master.zip || true
 	-rm -rf src/closure-library-master src/closure-library || true
