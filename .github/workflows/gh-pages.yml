@@ -42,7 +42,7 @@ jobs:
 
       - name: NPM deps
         run: |
-          npm ci
+          npm install
 
       - name: Bower deps
         run: |
