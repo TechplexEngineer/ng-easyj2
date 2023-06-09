@@ -60,6 +60,11 @@ jobs:
         run: |
           make blockly
 
+      - name: Where art thou mr cc
+        run: |
+          ls
+          ls bower_components
+
       - name: Build App
         run: |
           npx gulp build
