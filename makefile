@@ -15,7 +15,7 @@ deploy:
 blockly:
 	@if  test -d src/blockly; \
 	then cd src/blockly; git pull; \
-	else cd src; git clone --depth=1 git@github.com:google/blockly.git blockly-src; \
+	else cd src; git clone --depth=1 https://github.com/google//blockly blockly-src; \
 	fi
 
 closure:
