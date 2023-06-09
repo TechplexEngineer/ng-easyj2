@@ -31,3 +31,4 @@ cc:
 	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-20181008.zip
 	cd bower_components/closure-compiler; unzip compiler-20181008.zip
 	cd bower_components/closure-compiler; rm compiler-20181008.zip
+	cd bower_components/closure-compiler; mv closure-compiler-v20181008.jar compiler.jar
