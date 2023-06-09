@@ -15,7 +15,7 @@ deploy:
 blockly:
 	@if  test -d src/blockly; \
 	then cd src/blockly; git pull; \
-	else cd src; git clone --depth=1 https://github.com/google//blockly blockly-src; \
+	else git -C src clone https://github.com/google/blockly blockly-src; git -C src checkout 703ac981dab8020aa4d0410566616d28d349ac56; \
 	fi
 
 closure:
@@ -28,7 +28,7 @@ closure:
 cc:
 	-rm -rf bower_components/closure-compiler || true
 	mkdir -p bower_components/closure-compiler || true
-	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-20181008.zip
-	cd bower_components/closure-compiler; unzip compiler-20181008.zip
-	cd bower_components/closure-compiler; rm compiler-20181008.zip
-	cd bower_components/closure-compiler; mv closure-compiler-v20181008.jar compiler.jar
+	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-20161201.zip
+	cd bower_components/closure-compiler; unzip compiler-20161201.zip
+	cd bower_components/closure-compiler; rm compiler-20161201.zip
+	cd bower_components/closure-compiler; mv closure-compiler-v20161201.jar compiler.jar
