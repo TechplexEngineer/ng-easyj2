@@ -24,6 +24,7 @@ closure:
 	cd src; wget https://github.com/google/closure-library/archive/refs/tags/v20160315.zip
 	cd src; unzip -q v20160315.zip
 	cd src; mv closure-library-20160315 closure-library
+	cd src; rm v20160315.zip
 
 cc:
 	-rm -rf bower_components/closure-compiler || true
