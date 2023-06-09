@@ -39,10 +39,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 10.x
-      
+
+      - name: NPM deps
+        run: |
+          npm ci
+
+      - name: Bower deps
+        run: |
+          npx bower install
+
+      - name: Get static deps
+        run: |
+          make closure cc blockly
+
       - name: Build App
         run: |
-          make closure cc blockly dist
+          make dist
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
