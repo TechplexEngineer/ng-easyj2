@@ -48,13 +48,21 @@ jobs:
         run: |
           npx bower install
 
-      - name: Get static deps
+      - name: Get static deps - closure Compiler
         run: |
-          make closure cc blockly
+          make cc
+
+      - name: Get static deps - closure
+        run: |
+          make closure
+
+      - name: Get static deps - blockly
+        run: |
+          make blockly
 
       - name: Build App
         run: |
-          make dist
+          npx gulp build
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
