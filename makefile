@@ -15,15 +15,17 @@ deploy:
 blockly:
 	@if  test -d src/blockly; \
 	then cd src/blockly; git pull; \
-	else git -C src clone https://github.com/google/blockly blockly-src; git -C src checkout 703ac981dab8020aa4d0410566616d28d349ac56; \
+	else git -C src clone https://github.com/google/blockly blockly-src; git -C src/blockly-src checkout 703ac981dab8020aa4d0410566616d28d349ac56; \
 	fi
+
+	git -C src clone -b 703ac981dab8020aa4d0410566616d28d349ac56 https://github.com/google/blockly blockly-src
 
 closure:
 	-rm src/master.zip || true
 	-rm -rf src/closure-library-master src/closure-library || true
-	cd src; wget https://github.com/google/closure-library/archive/master.zip
-	cd src; unzip -q master.zip
-	cd src; mv closure-library-master closure-library
+	cd src; wget https://github.com/google/closure-library/archive/refs/tags/v20160315.zip
+	cd src; unzip -q v20160315.zip
+	cd src; mv closure-library-20160315 closure-library
 
 cc:
 	-rm -rf bower_components/closure-compiler || true
