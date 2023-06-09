@@ -62,8 +62,7 @@ jobs:
 
       - name: Where art thou mr cc
         run: |
-          ls
-          ls bower_components
+          ls bower_components/closure-compiler
 
       - name: Build App
         run: |
