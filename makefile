@@ -28,6 +28,6 @@ closure:
 cc:
 	-rm -rf bower_components/closure-compiler
 	mkdir -p bower_components/closure-compiler
-	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-latest.zip
-	cd bower_components/closure-compiler; unzip compiler-latest.zip
-	cd bower_components/closure-compiler; rm compiler-latest.zip
+	cd bower_components/closure-compiler; wget https://dl.google.com/closure-compiler/compiler-20181008.zip
+	cd bower_components/closure-compiler; unzip compiler-20181008.zip
+	cd bower_components/closure-compiler; rm compiler-20181008.zip
