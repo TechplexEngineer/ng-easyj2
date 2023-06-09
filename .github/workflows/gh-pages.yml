@@ -60,19 +60,23 @@ jobs:
         run: |
           make blockly
 
-      - name: Where art thou mr cc
-        run: |
-          ls bower_components/closure-compiler
-
       - name: Build App
         run: |
           npx gulp build
+
+      - name: where are you mr dist?
+        run: |
+          ls
+
+      - name: where are you mr dist?2
+        run: |
+          ls dist
       
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'dist/'
+          path: './dist/'
           
       - name: Deploy to GitHub Pages
         id: deployment
