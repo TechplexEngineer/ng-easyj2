@@ -9,7 +9,7 @@ app.factory('Exporter', function(Robot){
 		team_number: data.number,
 		pkgarr: ['org'],
 	}
-	var templatedir = "/assets/tpl/java/";
+	var templatedir = "/assets/tpl/java";
 	info.pkgarr.push('t'+info.team_number)
 	info['package'] = info.pkgarr.join('.')
 
@@ -92,11 +92,12 @@ app.factory('Exporter', function(Robot){
 			template: 'project.txt',
 			parse: false,
 			out:".project",
-		},{
-			template: 'build.xml',
-			parse: false,
-			out:"build.xml",
-		}
+		},
+		// {
+		// 	template: 'build.xml',
+		// 	parse: false,
+		// 	out:"build.xml",
+		// }
 	];
 
 	if (data.hasDrivetrain == "yes") {
@@ -194,12 +195,10 @@ app.factory('Exporter', function(Robot){
 			function render(item) {
 				var deferred = $.Deferred();
 
-				$.get(
-				{
-					url:path.join(templatedir, item.template),
-					accepts:"text/plain",
-					dataType:"text"
-				}, function( template ) {
+				var urlPath = path.join(templatedir, item.template);
+
+				$.get(urlPath, function( template ) {
+					// console.log("GET", urlPath, template);
 
 					var out = template;
 					if (item.parse) {

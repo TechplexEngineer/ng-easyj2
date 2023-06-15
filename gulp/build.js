@@ -78,7 +78,7 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
 });
 
-gulp.task('other', function () {
+gulp.task('other', ['blockly-assets'], function () {
   var fileFilter = $.filter(function (file) {
     return file.stat.isFile();
   });
@@ -89,6 +89,19 @@ gulp.task('other', function () {
   ])
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/assets')));
+});
+
+gulp.task('blockly-assets', function () {
+  var fileFilter = $.filter(function (file) {
+    return file.stat.isFile();
+  });
+
+  return gulp.src([
+    path.join(conf.paths.src, '/blockly-src/media/**/*'),
+    path.join('!' + conf.paths.src, '/**/*.{html,css,js,less}')
+  ])
+    .pipe(fileFilter)
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/blockly-src/media')));
 });
 
 gulp.task('clean', function () {

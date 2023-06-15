@@ -312,7 +312,7 @@ app.controller('Wiz9Ctrl', function (Robot, $scope, $timeout, $window) {
 	// After the page is finished rendering, loadup blockly blocks
 	$timeout(function() {
 		step.setActiveAction(Robot.getActions(step.currentSubsystem)[0].text);
-		Blockly.mainWorkspace.addChangeListener(onchange);
+		Blockly.addChangeListener(onchange);
 	}, 0);
 
 

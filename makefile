@@ -13,18 +13,17 @@ deploy:
 	rsync -r --progress --delete dist/* techplex@blake.metheus.org:/var/www/team5122/easyj2
 
 blockly:
-	@if  test -d src/blockly; \
-	then cd src/blockly; git pull; \
-	else git -C src clone https://github.com/google/blockly blockly-src; git -C src/blockly-src checkout 703ac981dab8020aa4d0410566616d28d349ac56; \
-	fi
+	-rm -rf src/blockly-src || true
+	git -C src clone https://github.com/google/blockly blockly-src
+	git -C src/blockly-src checkout 2844da768f00661c5b2886f73a5be427013673dc;
+	
 
 closure:
-	-rm src/master.zip || true
 	-rm -rf src/closure-library-master src/closure-library || true
-	cd src; wget https://github.com/google/closure-library/archive/refs/tags/v20160315.zip
-	cd src; unzip -q v20160315.zip
-	cd src; mv closure-library-20160315 closure-library
-	cd src; rm v20160315.zip
+	cd src; wget https://github.com/google/closure-library/archive/refs/tags/v20160713.zip
+	cd src; unzip -q v20160713.zip
+	cd src; mv closure-library-20160713 closure-library
+	-rm -f src/v20160713.zip || true
 
 cc:
 	-rm -rf bower_components/closure-compiler || true
