@@ -49,7 +49,7 @@
     },
     "filesaver": {
       "main": [
-        "FileSaver.js"
+        "dist/FileSaver.js"
       ]
     }
   },

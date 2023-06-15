@@ -80,18 +80,15 @@ gulp.task('fonts', function () {
 
 gulp.task('other', function () {
   var fileFilter = $.filter(function (file) {
-    console.error("file", file.path)
     return file.stat.isFile();
   });
-
-  console.error("conf.paths.src", conf.paths.src)
 
   return gulp.src([
     path.join(conf.paths.src, '/assets/**/*'),
     path.join('!' + conf.paths.src, '/**/*.{html,css,js,less}')
   ])
     .pipe(fileFilter)
-    .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/assets')));
 });
 
 gulp.task('clean', function () {
